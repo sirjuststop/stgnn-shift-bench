@@ -1,0 +1,77 @@
+\section{Introduction}
+\label{sec:intro}
+
+Traffic forecasting underpins urban services---ride-hailing dispatch, signal
+timing, congestion management---and STGNNs are the dominant
+tool~\citep{li2018dcrnn,wu2019gwnet,yu2018stgcn}. In the lab, these models are
+evaluated on held-out data from the same city, sensors, and time window as
+training. Deployment conditions differ: sensors fail, models trained in one
+city are applied to another, and traffic shifts between weekdays and weekends.
+Which architectures hold up under these shifts is a deployment question that
+in-distribution accuracy cannot answer.
+
+Prior STGNN robustness work emphasizes synthetic
+corruptions~\citep{zhang2025strap} or frames cross-city transfer as few-shot
+learning~\citep{zeng2025fedtt,jing2026tlgpstgn}. Missing is a controlled
+\emph{diagnostic} study that (i) uses deployment-realistic shifts, (ii)
+evaluates the same frozen backbone under multiple shifts, (iii) attributes
+differences to specific architectural choices, and (iv) pre-registers
+hypotheses so refuted predictions carry the same evidential weight as
+confirmed ones. Cross-city comparisons also conflate transfer difficulty with
+inductive bias---adaptive models can re-learn target topology, fixed models
+cannot---which a matched-structural-access protocol (source-city topology for
+all backbones) removes. No prior study systematically compares how different
+adaptive-relation designs---GWNet's dense softmax routing, MegaCRN's
+meta-graph memory, STAEformer's adaptive embeddings---redistribute fragility
+across deployment shifts.
+
+We assemble a bank of eight architectures trained on METR-LA---a five-model
+canonical bank spanning graph-free (GRU), fixed-graph (DCRNN, STGCN), and
+adaptive-graph (MTGNNLight, GWNet), plus three modern adaptive-relation models
+(AGCRN, MegaCRN, STAEformer)---and evaluate each frozen checkpoint under three
+shifts: \textbf{sensor dropout} (10--50\% zeroed at inference, 5 random masks),
+\textbf{cross-city transfer} (zero-shot METR-LA $\to$ PEMS-BAY under
+matched structural access), and \textbf{temporal shift} (weekend vs.\ weekday
+windows within the METR-LA test set).
+
+Three findings stand out:
+\begin{enumerate}
+  \item No architecture dominates all three shifts; rankings change
+        qualitatively between shift types. GWNet's dense adaptive adjacency
+        is most fragile under sensor dropout (${\sim}4.3{\times}$ worse than
+        DCRNN at 30\%) but not the worst at city transfer. DCRNN leads
+        cross-city in the canonical bank; MegaCRN overtakes it once the
+        extended set is added.
+
+  \item GWNet's dropout fragility is the visible tail of a routing-density
+        relation: $\mathrm{max\_mass}(A)$ ranks $\Delta_{\mathrm{sensor}}$ at
+        Pearson $\rho{=}{+}0.979$ over four adaptive backbones on METR-LA,
+        replicating at $\rho{=}{+}0.910$ on PEMS04 with native checkpoints.
+        Replacing the learned adjacency with a fixed road graph cuts dropout
+        sensitivity by 46\%; a mask-aware variant recovers 75\% without
+        retraining. AGCRN ($\mathrm{max\_mass}{=}0.008$) and STAEformer match
+        DCRNN despite learning adaptive relations: the operative factor is
+        routing density, not topology learning.
+
+  \item Modern adaptive-relation models distribute their failures across axes.
+        AGCRN and STAEformer survive sensor dropout; MegaCRN leads cross-city.
+        But MegaCRN and STAEformer carry weekday/weekend gaps
+        ${\sim}8$--$9{\times}$ the canonical bank---an axis that the
+        five-model evaluation could not have surfaced, and one that explicit
+        TOD/DOW covariates do not explain
+        (Section~\ref{sec:mechanism}).
+\end{enumerate}
+
+Sixteen predictions were pre-registered in five stages, each frozen before
+the next round of training (ledger and confirmed/refuted/partial criteria:
+Appendix~\ref{sec:appendix_preregistered}). Four were refuted: GWNet's
+dominant failure axis was predicted to be cross-city transfer, not sensor
+dropout; temporal fragility was predicted to be architecture-invariant, but
+is not---findings invisible in a confirmation-only evaluation. Three
+follow-ups---PEMS04-native routing-density replication
+(Appendix~\ref{sec:appendix_pems04_routing}), the mask-aware dropout-ratio
+sweep (Appendix~\ref{sec:appendix_mask_aware_sweep}), and cross-city
+zero-padding sensitivity (Appendix~\ref{sec:appendix_no_pad_sensitivity})---are
+flagged as reviewer-driven, reported alongside the pre-registered core. The
+frozen-checkpoint protocol is reproducible end-to-end on a single commodity
+GPU; checkpoints are released as supplementary material.

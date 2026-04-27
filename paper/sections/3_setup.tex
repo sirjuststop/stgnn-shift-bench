@@ -1,0 +1,120 @@
+\section{Problem Setup and Backbone Bank}
+\label{sec:setup}
+
+\subsection{Backbone Architectures}
+\label{subsec:backbones}
+
+The bank covers five architectures from graph-free to fixed-graph to
+adaptive-graph.
+
+\textbf{DCRNN}~\citep{li2018dcrnn} treats traffic as a diffusion process on a
+fixed road-distance adjacency $\Aadj$, with bidirectional updates
+$\hvec_{t+1} = f\!\left(\sum_{k=0}^{K} (\Aadj^k \oplus (\Aadj^\top)^k)\xvec_t,\, \hvec_t\right)$;
+the adjacency is fixed at training and inference.
+\textbf{Graph WaveNet (GWNet)}~\citep{wu2019gwnet} adds a learned adaptive
+adjacency
+\begin{equation}
+  \Aadapt = \text{softmax}(\mathbf{E}_1 \mathbf{E}_2^\top),
+  \label{eq:adaptive_adj}
+\end{equation}
+with $\mathbf{E}_1, \mathbf{E}_2 \in \mathbb{R}^{N \times d_e}$ trained end-to-end and tied to the $N$ training nodes.
+\textbf{STGCN}~\citep{yu2018stgcn} alternates gated temporal convolutions with
+truncated-Chebyshev spectral graph convolutions over the same fixed road
+adjacency.
+\textbf{GRU} is a graph-free recurrent baseline that treats the $N$ sensors as
+a single feature vector and uses no adjacency.
+\textbf{MTGNNLight} is a lightweight MTGNN variant~\citep{wu2020mtgnn} that
+learns a sparse adaptive graph via pairwise cosine similarity on a single
+embedding $\mathbf{E}\in\mathbb{R}^{N\times d}$ and keeps only top-$k$
+neighbours per node---a direct contrast to GWNet's dense all-pairs softmax that
+isolates whether dropout fragility depends on adjacency density or on
+topology-learning per se (P14).
+
+All five share a unified config (hidden dim 64, seq/pred 12, Adam $1{\times}10^{-3}$,
+weight decay $10^{-4}$, cosine schedule, 100 epochs, patience 15). To rule out
+training-artifact explanations of GWNet's fragility we additionally train
+\textbf{GWNet[CM]} (patience 30) and \textbf{GWNet[Strong]} (P17; hidden 128,
+adaptive embed 20, patience 30); both are frozen at shift-eval time.
+
+\subsection{Backbone Bank Protocol}
+\label{subsec:bank}
+
+We train each backbone on METR-LA~\citep{liu2023largest} (207 sensors, 34,272
+timesteps at 5-min, ${\sim}4$ months, chronological 70/10/20 split) with three
+seeds (0,1,2). Checkpoints are frozen after training; no re-training occurs
+at shift-eval time. In-distribution MAE (mph, denormalized): DCRNN
+$6.57 \pm 0.03$, MTGNNLight $6.88 \pm 0.11$, STGCN $7.12 \pm 0.05$,
+GWNet[Strong] $7.42 \pm 0.04$, GRU $7.49 \pm 0.12$, GWNet[CM] $7.83 \pm 0.10$,
+GWNet $7.85 \pm 0.11$. GWNet underperforms DCRNN and even MTGNNLight on
+in-distribution data despite its adaptive adjacency---a limitation discussed
+in \S\ref{sec:discussion}.
+
+\subsection{Extended adaptive-relation models}
+\label{subsec:extended_models}
+
+To probe generality, we add three architectures (same METR-LA data, same
+split, 3 seeds, frozen after training):
+\textbf{AGCRN}~\citep{bai2020agcrn} (node-adaptive GRU, no temporal
+covariates); \textbf{MegaCRN}~\citep{jiang2023megacrn} (meta-graph memory
+with TOD/DOW inputs); \textbf{STAEformer}~\citep{liu2023staeformer}
+(Transformer with spatial-temporal adaptive embeddings encoding temporal
+covariates). In-distribution masked MAE (mph, excluding zero-speed targets):
+AGCRN $4.09 \pm 0.02$, MegaCRN $3.04 \pm 0.06$, STAEformer $2.93 \pm 0.01$.
+These use masked MAE, the canonical bank uses plain MAE; we avoid direct
+cross-family clean-performance ranking.
+
+\subsection{Distribution shifts}
+\label{subsec:shifts}
+
+\paragraph{Sensor dropout.}
+At inference, a random 30\% of sensor channels are zero-masked. The 207-node
+model is not re-instantiated; it sees a 207-dimensional input with zeroed
+channels, and MAE is computed on the kept sensors only so clean and masked
+evaluations are directly comparable. Five independent random masks per
+checkpoint separate mask-sampling from model-weight variance;
+Tables~\ref{tab:main}--\ref{tab:extended} report the primary-mask aggregate
+(all 5-mask aggregates are within $\pm 0.005$). Structured dropout patterns
+(hub and contiguous) are in Appendix~\ref{sec:appendix_structured_dropout}.
+This models silent sensor failure.
+
+\paragraph{Cross-city transfer.}
+The frozen METR-LA model is evaluated zero-shot on
+PEMS-BAY~\citep{liu2023largest} (Bay Area, 325 sensors, 52,116 timesteps).
+A second pair (PEMS04 source, 307 sensors; zero-shot on METR-LA and PEMS-BAY)
+is in Appendix~\ref{sec:appendix_pems04} for cross-city generality (P18).
+``Zero-shot'' means no re-training or fine-tuning. Because PEMS-BAY has 325
+sensors and our models capacity 207, we subsample 207 PEMS-BAY sensors
+(5 subsets); rankings are stable at 150-node coverage
+(Appendix~\ref{sec:appendix_subset_sensitivity}).
+
+\textbf{Matched structural access (canonical comparison).}
+The main cross-city comparison uses source-only adjacency: every backbone
+uses the METR-LA adjacency at inference, removing the asymmetry that
+adaptive-graph models cannot access target topology by construction.
+Under this constraint, any observed advantage is architectural, not an
+artefact of privileged topology access
+(target-adj results: Appendix~\ref{sec:appendix_source_adj}).
+MAE is normalized with source-city statistics for cross-architecture
+comparability.
+
+\paragraph{Temporal shift.}
+METR-LA spans weekdays and weekends with different traffic patterns; the
+model is trained on both. We stratify the test set by day type---weekday
+(5,104 windows) and weekend (1,728 windows)---and report
+$\DeltaTemp = \mathrm{MAE}_{\text{weekend}} - \mathrm{MAE}_{\text{weekday}}$.
+This is a subgroup performance gap within the existing test split, not
+deployment to a new time window. It requires no additional data and reveals
+whether graph structure helps one traffic regime more than the other.
+
+\paragraph{Protocol summary.}
+{\small Train on METR-LA (207 sensors, 5-min, 70/10/20 split); 3 seeds,
+100 epochs, patience 15; frozen at evaluation. \emph{Sensor:} 30\% silent
+zero-mask, 5 masks, MAE on kept sensors. \emph{City:} zero-shot to
+PEMS-BAY (325$\to$207 subsampled, 5 subsets), source-only adjacency
+(matched-structural-access; padding sensitivity in
+Appendix~\ref{sec:appendix_no_pad_sensitivity}). \emph{Temporal:} weekday
+(5{,}104) vs.\ weekend (1{,}728) test windows. \emph{Aggregation:}
+mean$\,\pm\,$sample-std over 3 seeds $\times$ 5 masks;
+METR-LA train-statistics normalization for the canonical bank,
+model-specific scaler for extended models
+(\S\ref{subsec:extended_models}).}

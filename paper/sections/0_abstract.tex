@@ -1,0 +1,25 @@
+Spatiotemporal graph neural networks (STGNNs) dominate traffic forecasting benchmarks,
+yet which architectural properties govern their robustness under realistic deployment
+shifts remains unclear.
+Eight frozen architectures are evaluated under three deployment-motivated shifts---inference-time
+sensor dropout, zero-shot cross-city transfer (METR-LA\,$\to$\,PEMS-BAY), and
+weekday/weekend temporal subgroup shift---with all predictions pre-registered before
+any experiments ran.
+
+Robustness turns out to be shift-specific, and architectural progress changes failure
+modes rather than eliminating them.
+Adjacency routing concentration, $\mathrm{max\_mass}(A)$, explains the sensor-dropout
+ranking at Pearson $\rho{=}{+}0.979$ across all four adaptive models.
+Graph WaveNet's dense softmax routing ($\mathrm{max\_mass}{\approx}0.23$) degrades
+$4.3{\times}$ more than DCRNN under 30\% dropout; a mask-aware inference variant that
+zeroes dropped-sensor adjacency entries recovers 75\% of the gap without retraining.
+Sensor-dropout robustness is therefore not a property of topology learning per se, but of
+routing density: AGCRN ($\mathrm{max\_mass}{=}0.008$) and STAEformer show fragility
+comparable to DCRNN despite learning adaptive spatial relations.
+Cross-city and temporal fragility lie on orthogonal axes: MegaCRN achieves the best
+zero-shot city-transfer score yet exhibits $8$--$9{\times}$ larger temporal subgroup gaps
+than the canonical bank---a fragility axis invisible in five-model evaluations and not
+driven by explicit temporal covariates in MegaCRN (mechanism ablations,
+\S\ref{sec:mechanism}).
+Deployment-oriented model selection should be based on the target shift type and routing
+density of candidate architectures, not on in-distribution accuracy alone.

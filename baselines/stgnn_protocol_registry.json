@@ -1,0 +1,1379 @@
+{
+  "dcrnn__metr-la__seed0": {
+    "key": "dcrnn__metr-la__seed0",
+    "backbone": "dcrnn",
+    "dataset": "metr-la",
+    "seed": 0,
+    "checkpoint": "baselines/stgnn/dcrnn__metr-la__seed0.pt",
+    "test_metrics": {
+      "MAE": 6.607700347900391,
+      "RMSE": 12.778502464294434,
+      "MAPE": 17263444800.0
+    },
+    "status": "frozen"
+  },
+  "dcrnn__metr-la__seed1": {
+    "key": "dcrnn__metr-la__seed1",
+    "backbone": "dcrnn",
+    "dataset": "metr-la",
+    "seed": 1,
+    "checkpoint": "baselines/stgnn/dcrnn__metr-la__seed1.pt",
+    "test_metrics": {
+      "MAE": 6.542160987854004,
+      "RMSE": 12.782878875732422,
+      "MAPE": 16502124800.0
+    },
+    "status": "frozen"
+  },
+  "dcrnn__metr-la__seed2": {
+    "key": "dcrnn__metr-la__seed2",
+    "backbone": "dcrnn",
+    "dataset": "metr-la",
+    "seed": 2,
+    "checkpoint": "baselines/stgnn/dcrnn__metr-la__seed2.pt",
+    "test_metrics": {
+      "MAE": 6.598662376403809,
+      "RMSE": 12.73771858215332,
+      "MAPE": 17144243200.0
+    },
+    "status": "frozen"
+  },
+  "gwnet__metr-la__seed0": {
+    "key": "gwnet__metr-la__seed0",
+    "backbone": "gwnet",
+    "dataset": "metr-la",
+    "seed": 0,
+    "checkpoint": "baselines/stgnn/gwnet__metr-la__seed0.pt",
+    "test_metrics": {
+      "MAE": 7.955582618713379,
+      "RMSE": 14.789213180541992,
+      "MAPE": 23938604800.0
+    },
+    "status": "frozen"
+  },
+  "gwnet__metr-la__seed1": {
+    "key": "gwnet__metr-la__seed1",
+    "backbone": "gwnet",
+    "dataset": "metr-la",
+    "seed": 1,
+    "checkpoint": "baselines/stgnn/gwnet__metr-la__seed1.pt",
+    "test_metrics": {
+      "MAE": 7.7041096687316895,
+      "RMSE": 14.813045501708984,
+      "MAPE": 22897763200.0
+    },
+    "status": "frozen"
+  },
+  "gwnet__metr-la__seed2": {
+    "key": "gwnet__metr-la__seed2",
+    "backbone": "gwnet",
+    "dataset": "metr-la",
+    "seed": 2,
+    "checkpoint": "baselines/stgnn/gwnet__metr-la__seed2.pt",
+    "test_metrics": {
+      "MAE": 7.89749002456665,
+      "RMSE": 15.011407852172852,
+      "MAPE": 24610710400.0
+    },
+    "status": "frozen"
+  },
+  "gru__metr-la__seed0": {
+    "key": "gru__metr-la__seed0",
+    "backbone": "gru",
+    "dataset": "metr-la",
+    "seed": 0,
+    "checkpoint": "baselines/stgnn/gru__metr-la__seed0.pt",
+    "test_metrics": {
+      "MAE": 7.386358261108398,
+      "RMSE": 13.854695320129395,
+      "MAPE": 22770392000.0
+    },
+    "status": "frozen"
+  },
+  "gru__metr-la__seed1": {
+    "key": "gru__metr-la__seed1",
+    "backbone": "gru",
+    "dataset": "metr-la",
+    "seed": 1,
+    "checkpoint": "baselines/stgnn/gru__metr-la__seed1.pt",
+    "test_metrics": {
+      "MAE": 7.41603422164917,
+      "RMSE": 13.885674476623535,
+      "MAPE": 22403027200.0
+    },
+    "status": "frozen"
+  },
+  "gru__metr-la__seed2": {
+    "key": "gru__metr-la__seed2",
+    "backbone": "gru",
+    "dataset": "metr-la",
+    "seed": 2,
+    "checkpoint": "baselines/stgnn/gru__metr-la__seed2.pt",
+    "test_metrics": {
+      "MAE": 7.662301540374756,
+      "RMSE": 13.946756362915039,
+      "MAPE": 23061633600.0
+    },
+    "status": "frozen"
+  },
+  "dcrnn__bay207__seed3": {
+    "key": "dcrnn__bay207__seed3",
+    "backbone": "dcrnn",
+    "dataset": "pems-bay-207subset",
+    "seed": 3,
+    "checkpoint": "baselines/stgnn_bay207/dcrnn__bay207__seed3.pt",
+    "test_metrics": {
+      "MAE": 2.52418851852417,
+      "RMSE": 4.96108341217041,
+      "MAPE": 31970471.875
+    },
+    "status": "frozen"
+  },
+  "dcrnn__bay207__seed4": {
+    "key": "dcrnn__bay207__seed4",
+    "backbone": "dcrnn",
+    "dataset": "pems-bay-207subset",
+    "seed": 4,
+    "checkpoint": "baselines/stgnn_bay207/dcrnn__bay207__seed4.pt",
+    "test_metrics": {
+      "MAE": 2.5209462642669678,
+      "RMSE": 4.951722621917725,
+      "MAPE": 32000643.75
+    },
+    "status": "frozen"
+  },
+  "dcrnn__bay207__seed5": {
+    "key": "dcrnn__bay207__seed5",
+    "backbone": "dcrnn",
+    "dataset": "pems-bay-207subset",
+    "seed": 5,
+    "checkpoint": "baselines/stgnn_bay207/dcrnn__bay207__seed5.pt",
+    "test_metrics": {
+      "MAE": 2.522611379623413,
+      "RMSE": 4.966699123382568,
+      "MAPE": 31983309.375
+    },
+    "status": "frozen"
+  },
+  "gwnet__bay207__seed3": {
+    "key": "gwnet__bay207__seed3",
+    "backbone": "gwnet",
+    "dataset": "pems-bay-207subset",
+    "seed": 3,
+    "checkpoint": "baselines/stgnn_bay207/gwnet__bay207__seed3.pt",
+    "test_metrics": {
+      "MAE": 2.8834035396575928,
+      "RMSE": 5.536507606506348,
+      "MAPE": 31937562.5
+    },
+    "status": "frozen"
+  },
+  "gwnet__bay207__seed4": {
+    "key": "gwnet__bay207__seed4",
+    "backbone": "gwnet",
+    "dataset": "pems-bay-207subset",
+    "seed": 4,
+    "checkpoint": "baselines/stgnn_bay207/gwnet__bay207__seed4.pt",
+    "test_metrics": {
+      "MAE": 2.923259735107422,
+      "RMSE": 5.553886890411377,
+      "MAPE": 31744737.5
+    },
+    "status": "frozen"
+  },
+  "gwnet__bay207__seed5": {
+    "key": "gwnet__bay207__seed5",
+    "backbone": "gwnet",
+    "dataset": "pems-bay-207subset",
+    "seed": 5,
+    "checkpoint": "baselines/stgnn_bay207/gwnet__bay207__seed5.pt",
+    "test_metrics": {
+      "MAE": 2.8477625846862793,
+      "RMSE": 5.447303771972656,
+      "MAPE": 31831337.5
+    },
+    "status": "frozen"
+  },
+  "gru__bay207__seed3": {
+    "key": "gru__bay207__seed3",
+    "backbone": "gru",
+    "dataset": "pems-bay-207subset",
+    "seed": 3,
+    "checkpoint": "baselines/stgnn_bay207/gru__bay207__seed3.pt",
+    "test_metrics": {
+      "MAE": 2.6288702487945557,
+      "RMSE": 5.180812358856201,
+      "MAPE": 31899559.375
+    },
+    "status": "frozen"
+  },
+  "gru__bay207__seed4": {
+    "key": "gru__bay207__seed4",
+    "backbone": "gru",
+    "dataset": "pems-bay-207subset",
+    "seed": 4,
+    "checkpoint": "baselines/stgnn_bay207/gru__bay207__seed4.pt",
+    "test_metrics": {
+      "MAE": 2.6122336387634277,
+      "RMSE": 5.180002212524414,
+      "MAPE": 31880975.0
+    },
+    "status": "frozen"
+  },
+  "gru__bay207__seed5": {
+    "key": "gru__bay207__seed5",
+    "backbone": "gru",
+    "dataset": "pems-bay-207subset",
+    "seed": 5,
+    "checkpoint": "baselines/stgnn_bay207/gru__bay207__seed5.pt",
+    "test_metrics": {
+      "MAE": 2.609009265899658,
+      "RMSE": 5.192099094390869,
+      "MAPE": 31876043.75
+    },
+    "status": "frozen"
+  },
+  "stgcn__metr-la__seed0": {
+    "key": "stgcn__metr-la__seed0",
+    "backbone": "stgcn",
+    "dataset": "metr-la",
+    "seed": 0,
+    "checkpoint": "baselines/stgnn/stgcn__metr-la__seed0.pt",
+    "test_metrics": {
+      "MAE": 7.153613567352295,
+      "RMSE": 13.99604606628418,
+      "MAPE": 20491078400.0
+    },
+    "status": "frozen"
+  },
+  "stgcn__metr-la__seed1": {
+    "key": "stgcn__metr-la__seed1",
+    "backbone": "stgcn",
+    "dataset": "metr-la",
+    "seed": 1,
+    "checkpoint": "baselines/stgnn/stgcn__metr-la__seed1.pt",
+    "test_metrics": {
+      "MAE": 7.0396270751953125,
+      "RMSE": 13.725794792175293,
+      "MAPE": 19550921600.0
+    },
+    "status": "frozen"
+  },
+  "stgcn__metr-la__seed2": {
+    "key": "stgcn__metr-la__seed2",
+    "backbone": "stgcn",
+    "dataset": "metr-la",
+    "seed": 2,
+    "checkpoint": "baselines/stgnn/stgcn__metr-la__seed2.pt",
+    "test_metrics": {
+      "MAE": 7.157866954803467,
+      "RMSE": 13.923818588256836,
+      "MAPE": 20517390400.0
+    },
+    "status": "frozen"
+  },
+  "mtgnn__metr-la__seed0": {
+    "key": "mtgnn__metr-la__seed0",
+    "backbone": "mtgnn",
+    "dataset": "metr-la",
+    "seed": 0,
+    "checkpoint": "baselines/stgnn/mtgnn__metr-la__seed0.pt",
+    "test_metrics": {
+      "MAE": 7.024182319641113,
+      "RMSE": 13.895605087280273,
+      "MAPE": 21205140800.0
+    },
+    "status": "frozen"
+  },
+  "mtgnn__metr-la__seed1": {
+    "key": "mtgnn__metr-la__seed1",
+    "backbone": "mtgnn",
+    "dataset": "metr-la",
+    "seed": 1,
+    "checkpoint": "baselines/stgnn/mtgnn__metr-la__seed1.pt",
+    "test_metrics": {
+      "MAE": 6.757567405700684,
+      "RMSE": 13.871585845947266,
+      "MAPE": 19291328000.0
+    },
+    "status": "frozen"
+  },
+  "mtgnn__metr-la__seed2": {
+    "key": "mtgnn__metr-la__seed2",
+    "backbone": "mtgnn",
+    "dataset": "metr-la",
+    "seed": 2,
+    "checkpoint": "baselines/stgnn/mtgnn__metr-la__seed2.pt",
+    "test_metrics": {
+      "MAE": 6.850275993347168,
+      "RMSE": 13.821733474731445,
+      "MAPE": 19742633600.0
+    },
+    "status": "frozen"
+  },
+  "gwnet_cm__metr-la__seed0": {
+    "key": "gwnet_cm__metr-la__seed0",
+    "backbone": "gwnet_cm",
+    "dataset": "metr-la",
+    "seed": 0,
+    "checkpoint": "baselines/stgnn/gwnet_cm__metr-la__seed0.pt",
+    "test_metrics": {
+      "MAE": 7.955582618713379,
+      "RMSE": 14.789213180541992,
+      "MAPE": 23938604800.0
+    },
+    "status": "frozen"
+  },
+  "gwnet_cm__metr-la__seed1": {
+    "key": "gwnet_cm__metr-la__seed1",
+    "backbone": "gwnet_cm",
+    "dataset": "metr-la",
+    "seed": 1,
+    "checkpoint": "baselines/stgnn/gwnet_cm__metr-la__seed1.pt",
+    "test_metrics": {
+      "MAE": 7.7041096687316895,
+      "RMSE": 14.813045501708984,
+      "MAPE": 22897763200.0
+    },
+    "status": "frozen"
+  },
+  "gwnet_cm__metr-la__seed2": {
+    "key": "gwnet_cm__metr-la__seed2",
+    "backbone": "gwnet_cm",
+    "dataset": "metr-la",
+    "seed": 2,
+    "checkpoint": "baselines/stgnn/gwnet_cm__metr-la__seed2.pt",
+    "test_metrics": {
+      "MAE": 7.838271617889404,
+      "RMSE": 14.830534934997559,
+      "MAPE": 24049579200.0
+    },
+    "status": "frozen"
+  },
+  "gwnet_strong__metr-la__seed0": {
+    "key": "gwnet_strong__metr-la__seed0",
+    "backbone": "gwnet_strong",
+    "dataset": "metr-la",
+    "seed": 0,
+    "checkpoint": "baselines/stgnn/gwnet_strong__metr-la__seed0.pt",
+    "test_metrics": {
+      "MAE": 7.4729905128479,
+      "RMSE": 14.605300903320312,
+      "MAPE": 22996976000.0
+    },
+    "status": "frozen"
+  },
+  "gwnet_strong__metr-la__seed1": {
+    "key": "gwnet_strong__metr-la__seed1",
+    "backbone": "gwnet_strong",
+    "dataset": "metr-la",
+    "seed": 1,
+    "checkpoint": "baselines/stgnn/gwnet_strong__metr-la__seed1.pt",
+    "test_metrics": {
+      "MAE": 7.4032206535339355,
+      "RMSE": 14.38792610168457,
+      "MAPE": 22011467200.0
+    },
+    "status": "frozen"
+  },
+  "gwnet_strong__metr-la__seed2": {
+    "key": "gwnet_strong__metr-la__seed2",
+    "backbone": "gwnet_strong",
+    "dataset": "metr-la",
+    "seed": 2,
+    "checkpoint": "baselines/stgnn/gwnet_strong__metr-la__seed2.pt",
+    "test_metrics": {
+      "MAE": 7.384862422943115,
+      "RMSE": 14.55536937713623,
+      "MAPE": 23231032000.0
+    },
+    "status": "frozen"
+  },
+  "dcrnn__pems04__seed0": {
+    "key": "dcrnn__pems04__seed0",
+    "backbone": "dcrnn",
+    "dataset": "pems04",
+    "seed": 0,
+    "checkpoint": "baselines/stgnn/dcrnn__pems04__seed0.pt",
+    "test_metrics": {
+      "MAE": 26.21319580078125,
+      "RMSE": 40.1701774597168,
+      "MAPE": 2558237000.0
+    },
+    "status": "frozen"
+  },
+  "dcrnn__pems04__seed1": {
+    "key": "dcrnn__pems04__seed1",
+    "backbone": "dcrnn",
+    "dataset": "pems04",
+    "seed": 1,
+    "checkpoint": "baselines/stgnn/dcrnn__pems04__seed1.pt",
+    "test_metrics": {
+      "MAE": 26.170820236206055,
+      "RMSE": 40.15578079223633,
+      "MAPE": 2571799400.0
+    },
+    "status": "frozen"
+  },
+  "dcrnn__pems04__seed2": {
+    "key": "dcrnn__pems04__seed2",
+    "backbone": "dcrnn",
+    "dataset": "pems04",
+    "seed": 2,
+    "checkpoint": "baselines/stgnn/dcrnn__pems04__seed2.pt",
+    "test_metrics": {
+      "MAE": 26.180356979370117,
+      "RMSE": 40.117496490478516,
+      "MAPE": 2677765600.0
+    },
+    "status": "frozen"
+  },
+  "gwnet__pems04__seed0": {
+    "key": "gwnet__pems04__seed0",
+    "backbone": "gwnet",
+    "dataset": "pems04",
+    "seed": 0,
+    "checkpoint": "baselines/stgnn/gwnet__pems04__seed0.pt",
+    "test_metrics": {
+      "MAE": 33.49448776245117,
+      "RMSE": 49.8630256652832,
+      "MAPE": 6121369200.0
+    },
+    "status": "frozen"
+  },
+  "gwnet__pems04__seed1": {
+    "key": "gwnet__pems04__seed1",
+    "backbone": "gwnet",
+    "dataset": "pems04",
+    "seed": 1,
+    "checkpoint": "baselines/stgnn/gwnet__pems04__seed1.pt",
+    "test_metrics": {
+      "MAE": 34.00957489013672,
+      "RMSE": 50.73196029663086,
+      "MAPE": 6108735600.0
+    },
+    "status": "frozen"
+  },
+  "gwnet__pems04__seed2": {
+    "key": "gwnet__pems04__seed2",
+    "backbone": "gwnet",
+    "dataset": "pems04",
+    "seed": 2,
+    "checkpoint": "baselines/stgnn/gwnet__pems04__seed2.pt",
+    "test_metrics": {
+      "MAE": 32.90894317626953,
+      "RMSE": 49.28421401977539,
+      "MAPE": 6183964000.0
+    },
+    "status": "frozen"
+  },
+  "gwnet_strong__pems04__seed0": {
+    "key": "gwnet_strong__pems04__seed0",
+    "backbone": "gwnet_strong",
+    "dataset": "pems04",
+    "seed": 0,
+    "checkpoint": "baselines/stgnn/gwnet_strong__pems04__seed0.pt",
+    "test_metrics": {
+      "MAE": 32.832481384277344,
+      "RMSE": 49.035858154296875,
+      "MAPE": 6183368800.0
+    },
+    "status": "frozen"
+  },
+  "gwnet_strong__pems04__seed1": {
+    "key": "gwnet_strong__pems04__seed1",
+    "backbone": "gwnet_strong",
+    "dataset": "pems04",
+    "seed": 1,
+    "checkpoint": "baselines/stgnn/gwnet_strong__pems04__seed1.pt",
+    "test_metrics": {
+      "MAE": 32.41279602050781,
+      "RMSE": 48.560977935791016,
+      "MAPE": 6145162800.0
+    },
+    "status": "frozen"
+  },
+  "gwnet_strong__pems04__seed2": {
+    "key": "gwnet_strong__pems04__seed2",
+    "backbone": "gwnet_strong",
+    "dataset": "pems04",
+    "seed": 2,
+    "checkpoint": "baselines/stgnn/gwnet_strong__pems04__seed2.pt",
+    "test_metrics": {
+      "MAE": 32.599586486816406,
+      "RMSE": 48.64609909057617,
+      "MAPE": 6085162800.0
+    },
+    "status": "frozen"
+  },
+  "gru__pems04__seed0": {
+    "key": "gru__pems04__seed0",
+    "backbone": "gru",
+    "dataset": "pems04",
+    "seed": 0,
+    "checkpoint": "baselines/stgnn/gru__pems04__seed0.pt",
+    "test_metrics": {
+      "MAE": 25.768173217773438,
+      "RMSE": 40.80214309692383,
+      "MAPE": 5228938800.0
+    },
+    "status": "frozen"
+  },
+  "gru__pems04__seed1": {
+    "key": "gru__pems04__seed1",
+    "backbone": "gru",
+    "dataset": "pems04",
+    "seed": 1,
+    "checkpoint": "baselines/stgnn/gru__pems04__seed1.pt",
+    "test_metrics": {
+      "MAE": 25.898284912109375,
+      "RMSE": 40.81504821777344,
+      "MAPE": 5204073600.0
+    },
+    "status": "frozen"
+  },
+  "gru__pems04__seed2": {
+    "key": "gru__pems04__seed2",
+    "backbone": "gru",
+    "dataset": "pems04",
+    "seed": 2,
+    "checkpoint": "baselines/stgnn/gru__pems04__seed2.pt",
+    "test_metrics": {
+      "MAE": 25.763629913330078,
+      "RMSE": 40.7307243347168,
+      "MAPE": 5216691200.0
+    },
+    "status": "frozen"
+  },
+  "agcrn__metr-la__seed0": {
+    "key": "agcrn__metr-la__seed0",
+    "backbone": "agcrn",
+    "dataset": "metr-la",
+    "seed": 0,
+    "checkpoint": "baselines/stgnn/agcrn__metr-la__seed0.pt",
+    "test_metrics": {
+      "MAE": 4.806293964385986,
+      "RMSE": 12.108494758605957,
+      "MAPE": 10786792000.0
+    },
+    "status": "frozen",
+    "source": {
+      "paper_title": "Adaptive Graph Convolutional Recurrent Network for Traffic Forecasting",
+      "venue_year": "NeurIPS 2020",
+      "repo_url": "https://github.com/LeiBAI/AGCRN",
+      "commit": "7fbbf2aeb099242098a3cf482b55cd45d7295c28",
+      "default_datasets": [
+        "PEMSD4",
+        "PEMSD8"
+      ],
+      "default_train_command": "python model/Run.py"
+    }
+  },
+  "staeformer__metr-la__seed0": {
+    "key": "staeformer__metr-la__seed0",
+    "backbone": "staeformer",
+    "dataset": "metr-la",
+    "seed": 0,
+    "checkpoint": "baselines/stgnn/staeformer__metr-la__seed0.pt",
+    "test_metrics": {
+      "MAE": 9.848918914794922,
+      "RMSE": 21.96599769592285,
+      "MAPE": 72555872000.0
+    },
+    "status": "frozen",
+    "source": {
+      "paper_title": "Spatio-Temporal Adaptive Embedding Makes Vanilla Transformer SOTA for Traffic Forecasting",
+      "venue_year": "CIKM 2023",
+      "repo_url": "https://github.com/XDZhelheim/STAEformer",
+      "commit": "fc49d39b2f1a8e3cf37b6289d7240680e1690f3f",
+      "default_datasets": [
+        "METRLA",
+        "PEMSBAY",
+        "PEMS03",
+        "PEMS04",
+        "PEMS07",
+        "PEMS08"
+      ],
+      "default_train_command": "cd model && python train.py -d METRLA -g 0"
+    }
+  },
+  "agcrn__metr-la__seed2": {
+    "key": "agcrn__metr-la__seed2",
+    "backbone": "agcrn",
+    "dataset": "metr-la",
+    "seed": 2,
+    "checkpoint": "baselines/stgnn/agcrn__metr-la__seed2.pt",
+    "test_metrics": {
+      "MAE": 4.952450275421143,
+      "RMSE": 12.386409759521484,
+      "MAPE": 12501020800.0
+    },
+    "status": "frozen",
+    "source": {
+      "paper_title": "Adaptive Graph Convolutional Recurrent Network for Traffic Forecasting",
+      "venue_year": "NeurIPS 2020",
+      "repo_url": "https://github.com/LeiBAI/AGCRN",
+      "commit": "7fbbf2aeb099242098a3cf482b55cd45d7295c28",
+      "default_datasets": [
+        "PEMSD4",
+        "PEMSD8"
+      ],
+      "default_train_command": "python model/Run.py"
+    }
+  },
+  "agcrn__metr-la__seed1": {
+    "key": "agcrn__metr-la__seed1",
+    "backbone": "agcrn",
+    "dataset": "metr-la",
+    "seed": 1,
+    "checkpoint": "baselines/stgnn/agcrn__metr-la__seed1.pt",
+    "test_metrics": {
+      "MAE": 4.804610252380371,
+      "RMSE": 12.212630271911621,
+      "MAPE": 11267195200.0
+    },
+    "status": "frozen",
+    "source": {
+      "paper_title": "Adaptive Graph Convolutional Recurrent Network for Traffic Forecasting",
+      "venue_year": "NeurIPS 2020",
+      "repo_url": "https://github.com/LeiBAI/AGCRN",
+      "commit": "7fbbf2aeb099242098a3cf482b55cd45d7295c28",
+      "default_datasets": [
+        "PEMSD4",
+        "PEMSD8"
+      ],
+      "default_train_command": "python model/Run.py"
+    }
+  },
+  "staeformer__metr-la__seed1": {
+    "key": "staeformer__metr-la__seed1",
+    "backbone": "staeformer",
+    "dataset": "metr-la",
+    "seed": 1,
+    "checkpoint": "baselines/stgnn/staeformer__metr-la__seed1.pt",
+    "test_metrics": {
+      "MAE": 9.868356704711914,
+      "RMSE": 22.023086547851562,
+      "MAPE": 72856256000.0
+    },
+    "status": "frozen",
+    "source": {
+      "paper_title": "Spatio-Temporal Adaptive Embedding Makes Vanilla Transformer SOTA for Traffic Forecasting",
+      "venue_year": "CIKM 2023",
+      "repo_url": "https://github.com/XDZhelheim/STAEformer",
+      "commit": "fc49d39b2f1a8e3cf37b6289d7240680e1690f3f",
+      "default_datasets": [
+        "METRLA",
+        "PEMSBAY",
+        "PEMS03",
+        "PEMS04",
+        "PEMS07",
+        "PEMS08"
+      ],
+      "default_train_command": "cd model && python train.py -d METRLA -g 0"
+    }
+  },
+  "staeformer__metr-la__seed2": {
+    "key": "staeformer__metr-la__seed2",
+    "backbone": "staeformer",
+    "dataset": "metr-la",
+    "seed": 2,
+    "checkpoint": "baselines/stgnn/staeformer__metr-la__seed2.pt",
+    "test_metrics": {
+      "MAE": 9.888525009155273,
+      "RMSE": 22.061767578125,
+      "MAPE": 72991635200.0
+    },
+    "status": "frozen",
+    "source": {
+      "paper_title": "Spatio-Temporal Adaptive Embedding Makes Vanilla Transformer SOTA for Traffic Forecasting",
+      "venue_year": "CIKM 2023",
+      "repo_url": "https://github.com/XDZhelheim/STAEformer",
+      "commit": "fc49d39b2f1a8e3cf37b6289d7240680e1690f3f",
+      "default_datasets": [
+        "METRLA",
+        "PEMSBAY",
+        "PEMS03",
+        "PEMS04",
+        "PEMS07",
+        "PEMS08"
+      ],
+      "default_train_command": "cd model && python train.py -d METRLA -g 0"
+    }
+  },
+  "stgcn__pems-bay__seed0": {
+    "key": "stgcn__pems-bay__seed0",
+    "backbone": "stgcn",
+    "dataset": "pems-bay",
+    "seed": 0,
+    "checkpoint": "baselines/stgnn_bay207_extra/stgcn__pems-bay__seed0.pt",
+    "test_metrics": {
+      "MAE": 2.884262800216675,
+      "RMSE": 5.502257823944092,
+      "MAPE": 35551762.5
+    },
+    "status": "frozen"
+  },
+  "stgcn__pems-bay__seed1": {
+    "key": "stgcn__pems-bay__seed1",
+    "backbone": "stgcn",
+    "dataset": "pems-bay",
+    "seed": 1,
+    "checkpoint": "baselines/stgnn_bay207_extra/stgcn__pems-bay__seed1.pt",
+    "test_metrics": {
+      "MAE": 2.8895697593688965,
+      "RMSE": 5.461321830749512,
+      "MAPE": 35525515.625
+    },
+    "status": "frozen"
+  },
+  "stgcn__pems-bay__seed2": {
+    "key": "stgcn__pems-bay__seed2",
+    "backbone": "stgcn",
+    "dataset": "pems-bay",
+    "seed": 2,
+    "checkpoint": "baselines/stgnn_bay207_extra/stgcn__pems-bay__seed2.pt",
+    "test_metrics": {
+      "MAE": 2.892810583114624,
+      "RMSE": 5.4918742179870605,
+      "MAPE": 35526956.25
+    },
+    "status": "frozen"
+  },
+  "mtgnn__pems-bay__seed0": {
+    "key": "mtgnn__pems-bay__seed0",
+    "backbone": "mtgnn",
+    "dataset": "pems-bay",
+    "seed": 0,
+    "checkpoint": "baselines/stgnn_bay207_extra/mtgnn__pems-bay__seed0.pt",
+    "test_metrics": {
+      "MAE": 2.647773504257202,
+      "RMSE": 5.105081081390381,
+      "MAPE": 35533315.625
+    },
+    "status": "frozen"
+  },
+  "mtgnn__pems-bay__seed1": {
+    "key": "mtgnn__pems-bay__seed1",
+    "backbone": "mtgnn",
+    "dataset": "pems-bay",
+    "seed": 1,
+    "checkpoint": "baselines/stgnn_bay207_extra/mtgnn__pems-bay__seed1.pt",
+    "test_metrics": {
+      "MAE": 2.630739450454712,
+      "RMSE": 5.10737419128418,
+      "MAPE": 35598715.625
+    },
+    "status": "frozen"
+  },
+  "mtgnn__pems-bay__seed2": {
+    "key": "mtgnn__pems-bay__seed2",
+    "backbone": "mtgnn",
+    "dataset": "pems-bay",
+    "seed": 2,
+    "checkpoint": "baselines/stgnn_bay207_extra/mtgnn__pems-bay__seed2.pt",
+    "test_metrics": {
+      "MAE": 2.6199395656585693,
+      "RMSE": 5.061752796173096,
+      "MAPE": 35537987.5
+    },
+    "status": "frozen"
+  },
+  "agcrn__pems-bay__seed0": {
+    "key": "agcrn__pems-bay__seed0",
+    "backbone": "agcrn",
+    "dataset": "pems-bay",
+    "seed": 0,
+    "checkpoint": "baselines/stgnn/agcrn__pems-bay__seed0.pt",
+    "test_metrics": {
+      "MAE": 1.640527367591858,
+      "RMSE": 3.793710470199585,
+      "MAPE": 32449240.625
+    },
+    "test_metrics_masked": {
+      "MAE": 1.6367558240890503,
+      "RMSE": 3.7596373558044434,
+      "MAPE": 10803.22036743164
+    },
+    "status": "frozen",
+    "source": {
+      "paper_title": "Adaptive Graph Convolutional Recurrent Network for Traffic Forecasting",
+      "venue_year": "NeurIPS 2020",
+      "repo_url": "https://github.com/LeiBAI/AGCRN",
+      "commit": "7fbbf2aeb099242098a3cf482b55cd45d7295c28",
+      "default_datasets": [
+        "PEMSD4",
+        "PEMSD8"
+      ],
+      "default_train_command": "python model/Run.py"
+    }
+  },
+  "agcrn__pems-bay__seed1": {
+    "key": "agcrn__pems-bay__seed1",
+    "backbone": "agcrn",
+    "dataset": "pems-bay",
+    "seed": 1,
+    "checkpoint": "baselines/stgnn/agcrn__pems-bay__seed1.pt",
+    "test_metrics": {
+      "MAE": 1.629608154296875,
+      "RMSE": 3.772274971008301,
+      "MAPE": 32433240.625
+    },
+    "test_metrics_masked": {
+      "MAE": 1.625836730003357,
+      "RMSE": 3.7380263805389404,
+      "MAPE": 10800.457763671875
+    },
+    "status": "frozen",
+    "source": {
+      "paper_title": "Adaptive Graph Convolutional Recurrent Network for Traffic Forecasting",
+      "venue_year": "NeurIPS 2020",
+      "repo_url": "https://github.com/LeiBAI/AGCRN",
+      "commit": "7fbbf2aeb099242098a3cf482b55cd45d7295c28",
+      "default_datasets": [
+        "PEMSD4",
+        "PEMSD8"
+      ],
+      "default_train_command": "python model/Run.py"
+    }
+  },
+  "agcrn__pems-bay__seed2": {
+    "key": "agcrn__pems-bay__seed2",
+    "backbone": "agcrn",
+    "dataset": "pems-bay",
+    "seed": 2,
+    "checkpoint": "baselines/stgnn/agcrn__pems-bay__seed2.pt",
+    "test_metrics": {
+      "MAE": 1.6279833316802979,
+      "RMSE": 3.7715206146240234,
+      "MAPE": 32434684.375
+    },
+    "test_metrics_masked": {
+      "MAE": 1.624212622642517,
+      "RMSE": 3.7372679710388184,
+      "MAPE": 10803.559875488281
+    },
+    "status": "frozen",
+    "source": {
+      "paper_title": "Adaptive Graph Convolutional Recurrent Network for Traffic Forecasting",
+      "venue_year": "NeurIPS 2020",
+      "repo_url": "https://github.com/LeiBAI/AGCRN",
+      "commit": "7fbbf2aeb099242098a3cf482b55cd45d7295c28",
+      "default_datasets": [
+        "PEMSD4",
+        "PEMSD8"
+      ],
+      "default_train_command": "python model/Run.py"
+    }
+  },
+  "staeformer__pems-bay__seed0": {
+    "key": "staeformer__pems-bay__seed0",
+    "backbone": "staeformer",
+    "dataset": "pems-bay",
+    "seed": 0,
+    "checkpoint": "baselines/stgnn/staeformer__pems-bay__seed0.pt",
+    "test_metrics": {
+      "MAE": 1.539495825767517,
+      "RMSE": 3.598635673522949,
+      "MAPE": 42763518.75
+    },
+    "test_metrics_masked": {
+      "MAE": 1.5353180170059204,
+      "RMSE": 3.558896780014038,
+      "MAPE": 3.432166576385498
+    },
+    "status": "frozen",
+    "source": {
+      "paper_title": "Spatio-Temporal Adaptive Embedding Makes Vanilla Transformer SOTA for Traffic Forecasting",
+      "venue_year": "CIKM 2023",
+      "repo_url": "https://github.com/XDZhelheim/STAEformer",
+      "commit": "fc49d39b2f1a8e3cf37b6289d7240680e1690f3f",
+      "default_datasets": [
+        "METRLA",
+        "PEMSBAY",
+        "PEMS03",
+        "PEMS04",
+        "PEMS07",
+        "PEMS08"
+      ],
+      "default_train_command": "cd model && python train.py -d METRLA -g 0"
+    }
+  },
+  "staeformer__pems-bay__seed1": {
+    "key": "staeformer__pems-bay__seed1",
+    "backbone": "staeformer",
+    "dataset": "pems-bay",
+    "seed": 1,
+    "checkpoint": "baselines/stgnn/staeformer__pems-bay__seed1.pt",
+    "test_metrics": {
+      "MAE": 1.5480087995529175,
+      "RMSE": 3.6093180179595947,
+      "MAPE": 42763646.875
+    },
+    "test_metrics_masked": {
+      "MAE": 1.5438315868377686,
+      "RMSE": 3.5696980953216553,
+      "MAPE": 3.476247563958168
+    },
+    "status": "frozen",
+    "source": {
+      "paper_title": "Spatio-Temporal Adaptive Embedding Makes Vanilla Transformer SOTA for Traffic Forecasting",
+      "venue_year": "CIKM 2023",
+      "repo_url": "https://github.com/XDZhelheim/STAEformer",
+      "commit": "fc49d39b2f1a8e3cf37b6289d7240680e1690f3f",
+      "default_datasets": [
+        "METRLA",
+        "PEMSBAY",
+        "PEMS03",
+        "PEMS04",
+        "PEMS07",
+        "PEMS08"
+      ],
+      "default_train_command": "cd model && python train.py -d METRLA -g 0"
+    }
+  },
+  "staeformer__pems-bay__seed2": {
+    "key": "staeformer__pems-bay__seed2",
+    "backbone": "staeformer",
+    "dataset": "pems-bay",
+    "seed": 2,
+    "checkpoint": "baselines/stgnn/staeformer__pems-bay__seed2.pt",
+    "test_metrics": {
+      "MAE": 1.5545026063919067,
+      "RMSE": 3.6005361080169678,
+      "MAPE": 42772012.5
+    },
+    "test_metrics_masked": {
+      "MAE": 1.55032479763031,
+      "RMSE": 3.5608012676239014,
+      "MAPE": 3.4644242376089096
+    },
+    "status": "frozen",
+    "source": {
+      "paper_title": "Spatio-Temporal Adaptive Embedding Makes Vanilla Transformer SOTA for Traffic Forecasting",
+      "venue_year": "CIKM 2023",
+      "repo_url": "https://github.com/XDZhelheim/STAEformer",
+      "commit": "fc49d39b2f1a8e3cf37b6289d7240680e1690f3f",
+      "default_datasets": [
+        "METRLA",
+        "PEMSBAY",
+        "PEMS03",
+        "PEMS04",
+        "PEMS07",
+        "PEMS08"
+      ],
+      "default_train_command": "cd model && python train.py -d METRLA -g 0"
+    }
+  },
+  "megacrn__pems-bay__seed0": {
+    "key": "megacrn__pems-bay__seed0",
+    "backbone": "megacrn",
+    "dataset": "pems-bay",
+    "seed": 0,
+    "checkpoint": "baselines/stgnn/megacrn__pems-bay__seed0.pt",
+    "test_metrics": {
+      "MAE": 1.5577082633972168,
+      "RMSE": 3.6670641899108887,
+      "MAPE": 42797259.375
+    },
+    "test_metrics_masked": {
+      "MAE": 1.5535284280776978,
+      "RMSE": 3.628021717071533,
+      "MAPE": 3.510728105902672
+    },
+    "status": "frozen",
+    "source": {
+      "paper_title": "Spatio-Temporal Meta-Graph Learning for Traffic Forecasting",
+      "venue_year": "AAAI 2023",
+      "repo_url": "https://github.com/deepkashiwa20/MegaCRN",
+      "commit": "5158190948de7e8628f84780a429eb9189f5908f",
+      "default_datasets": [
+        "METRLA",
+        "PEMSBAY",
+        "EXPYTKY"
+      ],
+      "default_train_command": "python traintest_MegaCRN.py --dataset=METRLA --gpu=0"
+    }
+  },
+  "megacrn__pems-bay__seed1": {
+    "key": "megacrn__pems-bay__seed1",
+    "backbone": "megacrn",
+    "dataset": "pems-bay",
+    "seed": 1,
+    "checkpoint": "baselines/stgnn/megacrn__pems-bay__seed1.pt",
+    "test_metrics": {
+      "MAE": 1.5558363199234009,
+      "RMSE": 3.646989583969116,
+      "MAPE": 42764612.5
+    },
+    "test_metrics_masked": {
+      "MAE": 1.5516594648361206,
+      "RMSE": 3.607786178588867,
+      "MAPE": 3.48108671605587
+    },
+    "status": "frozen",
+    "source": {
+      "paper_title": "Spatio-Temporal Meta-Graph Learning for Traffic Forecasting",
+      "venue_year": "AAAI 2023",
+      "repo_url": "https://github.com/deepkashiwa20/MegaCRN",
+      "commit": "5158190948de7e8628f84780a429eb9189f5908f",
+      "default_datasets": [
+        "METRLA",
+        "PEMSBAY",
+        "EXPYTKY"
+      ],
+      "default_train_command": "python traintest_MegaCRN.py --dataset=METRLA --gpu=0"
+    }
+  },
+  "megacrn__pems-bay__seed2": {
+    "key": "megacrn__pems-bay__seed2",
+    "backbone": "megacrn",
+    "dataset": "pems-bay",
+    "seed": 2,
+    "checkpoint": "baselines/stgnn/megacrn__pems-bay__seed2.pt",
+    "test_metrics": {
+      "MAE": 1.5475614070892334,
+      "RMSE": 3.6352298259735107,
+      "MAPE": 42776384.375
+    },
+    "test_metrics_masked": {
+      "MAE": 1.5433827638626099,
+      "RMSE": 3.5958776473999023,
+      "MAPE": 3.468145430088043
+    },
+    "status": "frozen",
+    "source": {
+      "paper_title": "Spatio-Temporal Meta-Graph Learning for Traffic Forecasting",
+      "venue_year": "AAAI 2023",
+      "repo_url": "https://github.com/deepkashiwa20/MegaCRN",
+      "commit": "5158190948de7e8628f84780a429eb9189f5908f",
+      "default_datasets": [
+        "METRLA",
+        "PEMSBAY",
+        "EXPYTKY"
+      ],
+      "default_train_command": "python traintest_MegaCRN.py --dataset=METRLA --gpu=0"
+    }
+  },
+  "stgcn__pems04__seed0": {
+    "key": "stgcn__pems04__seed0",
+    "backbone": "stgcn",
+    "dataset": "pems04",
+    "seed": 0,
+    "checkpoint": "baselines/stgnn_pems04_extra/stgcn__pems04__seed0.pt",
+    "test_metrics": {
+      "MAE": 26.985612869262695,
+      "RMSE": 41.684059143066406,
+      "MAPE": 2722924200.0
+    },
+    "status": "frozen"
+  },
+  "stgcn__pems04__seed1": {
+    "key": "stgcn__pems04__seed1",
+    "backbone": "stgcn",
+    "dataset": "pems04",
+    "seed": 1,
+    "checkpoint": "baselines/stgnn_pems04_extra/stgcn__pems04__seed1.pt",
+    "test_metrics": {
+      "MAE": 26.704723358154297,
+      "RMSE": 41.087947845458984,
+      "MAPE": 2695260800.0
+    },
+    "status": "frozen"
+  },
+  "stgcn__pems04__seed2": {
+    "key": "stgcn__pems04__seed2",
+    "backbone": "stgcn",
+    "dataset": "pems04",
+    "seed": 2,
+    "checkpoint": "baselines/stgnn_pems04_extra/stgcn__pems04__seed2.pt",
+    "test_metrics": {
+      "MAE": 26.544748306274414,
+      "RMSE": 40.86002731323242,
+      "MAPE": 2744951000.0
+    },
+    "status": "frozen"
+  },
+  "mtgnn__pems04__seed0": {
+    "key": "mtgnn__pems04__seed0",
+    "backbone": "mtgnn",
+    "dataset": "pems04",
+    "seed": 0,
+    "checkpoint": "baselines/stgnn_pems04_extra/mtgnn__pems04__seed0.pt",
+    "test_metrics": {
+      "MAE": 28.551267623901367,
+      "RMSE": 43.74240493774414,
+      "MAPE": 5512170000.0
+    },
+    "status": "frozen"
+  },
+  "mtgnn__pems04__seed1": {
+    "key": "mtgnn__pems04__seed1",
+    "backbone": "mtgnn",
+    "dataset": "pems04",
+    "seed": 1,
+    "checkpoint": "baselines/stgnn_pems04_extra/mtgnn__pems04__seed1.pt",
+    "test_metrics": {
+      "MAE": 28.38146209716797,
+      "RMSE": 43.592857360839844,
+      "MAPE": 5550536000.0
+    },
+    "status": "frozen"
+  },
+  "mtgnn__pems04__seed2": {
+    "key": "mtgnn__pems04__seed2",
+    "backbone": "mtgnn",
+    "dataset": "pems04",
+    "seed": 2,
+    "checkpoint": "baselines/stgnn_pems04_extra/mtgnn__pems04__seed2.pt",
+    "test_metrics": {
+      "MAE": 28.29829978942871,
+      "RMSE": 43.30229949951172,
+      "MAPE": 5473004400.0
+    },
+    "status": "frozen"
+  },
+  "agcrn__pems04__seed0": {
+    "key": "agcrn__pems04__seed0",
+    "backbone": "agcrn",
+    "dataset": "pems04",
+    "seed": 0,
+    "checkpoint": "baselines/stgnn/agcrn__pems04__seed0.pt",
+    "test_metrics": {
+      "MAE": 19.104299545288086,
+      "RMSE": 31.736804962158203,
+      "MAPE": 2177022400.0
+    },
+    "test_metrics_masked": {
+      "MAE": 19.112356185913086,
+      "RMSE": 31.25143051147461,
+      "MAPE": 181271.142578125
+    },
+    "status": "frozen",
+    "source": {
+      "paper_title": "Adaptive Graph Convolutional Recurrent Network for Traffic Forecasting",
+      "venue_year": "NeurIPS 2020",
+      "repo_url": "https://github.com/LeiBAI/AGCRN",
+      "commit": "7fbbf2aeb099242098a3cf482b55cd45d7295c28",
+      "default_datasets": [
+        "PEMSD4",
+        "PEMSD8"
+      ],
+      "default_train_command": "python model/Run.py"
+    }
+  },
+  "agcrn__pems04__seed1": {
+    "key": "agcrn__pems04__seed1",
+    "backbone": "agcrn",
+    "dataset": "pems04",
+    "seed": 1,
+    "checkpoint": "baselines/stgnn/agcrn__pems04__seed1.pt",
+    "test_metrics": {
+      "MAE": 18.887868881225586,
+      "RMSE": 31.49826431274414,
+      "MAPE": 2017485600.0
+    },
+    "test_metrics_masked": {
+      "MAE": 18.90979766845703,
+      "RMSE": 31.056554794311523,
+      "MAPE": 195093.37158203125
+    },
+    "status": "frozen",
+    "source": {
+      "paper_title": "Adaptive Graph Convolutional Recurrent Network for Traffic Forecasting",
+      "venue_year": "NeurIPS 2020",
+      "repo_url": "https://github.com/LeiBAI/AGCRN",
+      "commit": "7fbbf2aeb099242098a3cf482b55cd45d7295c28",
+      "default_datasets": [
+        "PEMSD4",
+        "PEMSD8"
+      ],
+      "default_train_command": "python model/Run.py"
+    }
+  },
+  "agcrn__pems04__seed2": {
+    "key": "agcrn__pems04__seed2",
+    "backbone": "agcrn",
+    "dataset": "pems04",
+    "seed": 2,
+    "checkpoint": "baselines/stgnn/agcrn__pems04__seed2.pt",
+    "test_metrics": {
+      "MAE": 18.920408248901367,
+      "RMSE": 31.470977783203125,
+      "MAPE": 2272227400.0
+    },
+    "test_metrics_masked": {
+      "MAE": 18.9168643951416,
+      "RMSE": 30.83121109008789,
+      "MAPE": 185104.43115234375
+    },
+    "status": "frozen",
+    "source": {
+      "paper_title": "Adaptive Graph Convolutional Recurrent Network for Traffic Forecasting",
+      "venue_year": "NeurIPS 2020",
+      "repo_url": "https://github.com/LeiBAI/AGCRN",
+      "commit": "7fbbf2aeb099242098a3cf482b55cd45d7295c28",
+      "default_datasets": [
+        "PEMSD4",
+        "PEMSD8"
+      ],
+      "default_train_command": "python model/Run.py"
+    }
+  },
+  "staeformer__pems04__seed1": {
+    "key": "staeformer__pems04__seed1",
+    "backbone": "staeformer",
+    "dataset": "pems04",
+    "seed": 1,
+    "checkpoint": "baselines/stgnn/staeformer__pems04__seed1.pt",
+    "test_metrics": {
+      "MAE": 18.359682083129883,
+      "RMSE": 32.598209381103516,
+      "MAPE": 5221739200.0
+    },
+    "test_metrics_masked": {
+      "MAE": 18.071109771728516,
+      "RMSE": 30.278711318969727,
+      "MAPE": 12.214576452970505
+    },
+    "status": "frozen",
+    "source": {
+      "paper_title": "Spatio-Temporal Adaptive Embedding Makes Vanilla Transformer SOTA for Traffic Forecasting",
+      "venue_year": "CIKM 2023",
+      "repo_url": "https://github.com/XDZhelheim/STAEformer",
+      "commit": "fc49d39b2f1a8e3cf37b6289d7240680e1690f3f",
+      "default_datasets": [
+        "METRLA",
+        "PEMSBAY",
+        "PEMS03",
+        "PEMS04",
+        "PEMS07",
+        "PEMS08"
+      ],
+      "default_train_command": "cd model && python train.py -d METRLA -g 0"
+    }
+  },
+  "megacrn__pems04__seed0": {
+    "key": "megacrn__pems04__seed0",
+    "backbone": "megacrn",
+    "dataset": "pems04",
+    "seed": 0,
+    "checkpoint": "baselines/stgnn/megacrn__pems04__seed0.pt",
+    "test_metrics": {
+      "MAE": 18.696813583374023,
+      "RMSE": 31.72271156311035,
+      "MAPE": 4369357600.0
+    },
+    "test_metrics_masked": {
+      "MAE": 18.49901008605957,
+      "RMSE": 30.31903076171875,
+      "MAPE": 12.597671151161194
+    },
+    "status": "frozen",
+    "source": {
+      "paper_title": "Spatio-Temporal Meta-Graph Learning for Traffic Forecasting",
+      "venue_year": "AAAI 2023",
+      "repo_url": "https://github.com/deepkashiwa20/MegaCRN",
+      "commit": "5158190948de7e8628f84780a429eb9189f5908f",
+      "default_datasets": [
+        "METRLA",
+        "PEMSBAY",
+        "EXPYTKY"
+      ],
+      "default_train_command": "python traintest_MegaCRN.py --dataset=METRLA --gpu=0"
+    }
+  },
+  "staeformer__pems04__seed2": {
+    "key": "staeformer__pems04__seed2",
+    "backbone": "staeformer",
+    "dataset": "pems04",
+    "seed": 2,
+    "checkpoint": "baselines/stgnn/staeformer__pems04__seed2.pt",
+    "test_metrics": {
+      "MAE": 18.305191040039062,
+      "RMSE": 32.38212585449219,
+      "MAPE": 5386092400.0
+    },
+    "test_metrics_masked": {
+      "MAE": 17.999258041381836,
+      "RMSE": 29.910507202148438,
+      "MAPE": 12.209130078554153
+    },
+    "status": "frozen",
+    "source": {
+      "paper_title": "Spatio-Temporal Adaptive Embedding Makes Vanilla Transformer SOTA for Traffic Forecasting",
+      "venue_year": "CIKM 2023",
+      "repo_url": "https://github.com/XDZhelheim/STAEformer",
+      "commit": "fc49d39b2f1a8e3cf37b6289d7240680e1690f3f",
+      "default_datasets": [
+        "METRLA",
+        "PEMSBAY",
+        "PEMS03",
+        "PEMS04",
+        "PEMS07",
+        "PEMS08"
+      ],
+      "default_train_command": "cd model && python train.py -d METRLA -g 0"
+    }
+  },
+  "megacrn__pems04__seed1": {
+    "key": "megacrn__pems04__seed1",
+    "backbone": "megacrn",
+    "dataset": "pems04",
+    "seed": 1,
+    "checkpoint": "baselines/stgnn/megacrn__pems04__seed1.pt",
+    "test_metrics": {
+      "MAE": 18.817541122436523,
+      "RMSE": 32.06476974487305,
+      "MAPE": 4667078800.0
+    },
+    "test_metrics_masked": {
+      "MAE": 18.591156005859375,
+      "RMSE": 30.381799697875977,
+      "MAPE": 12.552027404308319
+    },
+    "status": "frozen",
+    "source": {
+      "paper_title": "Spatio-Temporal Meta-Graph Learning for Traffic Forecasting",
+      "venue_year": "AAAI 2023",
+      "repo_url": "https://github.com/deepkashiwa20/MegaCRN",
+      "commit": "5158190948de7e8628f84780a429eb9189f5908f",
+      "default_datasets": [
+        "METRLA",
+        "PEMSBAY",
+        "EXPYTKY"
+      ],
+      "default_train_command": "python traintest_MegaCRN.py --dataset=METRLA --gpu=0"
+    }
+  },
+  "megacrn__pems04__seed2": {
+    "key": "megacrn__pems04__seed2",
+    "backbone": "megacrn",
+    "dataset": "pems04",
+    "seed": 2,
+    "checkpoint": "baselines/stgnn/megacrn__pems04__seed2.pt",
+    "test_metrics": {
+      "MAE": 18.808958053588867,
+      "RMSE": 32.195892333984375,
+      "MAPE": 4795327600.0
+    },
+    "test_metrics_masked": {
+      "MAE": 18.56947135925293,
+      "RMSE": 30.412853240966797,
+      "MAPE": 12.61419951915741
+    },
+    "status": "frozen",
+    "source": {
+      "paper_title": "Spatio-Temporal Meta-Graph Learning for Traffic Forecasting",
+      "venue_year": "AAAI 2023",
+      "repo_url": "https://github.com/deepkashiwa20/MegaCRN",
+      "commit": "5158190948de7e8628f84780a429eb9189f5908f",
+      "default_datasets": [
+        "METRLA",
+        "PEMSBAY",
+        "EXPYTKY"
+      ],
+      "default_train_command": "python traintest_MegaCRN.py --dataset=METRLA --gpu=0"
+    }
+  }
+}

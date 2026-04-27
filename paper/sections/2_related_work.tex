@@ -1,0 +1,71 @@
+\section{Related Work}
+\label{sec:related}
+
+\paragraph{Spatiotemporal graph neural networks for traffic.}
+DCRNN~\citep{li2018dcrnn} introduced bidirectional diffusion convolution
+inside a recurrent encoder-decoder. Graph WaveNet~\citep{wu2019gwnet}
+replaced the fixed graph with a learned adaptive adjacency.
+STGCN~\citep{yu2018stgcn} alternates gated temporal convolutions with spectral
+graph convolutions. A plain GRU is the graph-free baseline; MTGNNLight adds a
+sparse adaptive topology. These five form our canonical bank. Inductive
+alternatives like MTGNN~\citep{wu2020mtgnn} and AGCRN~\citep{bai2020agcrn}
+infer graph structure from data, while newer adaptive-relation
+models---MegaCRN~\citep{jiang2023megacrn} (meta-graph memory with temporal
+covariates) and STAEformer~\citep{liu2023staeformer} (Transformer with
+spatial-temporal adaptive embedding)---now top traffic leaderboards. We
+include the MTGNN-inspired light variant in the canonical evaluation, and
+extend the diagnostic to AGCRN, MegaCRN, and STAEformer for external
+validity. Our results show that MTGNNLight's sparser learned graph reduces
+but does not eliminate sensor-dropout fragility relative to GWNet's dense
+softmax product graph, while AGCRN and STAEformer match DCRNN under sensor
+dropout---which points to adjacency density and routing design (not
+topology-learning per se) as the source of GWNet's routing brittleness.
+None of these architectures were previously evaluated for robustness under
+deployment-time distribution shift; the published numbers are
+in-distribution held-out accuracy only.
+
+\paragraph{Distribution shift in spatiotemporal models.}
+A handful of recent methods address distribution shift in STGNNs.
+STRAP~\citep{zhang2025strap} handles spatio-temporal OOD scenarios with
+retrieval-augmented pattern learning: at inference, it retrieves historical
+patterns from a stored library and injects them via a plug-and-play prompt,
+adapting the model without re-training. TL-GPSTGN~\citep{jing2026tlgpstgn}
+prunes graph context with information-theoretic criteria during training to
+improve OOD generalization. These propose interventions; our work provides a
+diagnostic---which backbones degrade under which shifts and why---a
+prerequisite for designing targeted retrieval, topology-aware, or
+imputation-based responses.
+
+\paragraph{Cross-city transfer learning.}
+Several papers frame cross-city generalization as few-shot or federated
+learning. FedTT~\citep{zeng2025fedtt} trains a federated model across
+multiple cities with traffic-view imputation and a domain adapter for
+cross-city discrepancies. CAST-CKT~\citep{fofanah2026castckt} uses
+chaos-aware attention and adaptive topology learning for cross-city
+knowledge transfer. The LargeST benchmark~\citep{liu2023largest} ships with
+a traffic-pattern bank retrieved by pattern matching. All of these use some
+target-city data at training or adaptation time. We instead evaluate the
+zero-shot case: models trained only on METR-LA applied directly to PEMS-BAY,
+no adaptation---the setting that arises whenever a target city has no
+historical data.
+
+\paragraph{Topology-agnostic and foundation-model approaches.}
+UniSTOK~\citep{anonymous2025unistok} tokenizes spatiotemporal signals
+uniformly across variable sensor configurations; topology-free foundation
+models like Chronos-2~\citep{ansari2024chronos} discard the graph entirely.
+Cross-city foundation models train on many cities and adapt by fine-tuning,
+which again needs target-domain data. Our zero-shot setting is
+complementary: it asks which architectural properties confer robustness
+before any adaptation is available---a prerequisite for deciding when
+topology-agnostic or fine-tuning approaches are worth the trouble.
+
+\paragraph{Sensor failure and data imputation.}
+Mask-aware reconstruction architectures like GRIN~\citep{cini2022grin} and
+BRITS~\citep{cao2018brits} explicitly reconstruct missing inputs before or
+during graph aggregation. We ask the orthogonal question: among standard
+STGNNs without imputation, which architectural choices confer robustness and
+which amplify fragility? The answer reveals architecture-intrinsic failure
+modes that imputation-based and foundation-model approaches would otherwise
+mask. Our LOCF baseline (Appendix) confirms that temporal carry-forward
+largely eliminates the fragility ranking, so the sensor-dropout findings are
+specific to the silent zero-masking scenario.

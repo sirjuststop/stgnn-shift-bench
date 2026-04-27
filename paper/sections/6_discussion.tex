@@ -1,0 +1,48 @@
+\section{Discussion}
+\label{sec:discussion}
+
+\paragraph{Deployment guidance.}
+Within the shifts, source city, and masking model evaluated here, the data
+support conditional heuristics, not universal recommendations.
+Under silent-failure zero-mask dropout, DCRNN, AGCRN, and STAEformer degrade
+much less than GWNet; the GWNet gap is tied to dense softmax routing and the
+mask-aware variant recovers 75\% without retraining. For zero-shot cross-city
+transfer on METR-LA/PEMS-BAY-style highway networks, MegaCRN and DCRNN are the
+strongest: MegaCRN leads the extended evaluation, DCRNN leads both directions
+of the canonical pair and the PEMS04 pair. For weekday/weekend subgroup shift
+on METR-LA, MegaCRN and STAEformer carry much larger gaps than the canonical
+bank; AGCRN matches DCRNN. No model dominates all three axes, and these
+recommendations do not extrapolate beyond the settings evaluated
+(\S\ref{sec:conclusion}).
+
+\paragraph{Implications for robustness evaluation.}
+Single-shift benchmarks miss the picture: more expressive spatial-relation
+learning changes which deployment axis is most vulnerable rather than removing
+vulnerability altogether. Benchmarks should report multi-shift robustness
+alongside in-distribution accuracy. For GWNet, three controls rule out
+training-artifact explanations: relative sensitivity (1.1\% vs.\ 0.3\% for
+DCRNN), a 12-config capacity sweep (Table~\ref{tab:consolidated}), and
+MTGNNLight's lower fragility under adaptive topology.
+
+\paragraph{Pre-registered surprises and the deployment artifact.}
+Two initial predictions were wrong: GWNet failed hardest under sensor dropout,
+not city transfer; and the temporal subgroup gap (predicted to be
+architecture-invariant) held for the canonical bank but broke for MegaCRN and
+STAEformer, a fragility axis the five-model evaluation could not have surfaced
+(full ledger: Appendix~\ref{sec:appendix_preregistered}).
+A $2{\times}2{\times}2$ deployment-profile decision table and a pip-installable
+artifact are released with the honest ranking that demotes MegaCRN on the sensor
+axis (Appendix~\ref{sec:appendix_decision_tree}).
+
+\paragraph{Limitations.}
+The study does not exhaust adaptive-relation traffic models (e.g., ASTGCN,
+DSTAGNN). Two earlier-open anomalies are mechanistically closed: MegaCRN's
+negative sensor delta is adjacency-mediated smoothing
+(\S\ref{sec:polish_ablations}), and temporal fragility is not driven by the
+TOD/DOW covariate channel in MegaCRN (0\%) or STAEformer (12.5\%).
+The residual temporal fragility of MegaCRN lives in the memory bank or encoder
+dynamics; isolating it requires a no-covariate retraining and is left to future
+work. All training uses a single source city (METR-LA); a three-source extension
+is ongoing. The fragility ranking is specific to silent zero-masking---
+last-observed-value carry-forward (LOCF) recovers most of the gap
+(Appendix~\ref{sec:appendix_imputation}).

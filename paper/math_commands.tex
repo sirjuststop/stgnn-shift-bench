@@ -1,0 +1,32 @@
+%% math_commands.tex — shared notation for Shift-Specific STGNN Robustness
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{bm}
+
+% General math
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+% Graph notation
+\newcommand{\calG}{\mathcal{G}}          % graph
+\newcommand{\calV}{\mathcal{V}}          % vertex set
+\newcommand{\calE}{\mathcal{E}}          % edge set
+\newcommand{\Aadj}{\mathbf{A}}           % adjacency matrix
+\newcommand{\Aadapt}{\hat{\mathbf{A}}}  % adaptive adjacency
+\newcommand{\Dfixed}{\tilde{\mathbf{D}}} % degree matrix
+
+% Signal / time-series
+\newcommand{\xvec}{\mathbf{x}}           % input signal
+\newcommand{\yvec}{\mathbf{y}}           % target
+\newcommand{\hvec}{\mathbf{h}}           % hidden state
+\newcommand{\Eset}{\mathcal{S}}          % sensor set
+\newcommand{\Emask}{\mathcal{M}}         % dropout mask
+
+% Shift notation
+\newcommand{\DeltaCity}{\Delta_{\text{city}}}
+\newcommand{\DeltaSensor}{\Delta_{\text{sensor}}}
+\newcommand{\DeltaTemp}{\Delta_{\text{temp}}}
+\newcommand{\DSRC}{\mathcal{D}_{\text{src}}}   % source domain
+\newcommand{\DTGT}{\mathcal{D}_{\text{tgt}}}   % target domain

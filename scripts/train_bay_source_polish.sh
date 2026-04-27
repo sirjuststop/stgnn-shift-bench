@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# Polish v10 — PEMS-BAY source training for 5 missing models × 3 seeds.
+# Models already on BAY (seeds 3,4,5 in baselines/stgnn_bay207/): DCRNN, GRU, GWNet.
+# Missing: STGCN, MTGNN, AGCRN, MegaCRN, STAEformer → train with seeds 0,1,2.
+# Output dirs:
+#   - STGCN/MTGNN → baselines/stgnn_bay207_extra/
+#   - AGCRN/MegaCRN/STAEformer → baselines/stgnn/
+set -euo pipefail
+cd "$(dirname "$0")/.." 
+source /opt/conda/bin/activate && conda activate pytorch
+export PYTHONPATH=$(pwd):${PYTHONPATH:-}
+
+mkdir -p logs/bay_source_polish
+mkdir -p baselines/stgnn_bay207_extra
+
+START=$(date -Iseconds)
+echo "[START] $START"
+
+# ── STGCN & MTGNN on PEMS-BAY (seeds 0,1,2) ──────────────────────────────────
+for BB in stgcn mtgnn; do
+  echo "[BAY] $BB seeds=0,1,2 starting at $(date -Iseconds)"
+  python experiments/stgnn_backbone_bank_pems.py \
+    --backbones "$BB" --seeds 0 1 2 \
+    --output_dir baselines/stgnn_bay207_extra/ \
+    --registry baselines/stgnn_protocol_registry.json \
+    --data_dir data/pems-bay/ \
+    --adj_path data/pems-bay/adj_mx_bay.pkl \
+    2>&1 | tee -a "logs/bay_source_polish/${BB}_bay.log"
+done
+
+# ── AGCRN / STAEformer / MegaCRN on PEMS-BAY (seeds 0,1,2) ───────────────────
+for MODEL in agcrn staeformer megacrn; do
+  for SEED in 0 1 2; do
+    echo "[BAY] $MODEL seed=$SEED starting at $(date -Iseconds)"
+    python experiments/train_official_adaptive_baseline.py \
+      --model "$MODEL" --dataset pems-bay --seed "$SEED" \
+      --output_dir baselines/stgnn \
+      --registry baselines/stgnn_protocol_registry.json \
+      2>&1 | tee -a "logs/bay_source_polish/${MODEL}_bay_seed${SEED}.log"
+  done
+done
+
+echo "[DONE] finished at $(date -Iseconds); started $START"

@@ -1,0 +1,74 @@
+# ── Large data files ──────────────────────────────────────────────────────────
+data/
+logs/
+
+# ── Internal planning / governance docs ───────────────────────────────────────
+CLAUDE.md
+INDEX.md
+RESEARCH_JOURNEY_DEFENSE.md
+RESEARCH_BRIEF.md
+IDEA_REPORT.md
+EXPERIMENT_PLAN.md
+EXPERIMENT_PLAN_PILOT.md
+EXPERIMENT_TRACKER.md
+PENDING_EXPERIMENTS.md
+POLISH_PLAN_4v10.md
+PAPER_CLAIM_AUDIT.md
+PAPER_CLAIM_AUDIT.json
+next_human_checkpoint.md
+monitor_tier0.sh
+texput.log
+package-lock.json
+
+# ── Paper version snapshots (keep only paper/) ───────────────────────────────
+paper-*/
+archive/
+
+# ── Internal tooling / AI workflow ───────────────────────────────────────────
+.aris/
+.claude/
+.candidate_deletion/
+.ipynb_checkpoints/
+new_workflow/
+memory_updates/
+diagnostics/
+refine-logs/
+docs/
+review-stage/
+submission_requirements/
+
+# ── External / third-party ───────────────────────────────────────────────────
+external_repos/
+third_party/
+stgnn_stress/
+
+# ── Internal result memos (keep only canonical tables + polish_v15) ──────────
+results/CODEX_*.md
+results/ANOMALY_AUDIT*.md
+results/CLAIM_*.md
+results/CITY_RERUN*.json
+results/decision_tree/
+results/density_sweep/
+results/gwnet_sweep/
+results/megacrn_memory_ablation/
+results/pems04_eval/
+results/reviewer_clarification/
+results/reviewer_fix_v2/
+results/reviewer_fix_v4/
+results/reviewer_fix_v5/
+results/README.md
+
+# ── Python caches ────────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.env
+
+# ── LaTeX build artifacts ─────────────────────────────────────────────────────
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.bbl
+paper/*.blg
+paper/rebuttal.md

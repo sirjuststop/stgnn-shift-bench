@@ -1,0 +1,77 @@
+# Unified STGNN Training Config — Direction C
+# FROZEN: identical for ALL backbones and ALL seeds. Do not change after Tier 0 starts.
+# Last updated: 2026-04-09
+
+training:
+  epochs: 100
+  lr: 1.0e-3
+  weight_decay: 1.0e-4
+  dropout: 0.3
+  batch_size: 64
+  scheduler: CosineAnnealingLR
+  early_stopping_patience: 15
+  seeds: [0, 1, 2]          # Tier 0; Tier 1 expands to [0, 1, 2, 3, 4]
+
+model:
+  seq_len: 12               # input timesteps (standard 5-min interval → 1h)
+  pred_len: 12              # prediction horizon
+  hidden_dim: 64            # lightweight; fits A800 comfortably
+  num_layers: 2
+
+dataset:
+  metr_la:
+    path: data/metr-la/metr-la.h5
+    adj_path: data/metr-la/adj_mx.pkl
+    num_nodes: 207
+    split: [0.7, 0.1, 0.2]  # train/val/test (chronological)
+    norm: zscore             # fit on train split only
+
+  pems_bay:
+    path: data/pems-bay/pems-bay.h5
+    adj_path: data/pems-bay/adj_mx_bay.pkl
+    num_nodes: 325
+    # CRITICAL: normalize using METR-LA train statistics for fair city-transfer eval
+    norm: metr_la_train      # special flag: use source-domain statistics
+
+shift_eval:
+  city:
+    source: metr_la
+    target: pems_bay
+    norm_transfer: true      # use source normalization stats on target
+  sensor:
+    dataset: metr_la
+    dropout_ratio: 0.30
+    dropout_seed: 42         # fixed across all backbones
+  temporal:
+    dataset: metr_la
+    test_split: last_20pct   # use last 20% of timesteps as test (instead of standard split)
+
+intervention:
+  topology_dropout:
+    p: 0.15                  # drop 15% of adjacency edges at test time
+    stochastic: true         # different mask each forward pass
+  degree_normalization:
+    mode: D_inv_sqrt         # D^{-1/2} A D^{-1/2} applied to learned adaptive adj
+
+backbones:
+  dcrnn:
+    diffusion_steps: 2
+    filter_type: dual_random_walk
+  gwnet:
+    aptinit: null            # learn adaptive adjacency from scratch
+    addaptadj: true
+    supports_len: 2
+  stgcn:
+    Ks: 3                    # spatial kernel size
+    Kt: 3                    # temporal kernel size
+  gru:
+    use_graph: false         # pure temporal baseline
+  mlp:
+    use_graph: false
+    use_temporal: false      # flat feature MLP
+
+metrics:
+  - MAE
+  - RMSE
+  - MAPE
+  primary: MAE               # used for early stopping and ranking
