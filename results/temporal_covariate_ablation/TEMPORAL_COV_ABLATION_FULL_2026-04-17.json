@@ -1,0 +1,240 @@
+{
+  "megacrn": {
+    "megacrn__metr-la__seed0": {
+      "model": "megacrn",
+      "seed": 0,
+      "checkpoint": "baselines/stgnn_official_fix/megacrn__metr-la__seed0.pt",
+      "per_mode": {
+        "clean": {
+          "weekday_norm_MAE": 0.3341655433177948,
+          "weekend_norm_MAE": 1.0942281484603882,
+          "delta_norm": 0.7600626051425934,
+          "weekday_masked_mph": 3.256439685821533,
+          "weekend_masked_mph": 2.5902578830718994,
+          "delta_masked_mph": -0.6661818027496338
+        },
+        "zero": {
+          "weekday_norm_MAE": 0.3679558038711548,
+          "weekend_norm_MAE": 1.1075047254562378,
+          "delta_norm": 0.739548921585083,
+          "weekday_masked_mph": 3.9737231731414795,
+          "weekend_masked_mph": 2.871074914932251,
+          "delta_masked_mph": -1.1026482582092285
+        },
+        "randomize": {
+          "weekday_norm_MAE": 0.34394240379333496,
+          "weekend_norm_MAE": 1.0946332216262817,
+          "delta_norm": 0.7506908178329468,
+          "weekday_masked_mph": 3.4832072257995605,
+          "weekend_masked_mph": 2.6687731742858887,
+          "delta_masked_mph": -0.8144340515136719
+        },
+        "swap": {
+          "weekday_norm_MAE": 0.3447864055633545,
+          "weekend_norm_MAE": 1.0997695922851562,
+          "delta_norm": 0.7549831867218018,
+          "weekday_masked_mph": 3.5015692710876465,
+          "weekend_masked_mph": 2.715669870376587,
+          "delta_masked_mph": -0.7858994007110596
+        }
+      }
+    },
+    "megacrn__metr-la__seed1": {
+      "model": "megacrn",
+      "seed": 1,
+      "checkpoint": "baselines/stgnn_official_fix/megacrn__metr-la__seed1.pt",
+      "per_mode": {
+        "clean": {
+          "weekday_norm_MAE": 0.32179421186447144,
+          "weekend_norm_MAE": 1.0406652688980103,
+          "delta_norm": 0.7188710570335388,
+          "weekday_masked_mph": 3.098494052886963,
+          "weekend_masked_mph": 2.5433149337768555,
+          "delta_masked_mph": -0.5551791191101074
+        },
+        "zero": {
+          "weekday_norm_MAE": 0.37556490302085876,
+          "weekend_norm_MAE": 1.088346004486084,
+          "delta_norm": 0.7127811014652252,
+          "weekday_masked_mph": 4.069069862365723,
+          "weekend_masked_mph": 3.3454418182373047,
+          "delta_masked_mph": -0.723628044128418
+        },
+        "randomize": {
+          "weekday_norm_MAE": 0.3398765027523041,
+          "weekend_norm_MAE": 1.0508544445037842,
+          "delta_norm": 0.7109779417514801,
+          "weekday_masked_mph": 3.4496564865112305,
+          "weekend_masked_mph": 2.71821928024292,
+          "delta_masked_mph": -0.7314372062683105
+        },
+        "swap": {
+          "weekday_norm_MAE": 0.34113672375679016,
+          "weekend_norm_MAE": 1.058849573135376,
+          "delta_norm": 0.7177128493785858,
+          "weekday_masked_mph": 3.439575433731079,
+          "weekend_masked_mph": 2.801680088043213,
+          "delta_masked_mph": -0.6378953456878662
+        }
+      }
+    },
+    "megacrn__metr-la__seed2": {
+      "model": "megacrn",
+      "seed": 2,
+      "checkpoint": "baselines/stgnn_official_fix/megacrn__metr-la__seed2.pt",
+      "per_mode": {
+        "clean": {
+          "weekday_norm_MAE": 0.32695862650871277,
+          "weekend_norm_MAE": 1.048763394355774,
+          "delta_norm": 0.7218047678470612,
+          "weekday_masked_mph": 3.1157970428466797,
+          "weekend_masked_mph": 2.5560410022735596,
+          "delta_masked_mph": -0.5597560405731201
+        },
+        "zero": {
+          "weekday_norm_MAE": 0.3755583167076111,
+          "weekend_norm_MAE": 1.083772897720337,
+          "delta_norm": 0.7082145810127258,
+          "weekday_masked_mph": 4.0746073722839355,
+          "weekend_masked_mph": 3.461278200149536,
+          "delta_masked_mph": -0.6133291721343994
+        },
+        "randomize": {
+          "weekday_norm_MAE": 0.34190648794174194,
+          "weekend_norm_MAE": 1.0561871528625488,
+          "delta_norm": 0.7142806649208069,
+          "weekday_masked_mph": 3.4087507724761963,
+          "weekend_masked_mph": 2.7205052375793457,
+          "delta_masked_mph": -0.6882455348968506
+        },
+        "swap": {
+          "weekday_norm_MAE": 0.340984970331192,
+          "weekend_norm_MAE": 1.0689380168914795,
+          "delta_norm": 0.7279530465602875,
+          "weekday_masked_mph": 3.377855062484741,
+          "weekend_masked_mph": 2.8479137420654297,
+          "delta_masked_mph": -0.5299413204193115
+        }
+      }
+    }
+  },
+  "staeformer": {
+    "staeformer__metr-la__seed0": {
+      "model": "staeformer",
+      "seed": 0,
+      "checkpoint": "baselines/stgnn_official_fix/staeformer__metr-la__seed0.pt",
+      "per_mode": {
+        "clean": {
+          "weekday_norm_MAE": 0.3214569389820099,
+          "weekend_norm_MAE": 1.07149338722229,
+          "delta_norm": 0.7500364482402802,
+          "weekday_masked_mph": 3.0604279041290283,
+          "weekend_masked_mph": 2.4472458362579346,
+          "delta_masked_mph": -0.6131820678710938
+        },
+        "zero": {
+          "weekday_norm_MAE": 0.39141911268234253,
+          "weekend_norm_MAE": 1.0798932313919067,
+          "delta_norm": 0.6884741187095642,
+          "weekday_masked_mph": 4.353678226470947,
+          "weekend_masked_mph": 3.4875094890594482,
+          "delta_masked_mph": -0.866168737411499
+        },
+        "randomize": {
+          "weekday_norm_MAE": 0.39358702301979065,
+          "weekend_norm_MAE": 1.0833711624145508,
+          "delta_norm": 0.6897841393947601,
+          "weekday_masked_mph": 4.343680381774902,
+          "weekend_masked_mph": 3.15099835395813,
+          "delta_masked_mph": -1.1926820278167725
+        },
+        "swap": {
+          "weekday_norm_MAE": 0.40621417760849,
+          "weekend_norm_MAE": 1.0593221187591553,
+          "delta_norm": 0.6531079411506653,
+          "weekday_masked_mph": 4.535619735717773,
+          "weekend_masked_mph": 3.918616533279419,
+          "delta_masked_mph": -0.6170032024383545
+        }
+      }
+    },
+    "staeformer__metr-la__seed1": {
+      "model": "staeformer",
+      "seed": 1,
+      "checkpoint": "baselines/stgnn_official_fix/staeformer__metr-la__seed1.pt",
+      "per_mode": {
+        "clean": {
+          "weekday_norm_MAE": 0.3219054639339447,
+          "weekend_norm_MAE": 1.0675841569900513,
+          "delta_norm": 0.7456786930561066,
+          "weekday_masked_mph": 3.065891981124878,
+          "weekend_masked_mph": 2.4567079544067383,
+          "delta_masked_mph": -0.6091840267181396
+        },
+        "zero": {
+          "weekday_norm_MAE": 0.40777671337127686,
+          "weekend_norm_MAE": 1.0984272956848145,
+          "delta_norm": 0.6906505823135376,
+          "weekday_masked_mph": 4.5973310470581055,
+          "weekend_masked_mph": 3.7926552295684814,
+          "delta_masked_mph": -0.804675817489624
+        },
+        "randomize": {
+          "weekday_norm_MAE": 0.3878057897090912,
+          "weekend_norm_MAE": 1.0763248205184937,
+          "delta_norm": 0.6885190308094025,
+          "weekday_masked_mph": 4.271279811859131,
+          "weekend_masked_mph": 3.132795572280884,
+          "delta_masked_mph": -1.138484239578247
+        },
+        "swap": {
+          "weekday_norm_MAE": 0.3980088233947754,
+          "weekend_norm_MAE": 1.062695860862732,
+          "delta_norm": 0.6646870374679565,
+          "weekday_masked_mph": 4.421112060546875,
+          "weekend_masked_mph": 3.9732141494750977,
+          "delta_masked_mph": -0.44789791107177734
+        }
+      }
+    },
+    "staeformer__metr-la__seed2": {
+      "model": "staeformer",
+      "seed": 2,
+      "checkpoint": "baselines/stgnn_official_fix/staeformer__metr-la__seed2.pt",
+      "per_mode": {
+        "clean": {
+          "weekday_norm_MAE": 0.3199864625930786,
+          "weekend_norm_MAE": 1.072799801826477,
+          "delta_norm": 0.7528133392333984,
+          "weekday_masked_mph": 3.0449447631835938,
+          "weekend_masked_mph": 2.4315876960754395,
+          "delta_masked_mph": -0.6133570671081543
+        },
+        "zero": {
+          "weekday_norm_MAE": 0.3927398920059204,
+          "weekend_norm_MAE": 1.0771721601486206,
+          "delta_norm": 0.6844322681427002,
+          "weekday_masked_mph": 4.378800392150879,
+          "weekend_masked_mph": 3.5462958812713623,
+          "delta_masked_mph": -0.8325045108795166
+        },
+        "randomize": {
+          "weekday_norm_MAE": 0.389578253030777,
+          "weekend_norm_MAE": 1.0816377401351929,
+          "delta_norm": 0.6920594871044159,
+          "weekday_masked_mph": 4.298689365386963,
+          "weekend_masked_mph": 3.1914267539978027,
+          "delta_masked_mph": -1.1072626113891602
+        },
+        "swap": {
+          "weekday_norm_MAE": 0.4125487506389618,
+          "weekend_norm_MAE": 1.061448097229004,
+          "delta_norm": 0.6488993465900421,
+          "weekday_masked_mph": 4.675592422485352,
+          "weekend_masked_mph": 3.9631052017211914,
+          "delta_masked_mph": -0.7124872207641602
+        }
+      }
+    }
+  }
+}

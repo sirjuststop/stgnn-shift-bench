@@ -17,7 +17,7 @@ Pre-registered hypotheses (P6-P8):
   P8: GWNet fixed-adj ablation also helps in reverse direction
 
 Usage:
-  cd /root/autodl-tmp/xile/benchmark_first_graph_gen
+  cd <project_root>
   python experiments/stgnn_tier2_reverse_transfer.py \\
     --output_dir results/tier2/ \\
     --registry baselines/stgnn_protocol_registry.json

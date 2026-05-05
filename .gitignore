@@ -72,3 +72,14 @@ paper/*.out
 paper/*.bbl
 paper/*.blg
 paper/rebuttal.md
+paper/sections/*.bak*
+
+# ── Submission bundles ────────────────────────────────────────────────────────
+submission/
+submission_neurips2026*/
+*.zip
+
+# ── Internal agent / planning files ──────────────────────────────────────────
+.agents/
+AGENTS.md
+POLISH_PLAN_4v17p1.md

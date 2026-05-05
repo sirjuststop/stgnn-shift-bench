@@ -16,28 +16,26 @@ $\Aadapt = \text{softmax}(\mathbf{E}_1 \mathbf{E}_2^\top)$;
 adjacency $\Aadj$ and zeros out $\mathbf{E}_1, \mathbf{E}_2$ (rest of the
 network unchanged).
 
-\begin{table}[t]
+\begin{table}[H]
 \centering
-\caption{\textbf{Replacing GWNet's adaptive adjacency with a fixed road graph halves
-sensor-dropout sensitivity and improves city transfer by 22\%, at only 5\% in-distribution
-cost.} Sensor dropout: 30\% zero-mask, 5 masks, 3 seeds. City MAE: target-adj, PEMS-BAY (mph),
-reported here for interpretability; source-only normalized values in Appendix~\ref{sec:appendix_source_adj}.}
+\caption{\textbf{Fixed-road GWNet reduces sensor-dropout sensitivity and city-transfer
+MAE.} Mean $\pm$ population std over 3 seeds; city MAE is target-adj PEMS-BAY mph.}
 \label{tab:ablation}
 \vskip 0.05in
 \begin{tabular}{lccc}
 \toprule
-\textbf{Variant} & \textbf{In-dist MAE} & \textbf{$\DeltaSensor$ (30\%, multi-mask)} & \textbf{City MAE (mph)} \\
+\textbf{Variant} & \textbf{In-dist MAE} & \textbf{$\DeltaSensor$ (30\%, primary mask)} & \textbf{City MAE (mph)} \\
 \midrule
-GWNet[adaptive] & $7.85 \pm 0.11$ & $+0.092 \pm 0.030$ & $4.42 \pm 0.15$ \\
+GWNet[adaptive] & $7.85 \pm 0.11$ & $+0.088 \pm 0.017$ & $4.42 \pm 0.15$ \\
 GWNet[fixed]    & $8.27 \pm 0.08$ & $+0.050 \pm 0.010$ & $3.44 \pm 0.04$ \\
 \midrule
-\emph{Change}   & $+5.3\%$        & $-45.7\%$          & $-22\%$         \\
+\emph{Change}   & $+5.3\%$        & $-43.1\%$          & $-22\%$         \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Fixed substitution cuts sensor-dropout sensitivity by $45.7\%$ and
-city-transfer MAE by $22\%$, at $+5.3\%$ in-distribution cost---past the
+Fixed substitution cuts sensor-dropout sensitivity by $43.1\%$ and
+city-transfer MAE by $22\%$, at $+5.3\%$ in-distribution cost, past the
 pre-registered $\geq 30\%$ threshold for attributing fragility to the
 adaptive adjacency. Per-horizon decomposition (Table~\ref{tab:consolidated})
 shows GWNet's cross-city MAE is nearly horizon-flat ($+4\%$ growth
@@ -50,12 +48,11 @@ inference ($\Aadapt[i,:]{=}\Aadapt[:,i]{=}0$, then
 $\Aadapt \leftarrow \Aadapt / \max(\Aadapt\mathbf{1}, \epsilon)$) should
 partially restore robustness without retraining.
 
-\begin{table}[t]
+\begin{table}[H]
 \centering
-\caption{\textbf{Mask-aware adjacency routing recovers 75\% of GWNet's sensor-dropout gap
-without any retraining.} The intervention zeros and renormalizes adjacency rows/columns
-for dropped sensors (${\sim}25$~LoC); both variants evaluated on kept sensors only (3 seeds,
-5 random 30\% masks each).}
+\caption{\textbf{Mask-aware routing reduces GWNet's multi-mask dropout gap.}\space
+Dropped-sensor rows/columns are zeroed and renormalized; 3 seeds $\times$ 5
+random 30\% masks.}
 \label{tab:mask_aware}
 \vskip 0.05in
 \small
@@ -69,22 +66,30 @@ GWNet[mask-aware]  & $+0.023 \pm 0.018$ & $75.2\%$ \\
 \end{tabular}
 \end{table}
 
-Mask-aware recovers $75.2\%$, beating fixed substitution at $45.7\%$:
-selectively blocking only the affected rows/columns is better than replacing
-the topology with a static prior. The intervention is ${\sim}25$ LoC and
-deploys directly on existing GWNet checkpoints.
+Mask-aware routing recovers $75.2\%$, compared with $43.1\%$ for fixed
+substitution: blocking only the affected rows/columns preserves useful learned
+routes while removing the failed sources. The intervention is ${\sim}25$ LoC and
+can be applied to existing GWNet checkpoints. The recovery is stable across
+dropout ratios: $70$--$76\%$ for random $10$--$40\%$ dropout and $71\%$ for
+hub-30\% dropout (Appendix~\ref{sec:appendix_mask_aware_sweep}).
 
-\subsection{Routing density as a shared mechanism hypothesis}
+\subsection{Routing concentration as a shared mechanism hypothesis}
 \label{sec:routing_spectrum}
 
-The GWNet analysis above looks model-specific, but it is the visible tail of a
-monotonic relation over \emph{all four} adaptive-graph models in our bank
+The GWNet analysis above is model-specific evidence for a monotonic relation
+over \emph{all four} adaptive-graph models in our bank
 ($n{=}4$ adaptive backbones). Measuring adjacency concentration as
 $\text{max\_mass}$ (mean per-row maximum probability) on METR-LA test samples
 yields AGCRN $0.008$, MegaCRN $0.008$, MTGNN $0.16$, GWNet $0.23$. Pairing
 with each model's $\DeltaSensor$ ($+0.011$, ${-}0.005$, ${+}0.051$,
 ${+}0.092$) gives Pearson $\rho{=}{+}0.979$ (over the four adaptive
 backbones; Appendix~\ref{sec:appendix_routing_spectrum}).
+The relation is stable across seeds (per-seed Pearson $+0.96 \pm 0.04$, $n{=}3$
+seeds); Spearman $\rho_S{=}{+}0.80$, with the only rank exchange between AGCRN
+and MegaCRN whose max\_mass values are tied within proxy precision
+(Appendix~\ref{sec:appendix_routing_spectrum_seedvar}).
+These are the routing-spectrum estimates used for the correlation; the main
+tables keep the pre-registered primary-mask estimand.
 Per-architecture adjacency proxies are canonical and averaged over rows,
 samples, and three seeds; STAEformer has no single row-stochastic adjacency and
 is excluded from the Pearson (full proxy definitions in
@@ -96,58 +101,30 @@ METR-LA-specific negative $\DeltaSensor$ becomes positive on PEMS04
 ($+0.057$), \emph{consistent with} (rather than fully confirming) the
 weekday-prior smoothing diagnosis: a no-covariate retrain remains future
 work (\S\ref{sec:discussion}). We treat the result as a two-city replicated
-shared-mechanism \emph{hypothesis}, not a settled law.
+shared-mechanism \emph{hypothesis}, not a universal rule.
+A local perturbation argument supports this: zero-masking a dropped sensor $j$
+shifts each kept node $i$ by $A_{ij}H_jW$; averaging over rows bounds the
+mean signal disruption by $B_H B_W |\mathcal{I}|\,\mathrm{max\_mass}(A)$.
+Concentrated routing raises this bound proportionally, explaining why
+$\mathrm{max\_mass}$ is a good tail-risk proxy for iid dropout.
+This is a single-layer perturbation bound, not a full-horizon MAE theorem;
+the complete derivation and caveats are in Appendix~\ref{sec:appendix_theory}.
+
 Within GWNet, top-$k$ sparsification at inference traces the same curve:
-relative fragility rises from $0.80\%$ at $k{=}10$ to $1.17\%$ at $k{=}\text{full}$
-(Appendix~\ref{sec:appendix_density_sweep}). A first-order spectral bound on
-zero-mask perturbation gives per-node corruption $\leq \lvert \mathcal{I} \rvert
-\cdot \text{max\_mass}(A)$ up to constants, explaining the linear trend
-(Appendix~\ref{sec:appendix_theory}).
+relative fragility rises from $0.80\%$ at $k{=}10$ to $1.17\%$ at
+$k{=}\text{full}$ (Appendix~\ref{sec:appendix_density_sweep}).
 
 \subsection{Ruling out two natural mechanism hypotheses}
 \label{sec:polish_ablations}
 
-Table~\ref{tab:mechanism_exclusion} reports ablations that progressively narrow
-the cause of MegaCRN and STAEformer's temporal fragility; the final row is an
-open residual, not a completed ablation.
-
-\begin{table}[t]
-\centering
-\small
-\caption{\textbf{Mechanism exclusion for MegaCRN/STAEformer temporal fragility.}
-``Ruled out'' means the gap is unchanged or worsened after removing the hypothesized driver.}
-\label{tab:mechanism_exclusion}
-\vskip 0.05in
-\begin{tabular}{p{2.6cm}p{3.2cm}p{3.0cm}p{2.5cm}}
-\toprule
-\textbf{Hypothesis} & \textbf{Test} & \textbf{Result} & \textbf{Verdict} \\
-\midrule
-TOD/DOW covariate channel
-  & Randomize / swap embeddings at inference (5 seeds)
-  & MegaCRN: $0\%$ gap change; STAEformer: $12.5\%$ reduction
-  & Ruled out (MegaCRN); partial (STAEformer) \\[2pt]
-Memory-bank regularization
-  & \emph{memzero}: zero memory bank at inference
-  & Gap deepens ($-0.075$ vs $-0.040$ at $r{=}0.3$)
-  & Ruled out \\[2pt]
-Adjacency-mediated smoothing (sensor axis)
-  & \emph{attnonly}: identity adjacency
-  & $\DeltaSensor$ eliminated across all~$r$
-  & Confirmed driver \\[2pt]
-Encoder dynamics (temporal axis)
-  & ---
-  & Open
-  & Residual \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-MegaCRN's apparent sensor robustness is adjacency-mediated smoothing toward a
-weekday-dominated prior---failure masquerading as robustness
-(Appendix~\ref{sec:appendix_memory_ablation}).
-The residual temporal fragility lives in the memory bank or encoder dynamics
-and is not isolated by inference-time interventions; isolating it requires a
-no-covariate retraining, left to future work
+Two ablations narrow the MegaCRN/STAEformer temporal finding without closing it.
+Randomizing or swapping explicit time embeddings leaves MegaCRN's temporal gap
+unchanged and reduces STAEformer's by only 12.5\%, so TOD/DOW covariates are
+not the main driver. MegaCRN's apparent sensor robustness is
+adjacency-mediated smoothing toward a weekday-dominated prior, not direct
+dropout robustness (Appendix~\ref{sec:appendix_memory_ablation}). The residual
+temporal fragility appears to lie in the memory bank or encoder dynamics; isolating it
+requires a no-covariate retraining, left to future work
 (Appendix~\ref{sec:appendix_temporal_cov}).
 
 \subsection{Severity, degree stratification, and imputation baselines}
@@ -158,5 +135,5 @@ Appendix~\ref{sec:appendix_severity}). Its highest-degree quartile suffers
 $\DeltaSensor{=}{+}0.121$ versus $+0.066$ for Q1 ($1.83\times$); DCRNN shows
 no degree dependence (Appendix~\ref{sec:appendix_degree_stratification}).
 Last-observed-value carry-forward (LOCF) recovers ${\geq}97\%$ of the zero-mask
-gap across backbones---the ranking is specific to silent-failure zero-masking
+gap across backbones, so the ranking is specific to silent-failure zero-masking
 (Appendix~\ref{sec:appendix_imputation}).

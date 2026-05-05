@@ -1,0 +1,755 @@
+{
+  "agcrn": {
+    "agcrn__metr-la__seed0": {
+      "backbone": "agcrn",
+      "seed": 0,
+      "clean": {
+        "clean_norm_MAE": 0.26318517327308655,
+        "clean_denorm_MAE": 4.806293964385986,
+        "clean_denorm_MAE_masked": 4.121383190155029,
+        "clean_denorm_RMSE_masked": 9.82817268371582,
+        "clean_denorm_MAPE_masked": 2588505.2734375
+      },
+      "sensor_multimask": {
+        "mask_seeds": [
+          42,
+          43,
+          44,
+          45,
+          46
+        ],
+        "per_mask": [
+          {
+            "mask_seed": 42,
+            "clean_MAE_kept": 0.2523215413093567,
+            "masked_MAE_kept": 0.27594953775405884,
+            "delta_sensor": 0.02362799644470215,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 43,
+            "clean_MAE_kept": 0.2681472897529602,
+            "masked_MAE_kept": 0.2836953401565552,
+            "delta_sensor": 0.01554805040359497,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 44,
+            "clean_MAE_kept": 0.2643016278743744,
+            "masked_MAE_kept": 0.28789961338043213,
+            "delta_sensor": 0.02359798550605774,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 45,
+            "clean_MAE_kept": 0.2631520926952362,
+            "masked_MAE_kept": 0.27987799048423767,
+            "delta_sensor": 0.016725897789001465,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 46,
+            "clean_MAE_kept": 0.2626287639141083,
+            "masked_MAE_kept": 0.2787851095199585,
+            "delta_sensor": 0.01615634560585022,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          }
+        ],
+        "delta_sensor_mean": 0.01913125514984131,
+        "delta_sensor_std": 0.0036782482088583983,
+        "relative_fragility": 0.003980458809136816,
+        "relative_fragility_masked": 0.004641950109259719
+      },
+      "city": {
+        "city_src_MAE_mean": 0.20875624120235442,
+        "city_src_MAE_std": 0.003668645756778705,
+        "city_tgt_MAE_mean": 2.877378797531128,
+        "city_tgt_MAE_std": 0.03794738308636842,
+        "city_tgt_MAE_masked_mean": 2.8737698554992677,
+        "city_tgt_MAE_masked_std": 0.03797921876913494,
+        "n_subsets": 5,
+        "delta_city_src": -0.05442893207073213
+      },
+      "temporal_wdwe": {
+        "weekday_norm_MAE": 0.24944785237312317,
+        "weekend_norm_MAE": 0.30376115441322327,
+        "delta_temporal": 0.0543133020401001,
+        "weekday_windows": 5104,
+        "weekend_windows": 1728
+      }
+    },
+    "agcrn__metr-la__seed1": {
+      "backbone": "agcrn",
+      "seed": 1,
+      "clean": {
+        "clean_norm_MAE": 0.26327475905418396,
+        "clean_denorm_MAE": 4.804610252380371,
+        "clean_denorm_MAE_masked": 4.068019866943359,
+        "clean_denorm_RMSE_masked": 9.771014213562012,
+        "clean_denorm_MAPE_masked": 2851741.40625
+      },
+      "sensor_multimask": {
+        "mask_seeds": [
+          42,
+          43,
+          44,
+          45,
+          46
+        ],
+        "per_mask": [
+          {
+            "mask_seed": 42,
+            "clean_MAE_kept": 0.25294485688209534,
+            "masked_MAE_kept": 0.27662110328674316,
+            "delta_sensor": 0.023676246404647827,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 43,
+            "clean_MAE_kept": 0.2690216600894928,
+            "masked_MAE_kept": 0.28552550077438354,
+            "delta_sensor": 0.016503840684890747,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 44,
+            "clean_MAE_kept": 0.26368317008018494,
+            "masked_MAE_kept": 0.2847067415714264,
+            "delta_sensor": 0.021023571491241455,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 45,
+            "clean_MAE_kept": 0.265593945980072,
+            "masked_MAE_kept": 0.28575897216796875,
+            "delta_sensor": 0.02016502618789673,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 46,
+            "clean_MAE_kept": 0.26508253812789917,
+            "masked_MAE_kept": 0.28147459030151367,
+            "delta_sensor": 0.016392052173614502,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          }
+        ],
+        "delta_sensor_mean": 0.01955214738845825,
+        "delta_sensor_std": 0.002786656689808821,
+        "relative_fragility": 0.004069455452452452,
+        "relative_fragility_masked": 0.004806305777250149
+      },
+      "city": {
+        "city_src_MAE_mean": 0.19445824921131133,
+        "city_src_MAE_std": 0.002708737973561619,
+        "city_tgt_MAE_mean": 2.9296862125396728,
+        "city_tgt_MAE_std": 0.036216715177731416,
+        "city_tgt_MAE_masked_mean": 2.9260634899139406,
+        "city_tgt_MAE_masked_std": 0.03624876415390236,
+        "n_subsets": 5,
+        "delta_city_src": -0.06881650984287263
+      },
+      "temporal_wdwe": {
+        "weekday_norm_MAE": 0.24919699132442474,
+        "weekend_norm_MAE": 0.30485641956329346,
+        "delta_temporal": 0.05565942823886871,
+        "weekday_windows": 5104,
+        "weekend_windows": 1728
+      }
+    },
+    "agcrn__metr-la__seed2": {
+      "backbone": "agcrn",
+      "seed": 2,
+      "clean": {
+        "clean_norm_MAE": 0.2713158130645752,
+        "clean_denorm_MAE": 4.952450275421143,
+        "clean_denorm_MAE_masked": 4.085386276245117,
+        "clean_denorm_RMSE_masked": 9.66016960144043,
+        "clean_denorm_MAPE_masked": 2829092.1875
+      },
+      "sensor_multimask": {
+        "mask_seeds": [
+          42,
+          43,
+          44,
+          45,
+          46
+        ],
+        "per_mask": [
+          {
+            "mask_seed": 42,
+            "clean_MAE_kept": 0.26013556122779846,
+            "masked_MAE_kept": 0.2813863158226013,
+            "delta_sensor": 0.021250754594802856,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 43,
+            "clean_MAE_kept": 0.2779330015182495,
+            "masked_MAE_kept": 0.29361847043037415,
+            "delta_sensor": 0.015685468912124634,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 44,
+            "clean_MAE_kept": 0.27191612124443054,
+            "masked_MAE_kept": 0.2927793562412262,
+            "delta_sensor": 0.020863234996795654,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 45,
+            "clean_MAE_kept": 0.2736540734767914,
+            "masked_MAE_kept": 0.29069989919662476,
+            "delta_sensor": 0.017045825719833374,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 46,
+            "clean_MAE_kept": 0.27273643016815186,
+            "masked_MAE_kept": 0.2888869345188141,
+            "delta_sensor": 0.01615050435066223,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          }
+        ],
+        "delta_sensor_mean": 0.01819915771484375,
+        "delta_sensor_std": 0.002377197424539692,
+        "relative_fragility": 0.003674778483928573,
+        "relative_fragility_masked": 0.004454696932983927
+      },
+      "city": {
+        "city_src_MAE_mean": 0.21530887484550476,
+        "city_src_MAE_std": 0.006439334072844023,
+        "city_tgt_MAE_mean": 3.2049753665924072,
+        "city_tgt_MAE_std": 0.05531856991917504,
+        "city_tgt_MAE_masked_mean": 3.201379823684692,
+        "city_tgt_MAE_masked_std": 0.05533375770448568,
+        "n_subsets": 5,
+        "delta_city_src": -0.056006938219070435
+      },
+      "temporal_wdwe": {
+        "weekday_norm_MAE": 0.25289416313171387,
+        "weekend_norm_MAE": 0.3257279098033905,
+        "delta_temporal": 0.07283374667167664,
+        "weekday_windows": 5104,
+        "weekend_windows": 1728
+      }
+    }
+  },
+  "megacrn": {
+    "megacrn__metr-la__seed0": {
+      "backbone": "megacrn",
+      "seed": 0,
+      "clean": {
+        "clean_norm_MAE": 0.5264062285423279,
+        "clean_denorm_MAE": 10.261894226074219,
+        "clean_denorm_MAE_masked": 3.122777223587036,
+        "clean_denorm_RMSE_masked": 6.4502973556518555,
+        "clean_denorm_MAPE_masked": 8.345215022563934
+      },
+      "sensor_multimask": {
+        "mask_seeds": [
+          42,
+          43,
+          44,
+          45,
+          46
+        ],
+        "per_mask": [
+          {
+            "mask_seed": 42,
+            "clean_MAE_kept": 0.5131368637084961,
+            "masked_MAE_kept": 0.48624473810195923,
+            "delta_sensor": -0.026892125606536865,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 43,
+            "clean_MAE_kept": 0.526568591594696,
+            "masked_MAE_kept": 0.4661150872707367,
+            "delta_sensor": -0.06045350432395935,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 44,
+            "clean_MAE_kept": 0.5316419005393982,
+            "masked_MAE_kept": 0.46358877420425415,
+            "delta_sensor": -0.06805312633514404,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 45,
+            "clean_MAE_kept": 0.5364991426467896,
+            "masked_MAE_kept": 0.45084595680236816,
+            "delta_sensor": -0.08565318584442139,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 46,
+            "clean_MAE_kept": 0.5209465622901917,
+            "masked_MAE_kept": 0.46993541717529297,
+            "delta_sensor": -0.05101114511489868,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          }
+        ],
+        "delta_sensor_mean": -0.058412617444992064,
+        "delta_sensor_std": 0.019429237741244953,
+        "relative_fragility": -0.005692186662436331,
+        "relative_fragility_masked": -0.018705342476494472
+      },
+      "city": {
+        "city_src_MAE_mean": 0.16721538901329042,
+        "city_src_MAE_std": 0.002359719737831234,
+        "city_tgt_MAE_mean": 4.027370119094849,
+        "city_tgt_MAE_std": 0.0925312292122437,
+        "city_tgt_MAE_masked_mean": 4.024125003814698,
+        "city_tgt_MAE_masked_std": 0.09156740638440095,
+        "n_subsets": 5,
+        "delta_city_src": -0.35919083952903746
+      },
+      "temporal_wdwe": {
+        "weekday_norm_MAE": 0.3341655433177948,
+        "weekend_norm_MAE": 1.0942281484603882,
+        "delta_temporal": 0.7600626051425934,
+        "weekday_windows": 5104,
+        "weekend_windows": 1728
+      }
+    },
+    "megacrn__metr-la__seed1": {
+      "backbone": "megacrn",
+      "seed": 1,
+      "clean": {
+        "clean_norm_MAE": 0.503616452217102,
+        "clean_denorm_MAE": 9.81762409210205,
+        "clean_denorm_MAE_masked": 2.98710298538208,
+        "clean_denorm_RMSE_masked": 6.110919952392578,
+        "clean_denorm_MAPE_masked": 7.97085240483284
+      },
+      "sensor_multimask": {
+        "mask_seeds": [
+          42,
+          43,
+          44,
+          45,
+          46
+        ],
+        "per_mask": [
+          {
+            "mask_seed": 42,
+            "clean_MAE_kept": 0.49012014269828796,
+            "masked_MAE_kept": 0.5205301642417908,
+            "delta_sensor": 0.030410021543502808,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 43,
+            "clean_MAE_kept": 0.50397127866745,
+            "masked_MAE_kept": 0.5022349953651428,
+            "delta_sensor": -0.001736283302307129,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 44,
+            "clean_MAE_kept": 0.5089877843856812,
+            "masked_MAE_kept": 0.4853702783584595,
+            "delta_sensor": -0.02361750602722168,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 45,
+            "clean_MAE_kept": 0.5132982730865479,
+            "masked_MAE_kept": 0.47714436054229736,
+            "delta_sensor": -0.03615391254425049,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 46,
+            "clean_MAE_kept": 0.49750423431396484,
+            "masked_MAE_kept": 0.4705831706523895,
+            "delta_sensor": -0.026921063661575317,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          }
+        ],
+        "delta_sensor_mean": -0.011603748798370362,
+        "delta_sensor_std": 0.023850303188754324,
+        "relative_fragility": -0.0011819304436095886,
+        "relative_fragility_masked": -0.003884616250311881
+      },
+      "city": {
+        "city_src_MAE_mean": 0.1595572739839554,
+        "city_src_MAE_std": 0.002923383901760383,
+        "city_tgt_MAE_mean": 4.422959518432617,
+        "city_tgt_MAE_std": 0.084553086011945,
+        "city_tgt_MAE_masked_mean": 4.419732761383057,
+        "city_tgt_MAE_masked_std": 0.0835241947421843,
+        "n_subsets": 5,
+        "delta_city_src": -0.3440591782331467
+      },
+      "temporal_wdwe": {
+        "weekday_norm_MAE": 0.32179421186447144,
+        "weekend_norm_MAE": 1.0406652688980103,
+        "delta_temporal": 0.7188710570335388,
+        "weekday_windows": 5104,
+        "weekend_windows": 1728
+      }
+    },
+    "megacrn__metr-la__seed2": {
+      "backbone": "megacrn",
+      "seed": 2,
+      "clean": {
+        "clean_norm_MAE": 0.5095229148864746,
+        "clean_denorm_MAE": 9.93276596069336,
+        "clean_denorm_MAE_masked": 3.0034878253936768,
+        "clean_denorm_RMSE_masked": 6.128947734832764,
+        "clean_denorm_MAPE_masked": 8.105866611003876
+      },
+      "sensor_multimask": {
+        "mask_seeds": [
+          42,
+          43,
+          44,
+          45,
+          46
+        ],
+        "per_mask": [
+          {
+            "mask_seed": 42,
+            "clean_MAE_kept": 0.4935990869998932,
+            "masked_MAE_kept": 0.42709648609161377,
+            "delta_sensor": -0.06650260090827942,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 43,
+            "clean_MAE_kept": 0.509232759475708,
+            "masked_MAE_kept": 0.45862406492233276,
+            "delta_sensor": -0.050608694553375244,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 44,
+            "clean_MAE_kept": 0.5156607031822205,
+            "masked_MAE_kept": 0.4252268671989441,
+            "delta_sensor": -0.09043383598327637,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 45,
+            "clean_MAE_kept": 0.5201537609100342,
+            "masked_MAE_kept": 0.44067588448524475,
+            "delta_sensor": -0.07947787642478943,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 46,
+            "clean_MAE_kept": 0.5046159625053406,
+            "masked_MAE_kept": 0.4203260838985443,
+            "delta_sensor": -0.08428987860679626,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          }
+        ],
+        "delta_sensor_mean": -0.07426257729530335,
+        "delta_sensor_std": 0.0142054857463649,
+        "relative_fragility": -0.007476525429994067,
+        "relative_fragility_masked": -0.02472544641847167
+      },
+      "city": {
+        "city_src_MAE_mean": 0.1627783864736557,
+        "city_src_MAE_std": 0.002675946002515044,
+        "city_tgt_MAE_mean": 3.957623291015625,
+        "city_tgt_MAE_std": 0.05654230777633171,
+        "city_tgt_MAE_masked_mean": 3.9543912410736084,
+        "city_tgt_MAE_masked_std": 0.05592201994669566,
+        "n_subsets": 5,
+        "delta_city_src": -0.3467445284128189
+      },
+      "temporal_wdwe": {
+        "weekday_norm_MAE": 0.32695862650871277,
+        "weekend_norm_MAE": 1.048763394355774,
+        "delta_temporal": 0.7218047678470612,
+        "weekday_windows": 5104,
+        "weekend_windows": 1728
+      }
+    }
+  },
+  "staeformer": {
+    "staeformer__metr-la__seed0": {
+      "backbone": "staeformer",
+      "seed": 0,
+      "clean": {
+        "clean_norm_MAE": 0.511161744594574,
+        "clean_denorm_MAE": 9.964715003967285,
+        "clean_denorm_MAE_masked": 2.9373998641967773,
+        "clean_denorm_RMSE_masked": 5.9863715171813965,
+        "clean_denorm_MAPE_masked": 8.110371977090836
+      },
+      "sensor_multimask": {
+        "mask_seeds": [
+          42,
+          43,
+          44,
+          45,
+          46
+        ],
+        "per_mask": [
+          {
+            "mask_seed": 42,
+            "clean_MAE_kept": 0.4985142648220062,
+            "masked_MAE_kept": 0.5097114443778992,
+            "delta_sensor": 0.011197179555892944,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 43,
+            "clean_MAE_kept": 0.5125541687011719,
+            "masked_MAE_kept": 0.5282065272331238,
+            "delta_sensor": 0.015652358531951904,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 44,
+            "clean_MAE_kept": 0.5183584094047546,
+            "masked_MAE_kept": 0.5349937081336975,
+            "delta_sensor": 0.01663529872894287,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 45,
+            "clean_MAE_kept": 0.5199311971664429,
+            "masked_MAE_kept": 0.5362377762794495,
+            "delta_sensor": 0.016306579113006592,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 46,
+            "clean_MAE_kept": 0.5045374035835266,
+            "masked_MAE_kept": 0.5165646076202393,
+            "delta_sensor": 0.012027204036712646,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          }
+        ],
+        "delta_sensor_mean": 0.014363723993301391,
+        "delta_sensor_std": 0.0022839284556041696,
+        "relative_fragility": 0.0014414585853767734,
+        "relative_fragility_masked": 0.004889945072980081
+      },
+      "city": {
+        "city_src_MAE_mean": 0.21747747361660003,
+        "city_src_MAE_std": 0.0013425052257085065,
+        "city_tgt_MAE_mean": 4.5443157196044925,
+        "city_tgt_MAE_std": 0.05441926729662737,
+        "city_tgt_MAE_masked_mean": 4.540372657775879,
+        "city_tgt_MAE_masked_std": 0.054452450676043825,
+        "n_subsets": 5,
+        "delta_city_src": -0.29368427097797395
+      },
+      "temporal_wdwe": {
+        "weekday_norm_MAE": 0.3214569389820099,
+        "weekend_norm_MAE": 1.07149338722229,
+        "delta_temporal": 0.7500364482402802,
+        "weekday_windows": 5104,
+        "weekend_windows": 1728
+      }
+    },
+    "staeformer__metr-la__seed1": {
+      "backbone": "staeformer",
+      "seed": 1,
+      "clean": {
+        "clean_norm_MAE": 0.5105080008506775,
+        "clean_denorm_MAE": 9.951972961425781,
+        "clean_denorm_MAE_masked": 2.9436657428741455,
+        "clean_denorm_RMSE_masked": 6.028084754943848,
+        "clean_denorm_MAPE_masked": 8.14148262143135
+      },
+      "sensor_multimask": {
+        "mask_seeds": [
+          42,
+          43,
+          44,
+          45,
+          46
+        ],
+        "per_mask": [
+          {
+            "mask_seed": 42,
+            "clean_MAE_kept": 0.497967392206192,
+            "masked_MAE_kept": 0.5124249458312988,
+            "delta_sensor": 0.014457553625106812,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 43,
+            "clean_MAE_kept": 0.5122643113136292,
+            "masked_MAE_kept": 0.5297263860702515,
+            "delta_sensor": 0.017462074756622314,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 44,
+            "clean_MAE_kept": 0.5174704194068909,
+            "masked_MAE_kept": 0.5369520783424377,
+            "delta_sensor": 0.019481658935546875,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 45,
+            "clean_MAE_kept": 0.5195104479789734,
+            "masked_MAE_kept": 0.536392867565155,
+            "delta_sensor": 0.01688241958618164,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 46,
+            "clean_MAE_kept": 0.503765344619751,
+            "masked_MAE_kept": 0.5210410356521606,
+            "delta_sensor": 0.017275691032409668,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          }
+        ],
+        "delta_sensor_mean": 0.017111879587173463,
+        "delta_sensor_std": 0.0016039590525464807,
+        "relative_fragility": 0.001719445948406386,
+        "relative_fragility_masked": 0.005813119111297505
+      },
+      "city": {
+        "city_src_MAE_mean": 0.21794162392616273,
+        "city_src_MAE_std": 0.0016741960252029686,
+        "city_tgt_MAE_mean": 4.45367956161499,
+        "city_tgt_MAE_std": 0.060097946426186634,
+        "city_tgt_MAE_masked_mean": 4.449738597869873,
+        "city_tgt_MAE_masked_std": 0.060148744632719166,
+        "n_subsets": 5,
+        "delta_city_src": -0.29256637692451476
+      },
+      "temporal_wdwe": {
+        "weekday_norm_MAE": 0.3219054639339447,
+        "weekend_norm_MAE": 1.0675841569900513,
+        "delta_temporal": 0.7456786930561066,
+        "weekday_windows": 5104,
+        "weekend_windows": 1728
+      }
+    },
+    "staeformer__metr-la__seed2": {
+      "backbone": "staeformer",
+      "seed": 2,
+      "clean": {
+        "clean_norm_MAE": 0.5103935599327087,
+        "clean_denorm_MAE": 9.949740409851074,
+        "clean_denorm_MAE_masked": 2.9218809604644775,
+        "clean_denorm_RMSE_masked": 5.952068328857422,
+        "clean_denorm_MAPE_masked": 8.077923208475113
+      },
+      "sensor_multimask": {
+        "mask_seeds": [
+          42,
+          43,
+          44,
+          45,
+          46
+        ],
+        "per_mask": [
+          {
+            "mask_seed": 42,
+            "clean_MAE_kept": 0.49799877405166626,
+            "masked_MAE_kept": 0.5100958347320557,
+            "delta_sensor": 0.012097060680389404,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 43,
+            "clean_MAE_kept": 0.5117751955986023,
+            "masked_MAE_kept": 0.5279249548912048,
+            "delta_sensor": 0.01614975929260254,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 44,
+            "clean_MAE_kept": 0.5173331499099731,
+            "masked_MAE_kept": 0.5352495312690735,
+            "delta_sensor": 0.017916381359100342,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 45,
+            "clean_MAE_kept": 0.5193706750869751,
+            "masked_MAE_kept": 0.5338005423545837,
+            "delta_sensor": 0.014429867267608643,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          },
+          {
+            "mask_seed": 46,
+            "clean_MAE_kept": 0.5040439963340759,
+            "masked_MAE_kept": 0.5180697441101074,
+            "delta_sensor": 0.014025747776031494,
+            "kept_nodes": 145,
+            "dropped_nodes": 62
+          }
+        ],
+        "delta_sensor_mean": 0.014923763275146485,
+        "delta_sensor_std": 0.001974813504781894,
+        "relative_fragility": 0.001499914838016348,
+        "relative_fragility_masked": 0.0051075877070550215
+      },
+      "city": {
+        "city_src_MAE_mean": 0.23391227722167968,
+        "city_src_MAE_std": 0.002488793254836846,
+        "city_tgt_MAE_mean": 4.6071795463562015,
+        "city_tgt_MAE_std": 0.05333777568925345,
+        "city_tgt_MAE_masked_mean": 4.603249835968017,
+        "city_tgt_MAE_masked_std": 0.05334193446328976,
+        "n_subsets": 5,
+        "delta_city_src": -0.27648128271102906
+      },
+      "temporal_wdwe": {
+        "weekday_norm_MAE": 0.3199864625930786,
+        "weekend_norm_MAE": 1.072799801826477,
+        "delta_temporal": 0.7528133392333984,
+        "weekday_windows": 5104,
+        "weekend_windows": 1728
+      }
+    }
+  }
+}

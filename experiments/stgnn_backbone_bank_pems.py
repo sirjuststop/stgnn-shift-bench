@@ -9,7 +9,7 @@ Registry updated with pems-bay entries.
 Imports model definitions and utilities from stgnn_backbone_bank.py (no code duplication).
 
 Usage:
-  cd /root/autodl-tmp/xile/benchmark_first_graph_gen
+  cd <project_root>
   python experiments/stgnn_backbone_bank_pems.py \\
     --backbones dcrnn gwnet gru \\
     --seeds 3 4 5 \\

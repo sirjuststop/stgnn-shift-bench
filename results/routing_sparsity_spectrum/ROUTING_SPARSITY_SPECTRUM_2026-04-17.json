@@ -1,0 +1,196 @@
+{
+  "gwnet": {
+    "family": "dense-bilinear",
+    "normalized_entropy_mean": 0.8089609146118164,
+    "normalized_entropy_std": 0.056958779112751844,
+    "max_mass_mean": 0.22951878607273102,
+    "effective_k_mean": 114.1891352335612,
+    "above_uniform_mean": 10.619967460632324,
+    "density_mean": 1.0,
+    "per_seed": [
+      {
+        "num_nodes": 207,
+        "row_entropy_mean": 4.707852840423584,
+        "row_entropy_std": 1.00377357006073,
+        "normalized_entropy_mean": 0.8828241229057312,
+        "max_mass_mean": 0.163826584815979,
+        "max_mass_std": 0.19591307640075684,
+        "effective_k_mean": 141.8101348876953,
+        "above_uniform_mean": 6.241545677185059,
+        "density": 1.0
+      },
+      {
+        "num_nodes": 207,
+        "row_entropy_mean": 3.9685940742492676,
+        "row_entropy_std": 1.2372981309890747,
+        "normalized_entropy_mean": 0.7441972494125366,
+        "max_mass_mean": 0.27726179361343384,
+        "max_mass_std": 0.23063625395298004,
+        "effective_k_mean": 91.25858306884766,
+        "above_uniform_mean": 10.657004356384277,
+        "density": 1.0
+      },
+      {
+        "num_nodes": 207,
+        "row_entropy_mean": 4.265436172485352,
+        "row_entropy_std": 1.1638669967651367,
+        "normalized_entropy_mean": 0.7998613715171814,
+        "max_mass_mean": 0.2474679797887802,
+        "max_mass_std": 0.23723278939723969,
+        "effective_k_mean": 109.49868774414062,
+        "above_uniform_mean": 14.961352348327637,
+        "density": 1.0
+      }
+    ],
+    "fragility_delta_sensor": 0.092
+  },
+  "mtgnn": {
+    "family": "sparse-topk",
+    "normalized_entropy_mean": 0.4071023960908254,
+    "normalized_entropy_std": 0.0010467012256886114,
+    "max_mass_mean": 0.1596456120411555,
+    "effective_k_mean": 8.83202044169108,
+    "above_uniform_mean": 10.0,
+    "density_mean": 0.04830917716026306,
+    "per_seed": [
+      {
+        "num_nodes": 207,
+        "row_entropy_mean": 2.1768486499786377,
+        "row_entropy_std": 0.1201692596077919,
+        "normalized_entropy_mean": 0.40820619463920593,
+        "max_mass_mean": 0.15857142210006714,
+        "max_mass_std": 0.04870282858610153,
+        "effective_k_mean": 8.877705574035645,
+        "above_uniform_mean": 10.0,
+        "density": 0.04830917716026306
+      },
+      {
+        "num_nodes": 207,
+        "row_entropy_mean": 2.172574758529663,
+        "row_entropy_std": 0.12176082283258438,
+        "normalized_entropy_mean": 0.40740466117858887,
+        "max_mass_mean": 0.16074013710021973,
+        "max_mass_std": 0.04648513346910477,
+        "effective_k_mean": 8.842425346374512,
+        "above_uniform_mean": 10.0,
+        "density": 0.04830917716026306
+      },
+      {
+        "num_nodes": 207,
+        "row_entropy_mean": 2.163464307785034,
+        "row_entropy_std": 0.13523931801319122,
+        "normalized_entropy_mean": 0.4056963324546814,
+        "max_mass_mean": 0.15962527692317963,
+        "max_mass_std": 0.051596663892269135,
+        "effective_k_mean": 8.775930404663086,
+        "above_uniform_mean": 10.0,
+        "density": 0.04830917716026306
+      }
+    ],
+    "fragility_delta_sensor": 0.051
+  },
+  "agcrn": {
+    "family": "dense-symmetric",
+    "normalized_entropy_mean": 0.9975154797236124,
+    "normalized_entropy_std": 0.0010867133594207158,
+    "max_mass_mean": 0.008456302030632893,
+    "effective_k_mean": 204.28426615397134,
+    "above_uniform_mean": 84.62157694498698,
+    "density_mean": 1.0,
+    "per_seed": [
+      {
+        "num_nodes": 207,
+        "row_entropy_mean": 5.323531627655029,
+        "row_entropy_std": 0.005455509759485722,
+        "normalized_entropy_mean": 0.9982773661613464,
+        "max_mass_mean": 0.007732699625194073,
+        "max_mass_std": 0.0017854154575616121,
+        "effective_k_mean": 205.110107421875,
+        "above_uniform_mean": 84.40096282958984,
+        "density": 1.0
+      },
+      {
+        "num_nodes": 207,
+        "row_entropy_mean": 5.323602676391602,
+        "row_entropy_std": 0.004394222516566515,
+        "normalized_entropy_mean": 0.9982904195785522,
+        "max_mass_mean": 0.007591300178319216,
+        "max_mass_std": 0.0014190059155225754,
+        "effective_k_mean": 205.12342834472656,
+        "above_uniform_mean": 88.90821075439453,
+        "density": 1.0
+      },
+      {
+        "num_nodes": 207,
+        "row_entropy_mean": 5.311274528503418,
+        "row_entropy_std": 0.010475024580955505,
+        "normalized_entropy_mean": 0.9959786534309387,
+        "max_mass_mean": 0.010044906288385391,
+        "max_mass_std": 0.0030070811044424772,
+        "effective_k_mean": 202.6192626953125,
+        "above_uniform_mean": 80.55555725097656,
+        "density": 1.0
+      }
+    ],
+    "fragility_delta_sensor": 0.011
+  },
+  "megacrn": {
+    "family": "memory-meta",
+    "normalized_entropy_mean": 0.9956952730814616,
+    "normalized_entropy_std": 0.0023258226292691975,
+    "max_mass_mean": 0.008467006497085094,
+    "effective_k_mean": 202.33586629231772,
+    "above_uniform_mean": 94.59420522054036,
+    "density_mean": 1.0,
+    "per_seed": [
+      {
+        "num_nodes": 207,
+        "row_entropy_mean": 5.327247142791748,
+        "row_entropy_std": 0.002538371132686734,
+        "normalized_entropy_mean": 0.9989739060401917,
+        "max_mass_mean": 0.006352427415549755,
+        "max_mass_std": 0.00041424119262956083,
+        "effective_k_mean": 205.87106323242188,
+        "above_uniform_mean": 98.82125854492188,
+        "density": 1.0
+      },
+      {
+        "num_nodes": 207,
+        "row_entropy_mean": 5.3022379875183105,
+        "row_entropy_std": 0.014562012627720833,
+        "normalized_entropy_mean": 0.9942842125892639,
+        "max_mass_mean": 0.009323052130639553,
+        "max_mass_std": 0.0014707959489896894,
+        "effective_k_mean": 200.80674743652344,
+        "above_uniform_mean": 92.28502655029297,
+        "density": 1.0
+      },
+      {
+        "num_nodes": 207,
+        "row_entropy_mean": 5.299803733825684,
+        "row_entropy_std": 0.01805124245584011,
+        "normalized_entropy_mean": 0.9938277006149292,
+        "max_mass_mean": 0.009725539945065975,
+        "max_mass_std": 0.0016663626302033663,
+        "effective_k_mean": 200.3297882080078,
+        "above_uniform_mean": 92.67633056640625,
+        "density": 1.0
+      }
+    ],
+    "fragility_delta_sensor": -0.005
+  },
+  "fixed_adj": {
+    "num_nodes": 207,
+    "row_entropy_mean": 1.767998456954956,
+    "row_entropy_std": 0.5828016400337219,
+    "normalized_entropy_mean": 0.3315379321575165,
+    "max_mass_mean": 0.31912946701049805,
+    "max_mass_std": 0.1875971108675003,
+    "effective_k_mean": 6.734647274017334,
+    "above_uniform_mean": 8.318840980529785,
+    "density": 0.04018763452768326,
+    "family": "fixed-distance",
+    "fragility_delta_sensor_dcrnn": 0.021,
+    "fragility_delta_sensor_stgcn": 0.079
+  }
+}

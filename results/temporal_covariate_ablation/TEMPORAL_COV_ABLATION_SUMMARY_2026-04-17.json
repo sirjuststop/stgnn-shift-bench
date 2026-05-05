@@ -1,0 +1,70 @@
+{
+  "megacrn": {
+    "clean": {
+      "delta_norm_mean": 0.7335794766743978,
+      "delta_norm_std": 0.018764660666290744,
+      "delta_masked_mph_mean": -0.5937056541442871,
+      "delta_masked_mph_std": 0.05128242804975773,
+      "weekday_norm_MAE_mean": 0.32763946056365967,
+      "weekend_norm_MAE_mean": 1.0612189372380574
+    },
+    "zero": {
+      "delta_norm_mean": 0.720181534687678,
+      "delta_norm_std": 0.013821119918108533,
+      "delta_masked_mph_mean": -0.8132018248240153,
+      "delta_masked_mph_std": 0.20956445092994458,
+      "weekday_norm_MAE_mean": 0.3730263411998749,
+      "weekend_norm_MAE_mean": 1.093207875887553
+    },
+    "randomize": {
+      "delta_norm_mean": 0.7253164748350779,
+      "delta_norm_std": 0.01799296079051331,
+      "delta_masked_mph_mean": -0.744705597559611,
+      "delta_masked_mph_std": 0.05236362024079146,
+      "weekday_norm_MAE_mean": 0.341908464829127,
+      "weekend_norm_MAE_mean": 1.0672249396642048
+    },
+    "swap": {
+      "delta_norm_mean": 0.733549694220225,
+      "delta_norm_std": 0.015721775985161314,
+      "delta_masked_mph_mean": -0.6512453556060791,
+      "delta_masked_mph_std": 0.1049199751883041,
+      "weekday_norm_MAE_mean": 0.34230269988377887,
+      "weekend_norm_MAE_mean": 1.075852394104004
+    }
+  },
+  "staeformer": {
+    "clean": {
+      "delta_norm_mean": 0.7495094935099283,
+      "delta_norm_std": 0.002936443992844231,
+      "delta_masked_mph_mean": -0.6119077205657959,
+      "delta_masked_mph_std": 0.0019272670313275782,
+      "weekday_norm_MAE_mean": 0.32111628850301105,
+      "weekend_norm_MAE_mean": 1.0706257820129395
+    },
+    "zero": {
+      "delta_norm_mean": 0.6878523230552673,
+      "delta_norm_std": 0.00257640966703488,
+      "delta_masked_mph_mean": -0.8344496885935465,
+      "delta_masked_mph_std": 0.025142031042113547,
+      "weekday_norm_MAE_mean": 0.3973119060198466,
+      "weekend_norm_MAE_mean": 1.085164229075114
+    },
+    "randomize": {
+      "delta_norm_mean": 0.6901208857695261,
+      "delta_norm_std": 0.001464867749414852,
+      "delta_masked_mph_mean": -1.1461429595947266,
+      "delta_masked_mph_std": 0.03529033078079205,
+      "weekday_norm_MAE_mean": 0.3903236885865529,
+      "weekend_norm_MAE_mean": 1.080444574356079
+    },
+    "swap": {
+      "delta_norm_mean": 0.6555647750695547,
+      "delta_norm_std": 0.006675318743595673,
+      "delta_masked_mph_mean": -0.5924627780914307,
+      "delta_masked_mph_std": 0.10940307741320086,
+      "weekday_norm_MAE_mean": 0.4055905838807424,
+      "weekend_norm_MAE_mean": 1.0611553589502971
+    }
+  }
+}

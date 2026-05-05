@@ -5,21 +5,16 @@
 We pre-registered 16 predictions in five stages before running the corresponding experiments.
 Of these, 10 were confirmed, 4 were refuted, and 2 were partially confirmed.
 The full prediction--outcome ledger is in Appendix~\ref{sec:appendix_preregistered};
-key confirmed predictions (P14--P19, P21) are referenced inline where their results appear.
+the relevant confirmed predictions (P14--P19, P21) are referenced inline where their results appear.
 
 Table~\ref{tab:main} reports the main results across all five backbones and three shift types.
 
 \begin{table}[t]
 \centering
-\caption{\textbf{Robustness rankings are shift-specific: no single backbone dominates.}
-Five backbones evaluated across three natural shifts (3 seeds, mean $\pm$ std).
-\textbf{Sensor dropout} $\DeltaSensor$: MAE increase on kept sensors after 30\% zero-masking (5 masks).
-\textbf{Cross-city}: normalized MAE on PEMS-BAY under matched structural access
-(source-only adjacency for all models; GWNet/MTGNNLight are source-tied by construction).
-Target-adj mph values in Appendix~\ref{sec:appendix_source_adj}.
-\textbf{Temporal} $\DeltaTemp$: weekend minus weekday MAE (normalized).
-Lower is better for all columns; shift deltas in normalized units (METR-LA training statistics).
-Backbones ordered by sensor-dropout robustness.}
+\caption{\textbf{Robustness rankings are shift-specific.}
+Five backbones evaluated across sensor dropout, cross-city transfer, and
+temporal subgroup shift. Values are mean $\pm$ population std over 3 seeds;
+lower is better.}
 \label{tab:main}
 \vskip 0.05in
 \resizebox{\linewidth}{!}{%
@@ -27,19 +22,19 @@ Backbones ordered by sensor-dropout robustness.}
 \toprule
 \textbf{Backbone} & \textbf{In-dist MAE (mph)} & \textbf{$\DeltaSensor$ (30\%, norm.)} & \textbf{X-city (norm.)$^{\dagger}$} & \textbf{$\DeltaTemp$ (norm.)} \\
 \midrule
-DCRNN (fixed diffusion)       & $6.57 \pm 0.03$ & $+0.021 \pm 0.002$ & $0.180 \pm 0.001$ & $+0.087 \pm 0.004$ \\
-MTGNNLight (sparse cosine-sim)& $6.88 \pm 0.11$ & $+0.051 \pm 0.012$ & $0.244 \pm 0.005$ & $+0.075 \pm 0.007$ \\
-STGCN (fixed spectral)        & $7.12 \pm 0.05$ & $+0.078 \pm 0.007$ & $0.249 \pm 0.010$ & $+0.094 \pm 0.003$ \\
-GRU   (graph-free)            & $7.49 \pm 0.12$ & $+0.025 \pm 0.012$ & $0.278 \pm 0.011$ & $+0.093 \pm 0.003$ \\
-GWNet (dense adaptive adj)    & $7.85 \pm 0.11$ & $+0.088 \pm 0.017$ & $0.268 \pm 0.007$ & $+0.094 \pm 0.009$ \\
+DCRNN (fixed diffusion)       & $6.58 \pm 0.03$ & $+0.020 \pm 0.002$ & $0.180 \pm 0.001$ & $+0.087 \pm 0.004$ \\
+GRU   (graph-free)            & $7.49 \pm 0.12$ & $+0.025 \pm 0.012$ & $0.278 \pm 0.009$ & $+0.093 \pm 0.003$ \\
+MTGNNLight (sparse cosine-sim)& $6.88 \pm 0.11$ & $+0.051 \pm 0.012$ & $0.244 \pm 0.004$ & $+0.075 \pm 0.007$ \\
+STGCN (fixed spectral)        & $7.12 \pm 0.05$ & $+0.078 \pm 0.007$ & $0.249 \pm 0.008$ & $+0.093 \pm 0.003$ \\
+GWNet (dense adaptive adj)    & $7.85 \pm 0.11$ & $+0.088 \pm 0.017$ & $0.268 \pm 0.006$ & $+0.094 \pm 0.009$ \\
 \bottomrule
 \end{tabular}}
 {\footnotesize $^{\dagger}$Source-only adjacency; METR-LA-stat normalized MAE on PEMS-BAY.}
 \end{table}
 
 \paragraph{Sensor dropout.}
-Best to worst (5 masks, 3 seeds): DCRNN $+0.021$, GRU $+0.025$, MTGNNLight
-$+0.051$, STGCN $+0.078$, GWNet $+0.088$. GWNet degrades $4.2{\times}$ DCRNN's
+Under the primary-mask protocol, the ranking is DCRNN $+0.020$, GRU $+0.025$, MTGNNLight
+$+0.051$, STGCN $+0.078$, GWNet $+0.088$. GWNet degrades $4.3{\times}$ DCRNN's
 gap (${>}7{\times}$ cross-seed std). MTGNNLight's sparse cosine-similarity
 adjacency (top-$k{=}10$) is 42\% less fragile than GWNet's dense softmax,
 which points at adjacency density rather than topology-learning per se.
@@ -53,7 +48,7 @@ Under source-only adjacency, \textbf{DCRNN leads the canonical bank}
 ($0.180 \pm 0.001$, a 49\% gap over GWNet's $0.268$). Fixed adjacency does not
 automatically buy transfer robustness: STGCN ($0.249$) nearly matches GWNet
 under fair comparison; its earlier target-adj advantage ($0.202$) was a
-topology-access artefact. DCRNN's bidirectional diffusion generalizes across
+topology-access artifact. DCRNN's bidirectional diffusion generalizes across
 topologies even when confined to source structure, and the advantage holds on
 a second city pair (Table~\ref{tab:consolidated}). Index-repetition padding
 (used when target $N <$ source $N$) flatters graph-free and dense-adaptive
@@ -74,15 +69,14 @@ Rankings differ across shift types: in-distribution accuracy does not predict
 sensor-dropout fragility, and fixed adjacency does not guarantee transfer
 robustness. DCRNN leads city transfer within the canonical bank ($0.180$), but
 \S\ref{sec:extended} shows that fact does not survive the addition of modern
-adaptive-relation models. The central observation is shift-specificity: no
-single ``most robust'' backbone, and the right choice depends on the
-anticipated shift. Table~\ref{tab:consolidated} consolidates supplementary
-results supporting these claims.
+adaptive-relation models. The evaluation point is shift-specificity: the right
+choice depends on the anticipated shift. Table~\ref{tab:consolidated}
+consolidates supplementary results supporting these claims.
 
 \begin{table}[t]
 \centering
-\caption{\textbf{Key supplementary results confirming main findings.}
-Each row summarizes an appendix experiment that directly supports a main-text claim.}
+\caption{\textbf{Key supplementary checks behind the main findings.}
+Each row points to the appendix experiment supporting a main-text claim.}
 \label{tab:consolidated}
 \vskip 0.05in
 \small
@@ -115,23 +109,17 @@ Per-horizon city MAE (P19)
 \label{sec:extended}
 
 The canonical bank covers four spatial-aggregation strategies but omits the
-newer adaptive-relation designs that dominate traffic forecasting
-leaderboards. To test whether the findings carry over, we add three
+newer adaptive-relation designs used in recent traffic forecasting work. To
+test whether the findings carry over, we add three
 architectures (AGCRN, MegaCRN, STAEformer) trained on the same METR-LA data
 with the same split, frozen after training, evaluated under the same protocol.
 Table~\ref{tab:extended} reports results alongside DCRNN as a reference.
 
 \begin{table}[t]
 \centering
-\caption{\textbf{Modern adaptive-relation models exhibit heterogeneous failure profiles
-that do not support a family-wide fragility claim.}
-Clean performance uses masked MAE (excluding zero-speed targets), the standard convention
-for these architectures; DCRNN uses plain MAE and is included for shift-delta comparison
-only.
-$\DeltaSensor$: normalized MAE increase at 30\% zero-mask dropout (5 masks, 3 seeds).
-Cross-city: source-stat normalized MAE on PEMS-BAY (same protocol as Table~\ref{tab:main}).
-$\DeltaTemp$: weekend minus weekday normalized MAE (source-stat normalized units,
-same convention as Table~\ref{tab:main}).}
+\caption{\textbf{Newer adaptive-relation models fail on different axes.}
+Clean MAE follows each architecture's standard masked-MAE convention; shift
+columns use the same normalized protocol as Table~\ref{tab:main}.}
 \label{tab:extended}
 \vskip 0.05in
 \resizebox{\linewidth}{!}{%
@@ -139,11 +127,11 @@ same convention as Table~\ref{tab:main}).}
 \toprule
 \textbf{Model} & \textbf{Clean MAE (mph)} & \textbf{$\DeltaSensor$ (30\%, norm.)} & \textbf{Cross-city (src, norm.)} & \textbf{$\DeltaTemp$ (norm.)} \\
 \midrule
-AGCRN      & $4.09 \pm 0.02^{\dagger}$ & $+0.019 \pm 0.001$ & $0.206 \pm 0.011$ & $+0.061 \pm 0.008$ \\
-MegaCRN    & $3.04 \pm 0.06^{\dagger}$ & $-0.048 \pm 0.027$ & $0.163 \pm 0.004$ & $+0.734 \pm 0.019$ \\
-STAEformer & $2.93 \pm 0.01^{\dagger}$ & $+0.016 \pm 0.001$ & $0.223 \pm 0.009$ & $+0.750 \pm 0.003$ \\
+AGCRN      & $4.09 \pm 0.02^{\dagger}$ & $+0.019 \pm 0.001$ & $0.206 \pm 0.009$ & $+0.061 \pm 0.008$ \\
+MegaCRN    & $3.04 \pm 0.06^{\dagger}$ & $-0.048 \pm 0.027$ & $0.163 \pm 0.003$ & $+0.734 \pm 0.019$ \\
+STAEformer & $2.93 \pm 0.01^{\dagger}$ & $+0.015 \pm 0.001$ & $0.223 \pm 0.008$ & $+0.750 \pm 0.003$ \\
 \midrule
-DCRNN (ref) & $6.57 \pm 0.03$ & $+0.020 \pm 0.002$ & $0.180 \pm 0.001$ & $+0.087 \pm 0.004$ \\
+DCRNN (ref) & $6.58 \pm 0.03$ & $+0.020 \pm 0.002$ & $0.180 \pm 0.001$ & $+0.087 \pm 0.004$ \\
 \bottomrule
 \end{tabular}}
 \vskip 0.05in
@@ -152,7 +140,7 @@ Cross-family clean-performance ranking is not meaningful due to this convention 
 \end{table}
 
 \paragraph{Sensor dropout.}
-AGCRN ($+0.019$) and STAEformer ($+0.016$) match DCRNN ($+0.020$), so
+AGCRN ($+0.019$) and STAEformer ($+0.015$) match DCRNN ($+0.020$), so
 GWNet's fragility ($+0.088$) does not generalize to every adaptive-graph
 model. The distinction is dense all-pairs softmax (Eq.~\ref{eq:adaptive_adj})
 vs.\ node-specific or attention-mediated relations. MegaCRN's negative delta
@@ -172,40 +160,36 @@ and day-of-week---exhibit normalized weekday$\to$weekend gaps $8$--$9\times$
 DCRNN's ($+0.087$), consistent across seeds (std ${<}0.02$).%
 \footnote{The $8$--$9\times$ multiplier is in normalized units; in absolute
 masked mph, MegaCRN's and STAEformer's clean MAE ($\approx 3$ mph) is roughly
-half DCRNN's ($6.57$ mph), so per-node-std normalization amplifies the visible
-ratio. Per-seed weekday/weekend mph values are in
-Appendix~\ref{sec:appendix_temporal_cov} (Table~\ref{tab:temporal_cov} caption).}
+half DCRNN's ($6.58$ mph), so per-node-std normalization amplifies the visible
+ratio. Temporal covariate ablation results are in
+Appendix~\ref{sec:appendix_temporal_cov}.}
 AGCRN ($+0.061$) does not condition on temporal covariates and matches the
 canonical bank. Yet direct covariate randomization or swap does not eliminate
-MegaCRN's gap (\S\ref{sec:polish_ablations}): the fragility lives in the
+MegaCRN's gap (\S\ref{sec:polish_ablations}): the fragility appears in the
 memory bank or encoder dynamics, not the covariate channel.
 
-\paragraph{Synthesis: fragility redistribution.}
-Modern adaptive-relation models distribute their failures heterogeneously
+\paragraph{Synthesis: axis-specific failure modes.}
+Modern adaptive-relation models split their failures across deployment axes
 (Figure~\ref{fig:shift_profiles}): AGCRN and STAEformer match DCRNN under
 sensor dropout, MegaCRN leads cross-city, and MegaCRN/STAEformer introduce a
-new temporal-subgroup axis. Architectural progress redistributes fragility
-across deployment axes rather than removing it. The sensor-dropout ranking
-is specific to silent zero-masking; under last-observed-value carry-forward
+new temporal-subgroup axis. The shared sensor-dropout coordinate is routing
+concentration: it predicts fragility even when clean accuracy and cross-city
+ranking move in different directions. The sensor-dropout ranking is specific
+to silent zero-masking; under last-observed-value carry-forward
 (LOCF, the more common operational regime) every backbone recovers
 ${\geq}97\%$ of the gap (Appendix~\ref{sec:appendix_imputation}), so the
 practical impact of GWNet's fragility is bounded by the deployment pipeline's
 imputation policy. All conclusions are drawn from METR-LA as the single
-source city; external validity beyond highway traffic and this source is
-an open question (\S\ref{sec:discussion}).
+source city; highway networks outside this source are not tested here
+(\S\ref{sec:discussion}).
 
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=\textwidth]{figures/shift_profiles.pdf}
-\caption{\textbf{Robustness redistributes across deployment shifts: no
-backbone dominates all three axes.} Eight backbones (canonical bank left,
-extended right of the dashed line) under three shifts; error bars are
-$\pm 1$ std over 3 seeds. The sensor panel additionally overlays
-PEMS04-native $\DeltaSensor$ as hatched bars for the four adaptive backbones
-(MTGNN, GWNet, AGCRN, MegaCRN); their cross-city Pearson
-$\rho{=}{+}0.910$ replicates the METR-LA $\rho{=}{+}0.979$ over the same
-four backbones (STAEformer is excluded for lack of a single row-stochastic
-adjacency; Appendix~\ref{sec:appendix_pems04_routing}).}
+\caption{\textbf{Routing concentration and shift type jointly determine which
+backbone fails.} Eight backbones under three shifts; dashed line separates the
+canonical and extended banks. Error bars are $\pm 1$ std over 3 seeds; hatched
+bars in the sensor panel show the PEMS04-native adaptive-backbone replication
+(Appendix~\ref{sec:appendix_pems04_routing}).}
 \label{fig:shift_profiles}
 \end{figure}
-

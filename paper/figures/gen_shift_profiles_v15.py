@@ -8,6 +8,7 @@ GWNet, AGCRN, MegaCRN), making the two-city replication legible without a
 separate figure.
 
 Numbers come from §4 Tables 1–2 + results/polish_v15/pems04_native_routing_gate.json.
+Error bars use the population-std convention from the canonical merged table.
 
 Outputs:
   paper/figures/shift_profiles.pdf
@@ -35,16 +36,16 @@ MODELS = [
 N_CANONICAL = 5
 
 SENSOR     = np.array([0.020, 0.051, 0.078, 0.025, 0.088,
-                       0.019, -0.048, 0.016])
+                       0.019, -0.048, 0.015])
 SENSOR_STD = np.array([0.002, 0.012, 0.007, 0.012, 0.017,
                        0.001, 0.027, 0.001])
 
 CITY     = np.array([0.180, 0.244, 0.249, 0.278, 0.268,
                      0.206, 0.163, 0.223])
-CITY_STD = np.array([0.001, 0.005, 0.010, 0.011, 0.007,
-                     0.011, 0.004, 0.009])
+CITY_STD = np.array([0.001, 0.004, 0.008, 0.009, 0.006,
+                     0.009, 0.003, 0.008])
 
-TEMP     = np.array([0.087, 0.075, 0.094, 0.093, 0.094,
+TEMP     = np.array([0.087, 0.075, 0.093, 0.093, 0.094,
                      0.061, 0.734, 0.750])
 TEMP_STD = np.array([0.004, 0.007, 0.003, 0.003, 0.009,
                      0.008, 0.019, 0.003])

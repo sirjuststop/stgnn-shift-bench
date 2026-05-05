@@ -39,16 +39,16 @@ MODELS = [
 ]
 N_CANONICAL = 5
 
-# Sensor: ΔSensor (norm) at 30% zero-mask, 5 masks × 3 seeds
+# Sensor: ΔSensor (norm) at the pre-registered 30% primary zero-mask
 SENSOR = np.array([0.020, 0.051, 0.078, 0.025, 0.088,
-                   0.019, -0.048, 0.016])
+                   0.019, -0.048, 0.015])
 
 # Cross-city: source-stat normalized MAE on PEMS-BAY
 CITY = np.array([0.180, 0.244, 0.249, 0.278, 0.268,
                  0.206, 0.163, 0.223])
 
 # Temporal: weekend − weekday normalized MAE
-TEMPORAL = np.array([0.087, 0.075, 0.094, 0.093, 0.094,
+TEMPORAL = np.array([0.087, 0.075, 0.093, 0.093, 0.094,
                      0.061, 0.734, 0.750])
 
 SHIFT_LABELS = [

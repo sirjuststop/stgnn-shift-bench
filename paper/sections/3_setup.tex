@@ -1,16 +1,50 @@
 \section{Problem Setup and Backbone Bank}
 \label{sec:setup}
 
+The audit evaluates eight frozen STGNN checkpoints under three
+deployment-realistic shifts. Table~\ref{tab:audit_design} summarizes each
+shift axis, its metric, the protocol control, the main validity threat, and
+the appendix that addresses it.
+
+\begin{table}[t]
+\centering
+\caption{\textbf{Audit design at a glance.} Three deployment-realistic shifts evaluated
+under a unified frozen-checkpoint protocol.}
+\label{tab:audit_design}
+\vskip 0.05in
+\small
+\begin{tabular}{p{2.3cm}p{2.6cm}p{2.6cm}p{2.8cm}p{1.6cm}}
+\toprule
+\textbf{Shift axis} & \textbf{Metric} & \textbf{Control} & \textbf{Validity threat} & \textbf{App.\ check} \\
+\midrule
+Sensor dropout &
+  $\DeltaSensor$: MAE delta (norm.) &
+  MAE on kept sensors only; primary mask &
+  Random vs.\ structured dropout pattern &
+  \ref{sec:appendix_structured_dropout}, \ref{sec:appendix_multimask} \\
+Cross-city transfer &
+  X-city norm.\ MAE &
+  Matched structural access (source adj) &
+  Subset sampling; padding inflation &
+  \ref{sec:appendix_subset_sensitivity}, \ref{sec:appendix_no_pad_sensitivity} \\
+Temporal subgroup &
+  $\DeltaTemp$: weekend$-$weekday (norm.) &
+  Within-split stratification; no new data &
+  Normalized-unit amplification &
+  \ref{sec:appendix_temporal_cov} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \subsection{Backbone Architectures}
 \label{subsec:backbones}
 
 The bank covers five architectures from graph-free to fixed-graph to
 adaptive-graph.
 
-\textbf{DCRNN}~\citep{li2018dcrnn} treats traffic as a diffusion process on a
-fixed road-distance adjacency $\Aadj$, with bidirectional updates
-$\hvec_{t+1} = f\!\left(\sum_{k=0}^{K} (\Aadj^k \oplus (\Aadj^\top)^k)\xvec_t,\, \hvec_t\right)$;
-the adjacency is fixed at training and inference.
+\textbf{DCRNN}~\citep{li2018dcrnn} uses a bidirectional diffusion GRU on a
+fixed road-distance adjacency $\Aadj$ (truncated at $K$ hops in both
+directions), fixed at training and inference.
 \textbf{Graph WaveNet (GWNet)}~\citep{wu2019gwnet} adds a learned adaptive
 adjacency
 \begin{equation}
@@ -26,7 +60,7 @@ a single feature vector and uses no adjacency.
 \textbf{MTGNNLight} is a lightweight MTGNN variant~\citep{wu2020mtgnn} that
 learns a sparse adaptive graph via pairwise cosine similarity on a single
 embedding $\mathbf{E}\in\mathbb{R}^{N\times d}$ and keeps only top-$k$
-neighbours per node---a direct contrast to GWNet's dense all-pairs softmax that
+neighbors per node---a direct contrast to GWNet's dense all-pairs softmax that
 isolates whether dropout fragility depends on adjacency density or on
 topology-learning per se (P14).
 
@@ -39,11 +73,11 @@ adaptive embed 20, patience 30); both are frozen at shift-eval time.
 \subsection{Backbone Bank Protocol}
 \label{subsec:bank}
 
-We train each backbone on METR-LA~\citep{liu2023largest} (207 sensors, 34,272
+We train each backbone on METR-LA~\citep{li2018dcrnn} (207 sensors, 34,272
 timesteps at 5-min, ${\sim}4$ months, chronological 70/10/20 split) with three
 seeds (0,1,2). Checkpoints are frozen after training; no re-training occurs
 at shift-eval time. In-distribution MAE (mph, denormalized): DCRNN
-$6.57 \pm 0.03$, MTGNNLight $6.88 \pm 0.11$, STGCN $7.12 \pm 0.05$,
+$6.58 \pm 0.03$, MTGNNLight $6.88 \pm 0.11$, STGCN $7.12 \pm 0.05$,
 GWNet[Strong] $7.42 \pm 0.04$, GRU $7.49 \pm 0.12$, GWNet[CM] $7.83 \pm 0.10$,
 GWNet $7.85 \pm 0.11$. GWNet underperforms DCRNN and even MTGNNLight on
 in-distribution data despite its adaptive adjacency---a limitation discussed
@@ -70,20 +104,20 @@ cross-family clean-performance ranking.
 At inference, a random 30\% of sensor channels are zero-masked. The 207-node
 model is not re-instantiated; it sees a 207-dimensional input with zeroed
 channels, and MAE is computed on the kept sensors only so clean and masked
-evaluations are directly comparable. Five independent random masks per
-checkpoint separate mask-sampling from model-weight variance;
-Tables~\ref{tab:main}--\ref{tab:extended} report the primary-mask aggregate
-(all 5-mask aggregates are within $\pm 0.005$). Structured dropout patterns
+evaluations are directly comparable. Tables~\ref{tab:main}--\ref{tab:extended}
+report the pre-registered primary-mask aggregate; Appendix~\ref{sec:appendix_multimask}
+reports 5-mask aggregates to separate mask-sampling from model-weight variance.
+GRU is the main mask-sampling caveat. Structured dropout patterns
 (hub and contiguous) are in Appendix~\ref{sec:appendix_structured_dropout}.
-This models silent sensor failure.
+This is the silent-failure setting.
 
 \paragraph{Cross-city transfer.}
 The frozen METR-LA model is evaluated zero-shot on
-PEMS-BAY~\citep{liu2023largest} (Bay Area, 325 sensors, 52,116 timesteps).
+PEMS-BAY~\citep{li2018dcrnn} (Bay Area, 325 sensors, 52,116 timesteps).
 A second pair (PEMS04 source, 307 sensors; zero-shot on METR-LA and PEMS-BAY)
 is in Appendix~\ref{sec:appendix_pems04} for cross-city generality (P18).
 ``Zero-shot'' means no re-training or fine-tuning. Because PEMS-BAY has 325
-sensors and our models capacity 207, we subsample 207 PEMS-BAY sensors
+sensors and the METR-LA checkpoints have 207 input channels, we subsample 207 PEMS-BAY sensors
 (5 subsets); rankings are stable at 150-node coverage
 (Appendix~\ref{sec:appendix_subset_sensitivity}).
 
@@ -92,7 +126,7 @@ The main cross-city comparison uses source-only adjacency: every backbone
 uses the METR-LA adjacency at inference, removing the asymmetry that
 adaptive-graph models cannot access target topology by construction.
 Under this constraint, any observed advantage is architectural, not an
-artefact of privileged topology access
+artifact of privileged topology access
 (target-adj results: Appendix~\ref{sec:appendix_source_adj}).
 MAE is normalized with source-city statistics for cross-architecture
 comparability.
@@ -109,12 +143,14 @@ whether graph structure helps one traffic regime more than the other.
 \paragraph{Protocol summary.}
 {\small Train on METR-LA (207 sensors, 5-min, 70/10/20 split); 3 seeds,
 100 epochs, patience 15; frozen at evaluation. \emph{Sensor:} 30\% silent
-zero-mask, 5 masks, MAE on kept sensors. \emph{City:} zero-shot to
+primary zero-mask for Tables~\ref{tab:main}--\ref{tab:extended}, MAE on kept sensors.
+\emph{City:} zero-shot to
 PEMS-BAY (325$\to$207 subsampled, 5 subsets), source-only adjacency
 (matched-structural-access; padding sensitivity in
 Appendix~\ref{sec:appendix_no_pad_sensitivity}). \emph{Temporal:} weekday
 (5{,}104) vs.\ weekend (1{,}728) test windows. \emph{Aggregation:}
-mean$\,\pm\,$sample-std over 3 seeds $\times$ 5 masks;
+mean$\,\pm\,$population std over 3 seeds unless a table explicitly reports
+multi-mask summaries;
 METR-LA train-statistics normalization for the canonical bank,
 model-specific scaler for extended models
 (\S\ref{subsec:extended_models}).}

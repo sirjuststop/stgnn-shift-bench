@@ -12,20 +12,20 @@ models = [
     'AGCRN', 'MegaCRN', 'STAEformer'  # extended
 ]
 
-# Sensor dropout delta (normalized, 30%)
-sensor = [0.021, 0.051, 0.078, 0.025, 0.088,
-          0.019, -0.048, 0.016]
+# Sensor dropout delta (normalized, 30%; primary-mask protocol)
+sensor = [0.020, 0.051, 0.078, 0.025, 0.088,
+          0.019, -0.048, 0.015]
 sensor_std = [0.002, 0.012, 0.007, 0.012, 0.017,
               0.001, 0.027, 0.001]
 
 # Cross-city source-stat normalized MAE
 city = [0.180, 0.244, 0.249, 0.278, 0.268,
         0.206, 0.163, 0.223]
-city_std = [0.002, 0.004, 0.004, 0.011, 0.007,
+city_std = [0.001, 0.004, 0.008, 0.009, 0.006,
             0.009, 0.003, 0.008]
 
 # Temporal delta (normalized)
-temporal = [0.087, 0.075, 0.094, 0.093, 0.094,
+temporal = [0.087, 0.075, 0.093, 0.093, 0.094,
             0.061, 0.734, 0.750]
 temporal_std = [0.004, 0.007, 0.003, 0.003, 0.009,
                 0.008, 0.019, 0.003]

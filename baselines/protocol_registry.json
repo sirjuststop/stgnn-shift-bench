@@ -1,0 +1,58 @@
+{
+  "roman-empire__gcn__clean__none": {
+    "key": "roman-empire__gcn__clean__none",
+    "file": "/root/autodl-tmp/xile/benchmark_first_graph_gen/experiments/../baselines/roman-empire__gcn__clean__none.json",
+    "test_mean": 0.3761618932088216,
+    "test_std": 0.00016640980687051326,
+    "status": "frozen"
+  },
+  "roman-empire__gcn__clean__coupled_dropout": {
+    "key": "roman-empire__gcn__clean__coupled_dropout",
+    "file": "/root/autodl-tmp/xile/benchmark_first_graph_gen/experiments/../baselines/roman-empire__gcn__clean__coupled_dropout.json",
+    "test_mean": 0.36569007237752277,
+    "test_std": 0.0015182303704101728,
+    "status": "frozen"
+  },
+  "roman-empire__gcn__struct__none": {
+    "key": "roman-empire__gcn__struct__none",
+    "file": "/root/autodl-tmp/xile/benchmark_first_graph_gen/experiments/../baselines/roman-empire__gcn__struct__none.json",
+    "test_mean": 0.3156841993331909,
+    "test_std": 0.0062720012269820696,
+    "status": "frozen"
+  },
+  "roman-empire__gcn__struct__coupled_dropout": {
+    "key": "roman-empire__gcn__struct__coupled_dropout",
+    "file": "/root/autodl-tmp/xile/benchmark_first_graph_gen/experiments/../baselines/roman-empire__gcn__struct__coupled_dropout.json",
+    "test_mean": 0.30850687623023987,
+    "test_std": 0.009352381933231206,
+    "status": "frozen"
+  },
+  "roman-empire__gcn__feat__none": {
+    "key": "roman-empire__gcn__feat__none",
+    "file": "/root/autodl-tmp/xile/benchmark_first_graph_gen/experiments/../baselines/roman-empire__gcn__feat__none.json",
+    "test_mean": 0.32497940460840863,
+    "test_std": 0.0014577586350963986,
+    "status": "frozen"
+  },
+  "roman-empire__gcn__feat__coupled_dropout": {
+    "key": "roman-empire__gcn__feat__coupled_dropout",
+    "file": "/root/autodl-tmp/xile/benchmark_first_graph_gen/experiments/../baselines/roman-empire__gcn__feat__coupled_dropout.json",
+    "test_mean": 0.3203317920366923,
+    "test_std": 0.0018733664718494389,
+    "status": "frozen"
+  },
+  "roman-empire__gcn__joint__none": {
+    "key": "roman-empire__gcn__joint__none",
+    "file": "/root/autodl-tmp/xile/benchmark_first_graph_gen/experiments/../baselines/roman-empire__gcn__joint__none.json",
+    "test_mean": 0.2824449837207794,
+    "test_std": 0.004857693164119889,
+    "status": "frozen"
+  },
+  "roman-empire__gcn__joint__coupled_dropout": {
+    "key": "roman-empire__gcn__joint__coupled_dropout",
+    "file": "/root/autodl-tmp/xile/benchmark_first_graph_gen/experiments/../baselines/roman-empire__gcn__joint__coupled_dropout.json",
+    "test_mean": 0.27532650033632916,
+    "test_std": 0.004495052088873105,
+    "status": "frozen"
+  }
+}

@@ -1,16 +1,12 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-No architecture dominates all three deployment axes. Sensor-dropout fragility
-scales monotonically with adaptive-adjacency concentration
-(Pearson $\rho{=}{+}0.979$ on METR-LA, $+0.910$ on PEMS04, four adaptive
-backbones each); GWNet's $4.3{\times}$ gap over DCRNN is the visible tail of
-that relation, and mask-aware inference recovers $75\%$ of it without
-retraining. Cross-city and temporal fragility sit on orthogonal axes: MegaCRN
-leads zero-shot transfer yet carries $8$--$9{\times}$ larger temporal subgroup
-gaps, a failure mode that is not driven by explicit temporal covariates and
-that the five-model evaluation could not have surfaced. Model choice should
-follow target shift type and routing density of the candidate; multi-shift
-assessment should be standard practice. The frozen-checkpoint protocol
-reproduces end-to-end on a single commodity GPU and is released with a
-recommendation artifact.
+This audit does not identify a universally robust traffic STGNN. It identifies
+a failure coordinate. Sensor-dropout fragility tracks adaptive-adjacency
+concentration (Pearson $\rho{=}{+}0.979$ on METR-LA, $+0.910$ on PEMS04);
+GWNet is the high-concentration endpoint, and mask-aware inference recovers
+$75\%$ of its gap without retraining. Cross-city and temporal fragility sit on
+separate axes: MegaCRN leads zero-shot transfer yet carries $8$--$9{\times}$
+DCRNN's temporal subgroup gap. Model choice should follow the target shift type
+and routing concentration; the submission includes the frozen-checkpoint
+protocol and recommendation artifact.

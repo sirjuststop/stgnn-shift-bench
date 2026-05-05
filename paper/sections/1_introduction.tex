@@ -1,77 +1,62 @@
 \section{Introduction}
 \label{sec:intro}
 
-Traffic forecasting underpins urban services---ride-hailing dispatch, signal
-timing, congestion management---and STGNNs are the dominant
-tool~\citep{li2018dcrnn,wu2019gwnet,yu2018stgcn}. In the lab, these models are
-evaluated on held-out data from the same city, sensors, and time window as
-training. Deployment conditions differ: sensors fail, models trained in one
-city are applied to another, and traffic shifts between weekdays and weekends.
-Which architectures hold up under these shifts is a deployment question that
-in-distribution accuracy cannot answer.
+Traffic forecasting supports urban services such as ride-hailing dispatch,
+signal timing, and congestion management. STGNNs are now standard
+tools~\citep{li2018dcrnn,wu2019gwnet,yu2018stgcn}, but they are usually
+selected in the setting where training and test data come from the same city,
+sensors, and time window. Deployment is less tidy: sensors fail silently, a
+model trained in one city may be applied to another, and traffic changes between
+weekdays and weekends. Clean MAE alone does not say which architecture survives
+which shift.
 
-Prior STGNN robustness work emphasizes synthetic
-corruptions~\citep{zhang2025strap} or frames cross-city transfer as few-shot
-learning~\citep{zeng2025fedtt,jing2026tlgpstgn}. Missing is a controlled
-\emph{diagnostic} study that (i) uses deployment-realistic shifts, (ii)
-evaluates the same frozen backbone under multiple shifts, (iii) attributes
-differences to specific architectural choices, and (iv) pre-registers
-hypotheses so refuted predictions carry the same evidential weight as
-confirmed ones. Cross-city comparisons also conflate transfer difficulty with
-inductive bias---adaptive models can re-learn target topology, fixed models
-cannot---which a matched-structural-access protocol (source-city topology for
-all backbones) removes. No prior study systematically compares how different
-adaptive-relation designs---GWNet's dense softmax routing, MegaCRN's
-meta-graph memory, STAEformer's adaptive embeddings---redistribute fragility
-across deployment shifts.
+Prior STGNN robustness work proposes OOD interventions via retrieval or
+pruning~\citep{zhang2025strap,jing2026tlgpstgn} or frames cross-city transfer
+as federated learning~\citep{zeng2025fedtt}. What is missing is a
+controlled \emph{diagnostic}: the same frozen backbone evaluated under several
+deployment-realistic shifts, with differences traced back to concrete
+architectural choices. We also pre-register hypotheses so failed predictions
+remain part of the evidence. Cross-city comparisons need one more control:
+adaptive models can in principle re-learn a target topology, while fixed-graph
+models cannot. A matched-structural-access protocol, where every backbone uses
+source-city topology, removes that asymmetry. The contribution is an evaluation
+object, not a new forecaster: a frozen-checkpoint protocol, a shift taxonomy,
+and a mechanism audit for when the clean-test ranking stops being the relevant
+ranking.
 
-We assemble a bank of eight architectures trained on METR-LA---a five-model
+We assemble a bank of eight architectures trained on METR-LA: a five-model
 canonical bank spanning graph-free (GRU), fixed-graph (DCRNN, STGCN), and
-adaptive-graph (MTGNNLight, GWNet), plus three modern adaptive-relation models
-(AGCRN, MegaCRN, STAEformer)---and evaluate each frozen checkpoint under three
-shifts: \textbf{sensor dropout} (10--50\% zeroed at inference, 5 random masks),
-\textbf{cross-city transfer} (zero-shot METR-LA $\to$ PEMS-BAY under
+adaptive-graph (MTGNNLight, GWNet) models, plus three modern adaptive-relation
+models (AGCRN, MegaCRN, STAEformer). Each frozen checkpoint is evaluated under
+three shifts: \textbf{sensor dropout} (10--50\% zeroed at inference, 5 random
+masks), \textbf{cross-city transfer} (zero-shot METR-LA $\to$ PEMS-BAY under
 matched structural access), and \textbf{temporal shift} (weekend vs.\ weekday
 windows within the METR-LA test set).
 
-Three findings stand out:
+\paragraph*{Contributions.}
 \begin{enumerate}
-  \item No architecture dominates all three shifts; rankings change
-        qualitatively between shift types. GWNet's dense adaptive adjacency
-        is most fragile under sensor dropout (${\sim}4.3{\times}$ worse than
-        DCRNN at 30\%) but not the worst at city transfer. DCRNN leads
-        cross-city in the canonical bank; MegaCRN overtakes it once the
-        extended set is added.
+  \item \textbf{Multi-shift diagnostic protocol.}
+        We freeze eight STGNN checkpoints trained on a single source city and
+        evaluate them under sensor dropout, cross-city transfer, and
+        weekday/weekend temporal subgroup shift using a unified
+        matched-structural-access protocol.
+        The frozen-checkpoint registry and evaluation scripts are released
+        with the submission.
 
-  \item GWNet's dropout fragility is the visible tail of a routing-density
-        relation: $\mathrm{max\_mass}(A)$ ranks $\Delta_{\mathrm{sensor}}$ at
-        Pearson $\rho{=}{+}0.979$ over four adaptive backbones on METR-LA,
-        replicating at $\rho{=}{+}0.910$ on PEMS04 with native checkpoints.
-        Replacing the learned adjacency with a fixed road graph cuts dropout
-        sensitivity by 46\%; a mask-aware variant recovers 75\% without
-        retraining. AGCRN ($\mathrm{max\_mass}{=}0.008$) and STAEformer match
-        DCRNN despite learning adaptive relations: the operative factor is
-        routing density, not topology learning.
+  \item \textbf{Routing concentration as a failure coordinate.}
+        Sensor-dropout fragility tracks adjacency concentration
+        (Pearson $\rho{=}{+}0.979$ across four adaptive backbones,
+        replicating at $+0.910$ on a second city). GWNet's dense softmax
+        routing explains its fragility; AGCRN and STAEformer, also adaptive,
+        match DCRNN because their routing is sparser. A mask-aware inference
+        variant recovers $75\%$ of GWNet's dropout gap without retraining.
 
-  \item Modern adaptive-relation models distribute their failures across axes.
-        AGCRN and STAEformer survive sensor dropout; MegaCRN leads cross-city.
-        But MegaCRN and STAEformer carry weekday/weekend gaps
-        ${\sim}8$--$9{\times}$ the canonical bank---an axis that the
-        five-model evaluation could not have surfaced, and one that explicit
-        TOD/DOW covariates do not explain
-        (Section~\ref{sec:mechanism}).
+  \item \textbf{Cross-axis tradeoff and recommendation artifact.}
+        Rankings differ across deployment axes: models that lead zero-shot
+        cross-city transfer carry the largest weekday/weekend gaps.
+        We release a recommendation artifact mapping architecture choice to
+        anticipated failure mode under each shift.
 \end{enumerate}
 
-Sixteen predictions were pre-registered in five stages, each frozen before
-the next round of training (ledger and confirmed/refuted/partial criteria:
-Appendix~\ref{sec:appendix_preregistered}). Four were refuted: GWNet's
-dominant failure axis was predicted to be cross-city transfer, not sensor
-dropout; temporal fragility was predicted to be architecture-invariant, but
-is not---findings invisible in a confirmation-only evaluation. Three
-follow-ups---PEMS04-native routing-density replication
-(Appendix~\ref{sec:appendix_pems04_routing}), the mask-aware dropout-ratio
-sweep (Appendix~\ref{sec:appendix_mask_aware_sweep}), and cross-city
-zero-padding sensitivity (Appendix~\ref{sec:appendix_no_pad_sensitivity})---are
-flagged as reviewer-driven, reported alongside the pre-registered core. The
-frozen-checkpoint protocol is reproducible end-to-end on a single commodity
-GPU; checkpoints are released as supplementary material.
+Four of sixteen pre-registered predictions were refuted; the hypothesis ledger
+is in Appendix~\ref{sec:appendix_preregistered}.
