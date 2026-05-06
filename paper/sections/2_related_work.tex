@@ -3,15 +3,15 @@
 
 \paragraph{Evaluation and robustness benchmarks.}
 NeurIPS Datasets and Benchmarks papers such as BEIR~\citep{thakur2021beir}
-and RobustBench~\citep{croce2021robustbench} show how evaluation papers can
-contribute by changing the measurement target. The closest spatiotemporal analogue is
-\citet{yi2021benchmarking}'s corruption benchmark for video models. We make the
-setting traffic-specific: the same frozen STGNNs are audited under sensor
-failure, city transfer, and temporal subgroup shift.
+and RobustBench~\citep{croce2021robustbench} show that evaluation papers can
+contribute by changing what a field measures. The closest spatiotemporal
+analogue is \citet{yi2021benchmarking}'s corruption benchmark for video
+models. We make the setting traffic-specific: the same frozen STGNNs are
+audited under sensor failure, city transfer, and temporal subgroup shift.
 Existing traffic OOD work largely proposes adaptation or retrieval methods;
 existing spatiotemporal benchmarks test corruption robustness or general
 zero-shot transfer, but not frozen-architecture diagnostics paired with
-mechanism attribution. That gap is this paper's contribution.
+mechanism attribution. We target that missing diagnostic.
 
 \paragraph{Spatiotemporal graph neural networks for traffic.}
 DCRNN~\citep{li2018dcrnn}, STGCN~\citep{yu2018stgcn}, Graph
@@ -46,9 +46,10 @@ rather than explicit road topology. Our zero-shot setting asks which
 architectural properties reduce fragility before any adaptation is available.
 
 \paragraph{Sensor failure and data imputation.}
-Mask-aware reconstruction architectures like GRIN~\citep{cini2022grin} and
+Mask-aware reconstruction architectures such as GRIN~\citep{cini2022grin} and
 BRITS~\citep{cao2018brits} reconstruct missing inputs before or during graph
 aggregation. We ask an orthogonal question: among standard STGNNs without
 imputation, which architectural choices reduce sensitivity and which amplify
-fragility? LOCF nearly eliminates the ranking (Appendix~\ref{sec:appendix_imputation}), so the sensor result
-is specific to silent zero-masking.
+fragility? LOCF nearly eliminates the ranking
+(Appendix~\ref{sec:appendix_imputation}), so the sensor result is specific to
+silent zero-masking.

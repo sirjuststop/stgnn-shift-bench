@@ -105,10 +105,10 @@ shared-mechanism \emph{hypothesis}, not a universal rule.
 A local perturbation argument supports this: zero-masking a dropped sensor $j$
 shifts each kept node $i$ by $A_{ij}H_jW$; averaging over rows bounds the
 mean signal disruption by $B_H B_W |\mathcal{I}|\,\mathrm{max\_mass}(A)$.
-Concentrated routing raises this bound proportionally, explaining why
-$\mathrm{max\_mass}$ is a good tail-risk proxy for iid dropout.
-This is a single-layer perturbation bound, not a full-horizon MAE theorem;
-the complete derivation and caveats are in Appendix~\ref{sec:appendix_theory}.
+Concentrated routing raises this bound proportionally; this is why we treat
+$\mathrm{max\_mass}$ as a tail-risk proxy for iid dropout.
+This is a single-layer perturbation bound, not a full-horizon MAE theorem. The
+complete derivation and caveats are in Appendix~\ref{sec:appendix_theory}.
 
 Within GWNet, top-$k$ sparsification at inference traces the same curve:
 relative fragility rises from $0.80\%$ at $k{=}10$ to $1.17\%$ at
@@ -120,11 +120,11 @@ $k{=}\text{full}$ (Appendix~\ref{sec:appendix_density_sweep}).
 Two ablations narrow the MegaCRN/STAEformer temporal finding without closing it.
 Randomizing or swapping explicit time embeddings leaves MegaCRN's temporal gap
 unchanged and reduces STAEformer's by only 12.5\%, so TOD/DOW covariates are
-not the main driver. MegaCRN's apparent sensor robustness is
-adjacency-mediated smoothing toward a weekday-dominated prior, not direct
-dropout robustness (Appendix~\ref{sec:appendix_memory_ablation}). The residual
-temporal fragility appears to lie in the memory bank or encoder dynamics; isolating it
-requires a no-covariate retraining, left to future work
+not the main driver. MegaCRN's negative sensor delta is adjacency-mediated
+smoothing toward a weekday-dominated prior, not evidence that MegaCRN directly
+tolerates dropout (Appendix~\ref{sec:appendix_memory_ablation}). The residual
+temporal fragility appears to lie in the memory bank or encoder dynamics;
+isolating it requires a no-covariate retraining, left to future work
 (Appendix~\ref{sec:appendix_temporal_cov}).
 
 \subsection{Severity, degree stratification, and imputation baselines}

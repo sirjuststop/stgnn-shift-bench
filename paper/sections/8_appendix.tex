@@ -20,13 +20,15 @@ reduction'') hold; \emph{refuted} ({\texttimes}) when either fails;
 details---mask seed indices, reporting-horizon choice, and figure
 formatting---were finalized post-hoc; the predictions themselves, including
 quantitative thresholds and the model bank, were frozen at registration time.
-The breakdown is ten confirmed, three refuted, and three partial; verbatim
+Using the main-text categorization, the breakdown is ten confirmed, four
+refuted, and two partial; rows that miss the principal directional claim are
+counted as refuted even when a secondary threshold is informative. Verbatim
 re-statements are linked from each row of Table~\ref{tab:preregistered}.
 
 \begin{table}[h]
 \centering
-\caption{Pre-registered hypotheses and outcomes. Confirmed ({\checkmark}) or refuted
-(\texttimes) by experiment.}
+\caption{Pre-registered hypotheses and outcomes. Confirmed ({\checkmark}),
+partially confirmed, or refuted (\texttimes) by experiment.}
 \label{tab:preregistered}
 \vskip 0.1in
 \small
@@ -51,7 +53,7 @@ Temporal shift magnitude differs across architectures
   & \texttimes \\
 STGCN (fixed spectral adj) $\DeltaSensor \leq$ DCRNN (fixed diffusion adj)
   & STGCN $+0.078$ $>$ DCRNN $+0.020$; but both $<$ GWNet $+0.088$. Adaptive adj is the dominant driver.
-  & Partial \texttimes \\
+  & \texttimes \\
 \midrule
 \multicolumn{3}{l}{\emph{P11--P13 added prior to structured / coverage experiments:}} \\
 {[P11]} GWNet transfer gap persists (GWNet worst) across 150- and 207-node PEMS-BAY coverage
@@ -148,7 +150,9 @@ PEMS04 routing replication and mask-aware sweeps are read from
 \texttt{baselines/stgnn\_protocol\_registry.json}, and the unified training
 configuration is \texttt{configs/stgnn\_unified.yaml}. Evaluation commands are
 listed in the repository README and mirror the commands used to generate the
-tables and figures.
+tables and figures. The full code, configs, and frozen-checkpoint manifest are
+mirrored anonymously at
+\url{https://anonymous.4open.science/r/stgnn-shift-bench-DDFB}.
 
 The released artifact contains the recommendation table and the scripts needed
 to regenerate the shift profiles from the canonical result files. It does not

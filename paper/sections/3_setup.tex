@@ -39,7 +39,7 @@ Temporal subgroup &
 \subsection{Backbone Architectures}
 \label{subsec:backbones}
 
-The bank covers five architectures from graph-free to fixed-graph to
+The canonical bank covers five architectures from graph-free to fixed-graph to
 adaptive-graph.
 
 \textbf{DCRNN}~\citep{li2018dcrnn} uses a bidirectional diffusion GRU on a
@@ -60,13 +60,13 @@ a single feature vector and uses no adjacency.
 \textbf{MTGNNLight} is a lightweight MTGNN variant~\citep{wu2020mtgnn} that
 learns a sparse adaptive graph via pairwise cosine similarity on a single
 embedding $\mathbf{E}\in\mathbb{R}^{N\times d}$ and keeps only top-$k$
-neighbors per node---a direct contrast to GWNet's dense all-pairs softmax that
-isolates whether dropout fragility depends on adjacency density or on
-topology-learning per se (P14).
+neighbors per node. This directly contrasts with GWNet's dense all-pairs
+softmax and isolates whether dropout fragility depends on adjacency density or
+on topology learning per se (P14).
 
-All five share a unified config (hidden dim 64, seq/pred 12, Adam $1{\times}10^{-3}$,
+These five share a unified config (hidden dim 64, seq/pred 12, Adam $1{\times}10^{-3}$,
 weight decay $10^{-4}$, cosine schedule, 100 epochs, patience 15). To rule out
-training-artifact explanations of GWNet's fragility we additionally train
+training-artifact explanations of GWNet's fragility, we additionally train
 \textbf{GWNet[CM]} (patience 30) and \textbf{GWNet[Strong]} (P17; hidden 128,
 adaptive embed 20, patience 30); both are frozen at shift-eval time.
 
@@ -86,8 +86,8 @@ in \S\ref{sec:discussion}.
 \subsection{Extended adaptive-relation models}
 \label{subsec:extended_models}
 
-To probe generality, we add three architectures (same METR-LA data, same
-split, 3 seeds, frozen after training):
+To probe generality, we add three architectures (same METR-LA split, 3 seeds,
+frozen after training):
 \textbf{AGCRN}~\citep{bai2020agcrn} (node-adaptive GRU, no temporal
 covariates); \textbf{MegaCRN}~\citep{jiang2023megacrn} (meta-graph memory
 with TOD/DOW inputs); \textbf{STAEformer}~\citep{liu2023staeformer}
@@ -101,15 +101,15 @@ cross-family clean-performance ranking.
 \label{subsec:shifts}
 
 \paragraph{Sensor dropout.}
-At inference, a random 30\% of sensor channels are zero-masked. The 207-node
-model is not re-instantiated; it sees a 207-dimensional input with zeroed
+At inference, a random 30\% of sensor channels are zero-masked. We do not
+re-instantiate the 207-node model; it sees a 207-dimensional input with zeroed
 channels, and MAE is computed on the kept sensors only so clean and masked
 evaluations are directly comparable. Tables~\ref{tab:main}--\ref{tab:extended}
 report the pre-registered primary-mask aggregate; Appendix~\ref{sec:appendix_multimask}
 reports 5-mask aggregates to separate mask-sampling from model-weight variance.
 GRU is the main mask-sampling caveat. Structured dropout patterns
 (hub and contiguous) are in Appendix~\ref{sec:appendix_structured_dropout}.
-This is the silent-failure setting.
+This protocol isolates silent failure.
 
 \paragraph{Cross-city transfer.}
 The frozen METR-LA model is evaluated zero-shot on
@@ -117,8 +117,8 @@ PEMS-BAY~\citep{li2018dcrnn} (Bay Area, 325 sensors, 52,116 timesteps).
 A second pair (PEMS04 source, 307 sensors; zero-shot on METR-LA and PEMS-BAY)
 is in Appendix~\ref{sec:appendix_pems04} for cross-city generality (P18).
 ``Zero-shot'' means no re-training or fine-tuning. Because PEMS-BAY has 325
-sensors and the METR-LA checkpoints have 207 input channels, we subsample 207 PEMS-BAY sensors
-(5 subsets); rankings are stable at 150-node coverage
+sensors and the METR-LA checkpoints have 207 input channels, we subsample 207
+PEMS-BAY sensors (5 subsets); rankings remain stable at 150-node coverage
 (Appendix~\ref{sec:appendix_subset_sensitivity}).
 
 \textbf{Matched structural access (canonical comparison).}

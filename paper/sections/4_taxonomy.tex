@@ -33,8 +33,9 @@ GWNet (dense adaptive adj)    & $7.85 \pm 0.11$ & $+0.088 \pm 0.017$ & $0.268 \p
 \end{table}
 
 \paragraph{Sensor dropout.}
-Under the primary-mask protocol, the ranking is DCRNN $+0.020$, GRU $+0.025$, MTGNNLight
-$+0.051$, STGCN $+0.078$, GWNet $+0.088$. GWNet degrades $4.3{\times}$ DCRNN's
+Under the primary-mask protocol, the ranking is DCRNN $+0.020$, GRU $+0.025$,
+MTGNNLight $+0.051$, STGCN $+0.078$, GWNet $+0.088$. GWNet degrades
+$4.3{\times}$ DCRNN's
 gap (${>}7{\times}$ cross-seed std). MTGNNLight's sparse cosine-similarity
 adjacency (top-$k{=}10$) is 42\% less fragile than GWNet's dense softmax,
 which points at adjacency density rather than topology-learning per se.
@@ -44,7 +45,7 @@ $2.1{\times}$ (Table~\ref{tab:consolidated};
 Appendix~\ref{sec:appendix_multimask} for per-mask values).
 
 \paragraph{Cross-city transfer under matched structural access.}
-Under source-only adjacency, \textbf{DCRNN leads the canonical bank}
+Under source-only adjacency, \textbf{DCRNN has the lowest canonical-bank MAE}
 ($0.180 \pm 0.001$, a 49\% gap over GWNet's $0.268$). Fixed adjacency does not
 automatically buy transfer robustness: STGCN ($0.249$) nearly matches GWNet
 under fair comparison; its earlier target-adj advantage ($0.202$) was a
@@ -53,7 +54,7 @@ topologies even when confined to source structure, and the advantage holds on
 a second city pair (Table~\ref{tab:consolidated}). Index-repetition padding
 (used when target $N <$ source $N$) flatters graph-free and dense-adaptive
 backbones by ${\sim}0.7$ mph and fixed-graph backbones by ${\sim}0.15$ mph,
-but the ranking is unchanged and DCRNN remains best in both padded and no-pad
+but the ranking is unchanged and DCRNN remains lowest in both padded and no-pad
 evaluations (Appendix~\ref{sec:appendix_no_pad_sensitivity}).
 
 \paragraph{Temporal subgroup shift (canonical bank).}
@@ -69,8 +70,8 @@ Rankings differ across shift types: in-distribution accuracy does not predict
 sensor-dropout fragility, and fixed adjacency does not guarantee transfer
 robustness. DCRNN leads city transfer within the canonical bank ($0.180$), but
 \S\ref{sec:extended} shows that fact does not survive the addition of modern
-adaptive-relation models. The evaluation point is shift-specificity: the right
-choice depends on the anticipated shift. Table~\ref{tab:consolidated}
+adaptive-relation models. The point of the diagnostic is shift-specificity:
+the right choice depends on the anticipated shift. Table~\ref{tab:consolidated}
 consolidates supplementary results supporting these claims.
 
 \begin{table}[t]
@@ -149,9 +150,9 @@ smoothing toward a weekday prior (\S\ref{sec:polish_ablations}), not
 regularization.
 
 \paragraph{Cross-city transfer.}
-MegaCRN attains the best source-stat cross-city MAE ($0.163$), overturning
-the canonical-bank result that DCRNN ($0.180$) is the strongest zero-shot
-transfer backbone; AGCRN ($0.206$) and STAEformer ($0.223$) fall between
+MegaCRN attains the lowest source-stat cross-city MAE ($0.163$), overturning
+the canonical-bank result that DCRNN ($0.180$) has the best zero-shot transfer
+in the smaller bank; AGCRN ($0.206$) and STAEformer ($0.223$) fall between
 DCRNN and GWNet.
 
 \paragraph{Temporal subgroup shift.}
@@ -178,9 +179,9 @@ ranking move in different directions. The sensor-dropout ranking is specific
 to silent zero-masking; under last-observed-value carry-forward
 (LOCF, the more common operational regime) every backbone recovers
 ${\geq}97\%$ of the gap (Appendix~\ref{sec:appendix_imputation}), so the
-practical impact of GWNet's fragility is bounded by the deployment pipeline's
-imputation policy. All conclusions are drawn from METR-LA as the single
-source city; highway networks outside this source are not tested here
+practical impact of GWNet's fragility depends on the deployment pipeline's
+imputation policy. The main conclusions are drawn from METR-LA as the source
+city; highway networks outside this source are not tested here
 (\S\ref{sec:discussion}).
 
 \begin{figure}[!htbp]

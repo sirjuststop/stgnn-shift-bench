@@ -8,16 +8,16 @@ Under silent-failure zero-mask dropout, DCRNN, AGCRN, and STAEformer degrade
 much less than GWNet; the GWNet gap is tied to dense softmax routing and the
 mask-aware variant recovers 75\% without retraining. For zero-shot cross-city
 transfer on METR-LA/PEMS-BAY-style highway networks, MegaCRN and DCRNN are
-strongest; for weekday/weekend subgroup shift, MegaCRN and STAEformer carry the
-largest gaps. The recommendations do not extrapolate beyond the settings
+strong; for weekday/weekend subgroup shift, MegaCRN and STAEformer carry the
+largest gaps. These recommendations do not extrapolate beyond the settings
 evaluated.
 
 \paragraph{Implications for robustness evaluation.}
-The clean-test leaderboard is the wrong evaluation object when the deployment
-shift is unknown. More expressive relation learning changes which deployment
-axis is vulnerable rather than removing vulnerability, so benchmarks should
-report multi-shift robustness alongside in-distribution accuracy. GWNet
-controls rule out a simple training artifact: relative
+A clean-test leaderboard is not enough when the deployment shift is unknown.
+More expressive relation learning changes which deployment axis is vulnerable
+rather than removing vulnerability, so benchmarks should report multi-shift
+robustness alongside in-distribution accuracy. GWNet controls rule out a simple
+training artifact: relative
 sensitivity (1.1\% vs.\ 0.3\% for DCRNN), a 12-config capacity sweep
 (Table~\ref{tab:consolidated}), and MTGNNLight's lower fragility under adaptive
 topology.
@@ -40,7 +40,8 @@ The study does not exhaust adaptive-relation traffic models (e.g., ASTGCN,
 DSTAGNN). MegaCRN's negative sensor delta is adjacency-mediated smoothing, and
 the temporal gap is not explained by TOD/DOW covariates; the remaining source
 likely lies in memory-bank or encoder dynamics and needs a no-covariate
-retraining. All training uses METR-LA, with a three-source extension ongoing.
+retraining. The main training source is METR-LA, with a three-source extension
+ongoing.
 The fragility ranking is also specific to silent zero-masking: LOCF recovers
 most of the gap (Appendix~\ref{sec:appendix_imputation}).
 
