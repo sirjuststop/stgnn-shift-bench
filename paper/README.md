@@ -2,7 +2,7 @@
 
 **Traffic STGNNs across Sensor, City, and Time Shifts: Routing Concentration Tracks Sensitivity to Sensor Dropout**
 
-Xile Wang and Mingqi Yang, School of Management, South China University of Technology.
+Xile Wang and Mingqi Yang, South China University of Technology.
 
 This directory contains the final-format manuscript, references, appendix, checklist, and the funding statement supplied by the authors. The compiled PDF has 29 pages, with the main text ending on page 9. The original submission and earlier local revisions are preserved separately.
 

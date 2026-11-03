@@ -15,7 +15,8 @@ as federated learning~\citep{zeng2025fedtt}. What is missing is a
 controlled \emph{diagnostic}: the same frozen backbone evaluated under several
 deployment-realistic shifts, with differences traced to concrete
 architectural choices. We also pre-register hypotheses so failed predictions
-remain part of the evidence. Cross-city comparisons need one more control:
+remain part of the evidence (Appendix~\ref{sec:appendix_preregistered}).
+Cross-city comparisons need one more control:
 adaptive models can in principle re-learn a target topology, while fixed-graph
 models cannot. A matched-structural-access protocol, where every backbone uses
 source-city topology, removes that asymmetry. The contribution is an evaluation
@@ -36,32 +37,19 @@ the gap in the imputation comparison. We report temporal subgroup differences
 in both normalized and physical units, since the two conventions can reverse
 the apparent direction of a model's gap.
 
-\paragraph*{Contributions.}
-\begin{enumerate}
-  \item \textbf{Multi-shift diagnostic protocol.}
-        We freeze eight STGNN checkpoints trained on a single source city and
-        evaluate them under sensor dropout, cross-city transfer, and
-        weekday/weekend temporal subgroup shift using a unified
-        matched-structural-access protocol.
-        The code repository contains the frozen-checkpoint registry and
-        evaluation scripts:
-        \url{https://github.com/sirjuststop/stgnn-shift-bench}.
+Our main contributions are as follows:
+\begin{itemize}
+  \item We introduce a frozen-checkpoint evaluation protocol for traffic STGNNs
+        under sensor, city, and temporal shifts, with matched structural access
+        for cross-city comparison.
 
-  \item \textbf{Routing concentration as a failure coordinate.}
-        Sensor-dropout fragility tracks adjacency concentration
-        (Pearson $\rho{=}{+}0.974$ across six adaptive backbones,
-        with positive associations on three source datasets). GWNet's dense softmax
-        routing explains its fragility; AGCRN and STAEformer, also adaptive,
-        match DCRNN because their routing is sparser. A mask-aware inference
-        variant recovers $75\%$ of GWNet's dropout gap without retraining.
+  \item We identify routing concentration as a diagnostic of sensor-dropout
+        sensitivity and examine its role through inference-time interventions.
 
-  \item \textbf{Cross-axis tradeoff and recommendation artifact.}
-        Rankings differ across deployment axes and reporting conventions:
-        source-normalized transfer favors MegaCRN, while its large normalized
-        weekday/weekend gap reverses sign under masked-mph evaluation.
-        We include a recommendation artifact that maps each backbone to its
-        anticipated failure mode under each shift.
-\end{enumerate}
+  \item We provide a shift-specific robustness taxonomy and a recommendation
+        artifact to support model selection across deployment conditions and
+        evaluation conventions.
+\end{itemize}
 
-Four of sixteen pre-registered predictions were refuted; the hypothesis ledger
-is in Appendix~\ref{sec:appendix_preregistered}.
+Code and artifacts are available at
+\url{https://github.com/sirjuststop/stgnn-shift-bench}.

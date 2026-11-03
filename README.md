@@ -3,7 +3,7 @@
 ## Routing Concentration Tracks Sensitivity to Sensor Dropout
 
 **Xile Wang and Mingqi Yang**
-School of Management, South China University of Technology
+South China University of Technology
 
 NeurIPS 2026 Evaluations & Datasets camera-ready artifact.
 
