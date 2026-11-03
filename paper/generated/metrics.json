@@ -1,0 +1,122 @@
+{
+  "date_local": "2026-11-03",
+  "kind": "Reaggregation and presentation of existing results; no training or inference",
+  "source_sha256": {
+    "submission_neurips2026_20260506.zip": "56af8dc047272d9463f3c1e9c5aef33bb7bfdcbe9f5fd7b8df0a8262602aa634",
+    "results/official_adaptive_relation/TEMPORAL_RERUN_SUMMARY_2026-04-16.json": "79f0f5f2502ac0ffbd4d065ed2799faa1a0f75a61eccd6df78a94cc9b595e90a",
+    "results/routing_sparsity_spectrum/ROUTING_SPARSITY_SPECTRUM_2026-04-17.json": "3e830b512c312c81326bbd05ab726bf0913161e9ca6678377dc51c687cfd7796",
+    "results/polish_v15/pems04_native_routing_gate.json": "bb1cc61fe0c42b87d3d5f19cc0dd0d3667597203d05f88469da3c353351d7fac",
+    "results/polish_v15/mask_aware_ratio_sweep.json": "edb82d3a7fcc00d0a27e29c9c535a8d3c88a245388dd1acbe19e70f5c75c633e",
+    "results/reviewer_fix_v4/shift_eval_v2_results.json": "404ffe2ce21224d83e318d87a168076eedb28d1395079939738f696d983da3c3",
+    "comments.txt": "1d5e91197aa57ecb4ac1eabe0ebc0466b162d25403c960440918ededc3bbb46a"
+  },
+  "temporal": {
+    "agcrn": {
+      "n_seeds": 3,
+      "norm_mean": 0.06093549231688181,
+      "norm_std": 0.00843126548248831,
+      "mph_mean": 0.7496136824289957,
+      "mph_std": 0.012879758547876128
+    },
+    "megacrn": {
+      "n_seeds": 3,
+      "norm_mean": 0.7335794766743978,
+      "norm_std": 0.018764660666290744,
+      "mph_mean": -0.5937056541442871,
+      "mph_std": 0.05128242804975773
+    },
+    "staeformer": {
+      "n_seeds": 3,
+      "norm_mean": 0.7495094935099283,
+      "norm_std": 0.0029364439928442304,
+      "mph_mean": -0.6119077205657959,
+      "mph_std": 0.0019272670313275782
+    }
+  },
+  "routing": {
+    "rho": 0.9788268581749475,
+    "leave_one_out": {
+      "agcrn": 0.9927843242634621,
+      "megacrn": 0.9766783908639699,
+      "mtgnn": 0.9880898377787534,
+      "gwnet": 0.9607519143940524
+    },
+    "exact_abs_tail_p": 0.08333333333333333
+  },
+  "mask_aware_r30": {
+    "ratio": 0.3,
+    "delta_standard_mean": 0.09191798567771912,
+    "delta_standard_std": 0.030103418532096315,
+    "delta_aware_mean": 0.0230419913927714,
+    "delta_aware_std": 0.009174438642347156,
+    "recovery_mean": 75.24481786337628,
+    "recovery_std": 2.9651496756748488
+  },
+  "fpfn_penalties": {
+    "fp0_fn0": {
+      "mean": 0.0,
+      "std": 0.0,
+      "median": 0.0
+    },
+    "fp5_fn10": {
+      "mean": 0.04426093896230062,
+      "std": 0.01730662933882726,
+      "median": 0.045024991035461426
+    },
+    "fp10_fn20": {
+      "mean": 0.07708923021952312,
+      "std": 0.04000588822182611,
+      "median": 0.049076974391937256
+    }
+  },
+  "submitted_sensor_city_values": {
+    "dcrnn": {
+      "sensor": 0.02,
+      "sensor_std": 0.002,
+      "city": 0.18,
+      "city_std": 0.001
+    },
+    "mtgnn": {
+      "sensor": 0.051,
+      "sensor_std": 0.012,
+      "city": 0.244,
+      "city_std": 0.004
+    },
+    "stgcn": {
+      "sensor": 0.078,
+      "sensor_std": 0.007,
+      "city": 0.249,
+      "city_std": 0.008
+    },
+    "gru": {
+      "sensor": 0.025,
+      "sensor_std": 0.012,
+      "city": 0.278,
+      "city_std": 0.009
+    },
+    "gwnet": {
+      "sensor": 0.088,
+      "sensor_std": 0.017,
+      "city": 0.268,
+      "city_std": 0.006
+    },
+    "agcrn": {
+      "sensor": 0.019,
+      "sensor_std": 0.001,
+      "city": 0.206,
+      "city_std": 0.009
+    },
+    "megacrn": {
+      "sensor": -0.048,
+      "sensor_std": 0.027,
+      "city": 0.163,
+      "city_std": 0.003
+    },
+    "staeformer": {
+      "sensor": 0.015,
+      "sensor_std": 0.001,
+      "city": 0.223,
+      "city_std": 0.008
+    }
+  }
+}

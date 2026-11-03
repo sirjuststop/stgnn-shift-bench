@@ -1,0 +1,3 @@
+Model definitions from https://github.com/LeiBAI/AGCRN
+Commit: 7fbbf2aeb099242098a3cf482b55cd45d7295c28
+Copied without modification. See LICENSE for the upstream license.

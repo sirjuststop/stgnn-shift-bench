@@ -1,0 +1,168 @@
+\begin{thebibliography}{21}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Ansari et~al.(2024)Ansari, Stella, Turkmen, Zhang, Mercado, Shen,
+  Shchur, Rangapuram, Arango, Kapoor, Zschiegner, Maddix, Mahoney, Torkkola,
+  Wilson, Bohlke-Schneider, and Wang]{ansari2024chronos}
+A.~F. Ansari, L.~Stella, C.~Turkmen, X.~Zhang, P.~Mercado, H.~Shen, O.~Shchur,
+  S.~S. Rangapuram, S.~P. Arango, S.~Kapoor, J.~Zschiegner, D.~C. Maddix, M.~W.
+  Mahoney, K.~Torkkola, A.~G. Wilson, M.~Bohlke-Schneider, and Y.~Wang.
+\newblock Chronos: Learning the language of time series.
+\newblock \emph{arXiv preprint arXiv:2403.07815}, 2024.
+\newblock URL \url{https://arxiv.org/abs/2403.07815}.
+
+\bibitem[Bai et~al.(2020)Bai, Yao, Li, Wang, and Wang]{bai2020agcrn}
+L.~Bai, L.~Yao, C.~Li, X.~Wang, and C.~Wang.
+\newblock Adaptive graph convolutional recurrent network for traffic
+  forecasting.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2020.
+\newblock URL \url{https://arxiv.org/abs/2007.02842}.
+
+\bibitem[Cao et~al.(2018)Cao, Wang, Li, Zhou, Li, and Li]{cao2018brits}
+W.~Cao, D.~Wang, J.~Li, H.~Zhou, L.~Li, and Y.~Li.
+\newblock {BRITS}: Bidirectional recurrent imputation for time series.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2018.
+\newblock URL
+  \url{https://proceedings.neurips.cc/paper/2018/hash/734e6bfcd358e25ac1db0a4241b95651-Abstract.html}.
+
+\bibitem[Cini et~al.(2022)Cini, Marisca, and Alippi]{cini2022grin}
+A.~Cini, I.~Marisca, and C.~Alippi.
+\newblock Filling the gaps: Multivariate time series imputation by graph neural
+  networks.
+\newblock In \emph{International Conference on Learning Representations}, 2022.
+\newblock URL \url{https://openreview.net/forum?id=kOu3-S3wJ7}.
+
+\bibitem[Croce et~al.(2021)Croce, Andriushchenko, Sehwag, Debenedetti,
+  Flammarion, Chiang, Mittal, and Hein]{croce2021robustbench}
+F.~Croce, M.~Andriushchenko, V.~Sehwag, E.~Debenedetti, N.~Flammarion,
+  M.~Chiang, P.~Mittal, and M.~Hein.
+\newblock {RobustBench}: A standardized adversarial robustness benchmark.
+\newblock In \emph{NeurIPS Datasets and Benchmarks Track}, 2021.
+\newblock URL
+  \url{https://datasets-benchmarks-proceedings.neurips.cc/paper/2021/hash/a3c65c2974270fd093ee8a9bf8ae7d0b-Abstract-round2.html}.
+
+\bibitem[Fofanah et~al.(2026)Fofanah, Wen, Chen, Kamara, and
+  Zhang]{fofanah2026castckt}
+A.~J. Fofanah, L.~Wen, D.~Chen, A.~A. Kamara, and Z.~Zhang.
+\newblock {CAST-CKT}: Chaos-aware spatio-temporal and cross-city knowledge
+  transfer for traffic flow prediction.
+\newblock arXiv preprint arXiv:2602.05133, 2026.
+\newblock URL \url{https://arxiv.org/abs/2602.05133}.
+
+\bibitem[Guo et~al.(2019)Guo, Lin, Feng, Song, and Wan]{guo2019astgcn}
+S.~Guo, Y.~Lin, N.~Feng, C.~Song, and H.~Wan.
+\newblock Attention based spatial-temporal graph convolutional networks for
+  traffic flow forecasting.
+\newblock In \emph{AAAI Conference on Artificial Intelligence}, 2019.
+
+\bibitem[Jiang et~al.(2023)Jiang, Wang, Yong, Jeph, Chen, Kobayashi, Song,
+  Fukushima, and Suzumura]{jiang2023megacrn}
+R.~Jiang, Z.~Wang, J.~Yong, P.~Jeph, Q.~Chen, Y.~Kobayashi, X.~Song,
+  S.~Fukushima, and T.~Suzumura.
+\newblock {MegaCRN}: Meta-graph convolutional recurrent network for
+  spatio-temporal modeling.
+\newblock In \emph{Proceedings of the AAAI Conference on Artificial
+  Intelligence}, volume~37, pages 8078--8086, 2023.
+
+\bibitem[Jing et~al.(2026)Jing, Long, and Feng]{jing2026tlgpstgn}
+Z.~Jing, Y.~Long, and G.~Feng.
+\newblock Pruning for generalization: A transfer-oriented spatiotemporal graph
+  framework.
+\newblock arXiv preprint arXiv:2602.04153, 2026.
+\newblock URL \url{https://arxiv.org/abs/2602.04153}.
+
+\bibitem[Li et~al.(2021)Li, Feng, Yan, Jin, Jin, and Li]{li2021dgcrn}
+F.~Li, J.~Feng, H.~Yan, G.~Jin, D.~Jin, and Y.~Li.
+\newblock Dynamic graph convolutional recurrent network for traffic prediction:
+  Benchmark and solution.
+\newblock \emph{arXiv preprint arXiv:2104.14917}, 2021.
+\newblock URL \url{https://arxiv.org/abs/2104.14917}.
+
+\bibitem[Li et~al.(2018)Li, Yu, Shahabi, and Liu]{li2018dcrnn}
+Y.~Li, R.~Yu, C.~Shahabi, and Y.~Liu.
+\newblock Diffusion convolutional recurrent neural network: Data-driven traffic
+  forecasting.
+\newblock In \emph{International Conference on Learning Representations}, 2018.
+\newblock URL \url{https://openreview.net/forum?id=SJiHXGWAZ}.
+
+\bibitem[Liu et~al.(2023{\natexlab{a}})Liu, Dong, Jiang, Deng, Deng, Chen, and
+  Song]{liu2023staeformer}
+H.~Liu, Z.~Dong, R.~Jiang, J.~Deng, J.~Deng, Q.~Chen, and X.~Song.
+\newblock {STAEformer}: Spatio-temporal adaptive embedding makes vanilla
+  transformer {SOTA} for traffic forecasting.
+\newblock In \emph{Proceedings of the 32nd ACM International Conference on
+  Information and Knowledge Management}, pages 4125--4129, 2023{\natexlab{a}}.
+
+\bibitem[Liu et~al.(2023{\natexlab{b}})Liu, Xia, Liang, Hu, Wang, Bai, Huang,
+  Liu, Hooi, and Zimmermann]{liu2023largest}
+X.~Liu, Y.~Xia, Y.~Liang, J.~Hu, Y.~Wang, L.~Bai, C.~Huang, Z.~Liu, B.~Hooi,
+  and R.~Zimmermann.
+\newblock {LargeST}: A benchmark dataset for large-scale traffic forecasting.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  2023{\natexlab{b}}.
+
+\bibitem[Shang et~al.(2021)Shang, Chen, and Bi]{shang2021discrete}
+C.~Shang, J.~Chen, and J.~Bi.
+\newblock Discrete graph structure learning for forecasting multiple time
+  series.
+\newblock In \emph{International Conference on Learning Representations}, 2021.
+\newblock URL \url{https://openreview.net/forum?id=WEHSlH5mOk}.
+
+\bibitem[Thakur et~al.(2021)Thakur, Reimers, R{\"u}ckl{\'e}, Srivastava, and
+  Gurevych]{thakur2021beir}
+N.~Thakur, N.~Reimers, A.~R{\"u}ckl{\'e}, A.~Srivastava, and I.~Gurevych.
+\newblock {BEIR}: A heterogeneous benchmark for zero-shot evaluation of
+  information retrieval models.
+\newblock In \emph{NeurIPS Datasets and Benchmarks Track}, 2021.
+\newblock URL \url{https://openreview.net/forum?id=wCu6T5xFjeJ}.
+
+\bibitem[Wu et~al.(2019)Wu, Pan, Long, Jiang, and Zhang]{wu2019gwnet}
+Z.~Wu, S.~Pan, G.~Long, J.~Jiang, and C.~Zhang.
+\newblock Graph {WaveNet} for deep spatial-temporal graph modeling.
+\newblock In \emph{International Joint Conference on Artificial Intelligence},
+  2019.
+\newblock URL \url{https://arxiv.org/abs/1906.00121}.
+
+\bibitem[Wu et~al.(2020)Wu, Pan, Long, Jiang, Chang, and Zhang]{wu2020mtgnn}
+Z.~Wu, S.~Pan, G.~Long, J.~Jiang, X.~Chang, and C.~Zhang.
+\newblock Connecting the dots: Multivariate time series forecasting with graph
+  neural networks.
+\newblock In \emph{ACM SIGKDD Conference on Knowledge Discovery and Data
+  Mining}, 2020.
+\newblock URL \url{https://dl.acm.org/doi/10.1145/3394486.3403118}.
+
+\bibitem[Yi et~al.(2021)Yi, Yang, Li, peng Tan, and Kot]{yi2021benchmarking}
+C.~Yi, S.~Yang, H.~Li, Y.~peng Tan, and A.~Kot.
+\newblock Benchmarking the robustness of spatial-temporal models against
+  corruptions.
+\newblock In \emph{NeurIPS Datasets and Benchmarks Track}, 2021.
+\newblock URL \url{https://openreview.net/forum?id=MQlMIrm3Hv5}.
+
+\bibitem[Yu et~al.(2018)Yu, Yin, and Zhu]{yu2018stgcn}
+B.~Yu, H.~Yin, and Z.~Zhu.
+\newblock Spatio-temporal graph convolutional networks: A deep learning
+  framework for traffic forecasting.
+\newblock In \emph{International Joint Conference on Artificial Intelligence},
+  2018.
+
+\bibitem[Zeng et~al.(2025)Zeng, Fang, Huang, Chen, and Gao]{zeng2025fedtt}
+Z.~Zeng, Z.~Fang, Y.~Huang, L.~Chen, and Y.~Gao.
+\newblock Effective and efficient cross-city traffic knowledge transfer: A
+  privacy-preserving perspective.
+\newblock arXiv preprint arXiv:2503.11963, 2025.
+\newblock URL \url{https://arxiv.org/abs/2503.11963}.
+
+\bibitem[Zhang et~al.(2025)Zhang, Zhang, Miao, Jiang, Fang, and
+  Zhang]{zhang2025strap}
+H.~Zhang, W.~Zhang, H.~Miao, X.~Jiang, Y.~Fang, and Y.~Zhang.
+\newblock {STRAP}: Spatio-temporal pattern retrieval for out-of-distribution
+  generalization.
+\newblock arXiv preprint arXiv:2505.19547, 2025.
+\newblock URL \url{https://arxiv.org/abs/2505.19547}.
+\newblock Accepted at NeurIPS 2025.
+
+\end{thebibliography}

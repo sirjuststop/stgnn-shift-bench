@@ -6,14 +6,14 @@ deployment-realistic shifts. Table~\ref{tab:audit_design} summarizes each
 shift axis, its metric, the protocol control, the main validity threat, and
 the appendix that addresses it.
 
-\begin{table}[t]
+\begin{table}[H]
 \centering
 \caption{\textbf{Audit design at a glance.} Three deployment-realistic shifts evaluated
 under a unified frozen-checkpoint protocol.}
 \label{tab:audit_design}
 \vskip 0.05in
 \small
-\begin{tabular}{p{2.3cm}p{2.6cm}p{2.6cm}p{2.8cm}p{1.6cm}}
+\begin{tabular}{p{2.3cm}p{2.6cm}p{2.6cm}p{2.8cm}p{1.5cm}}
 \toprule
 \textbf{Shift axis} & \textbf{Metric} & \textbf{Control} & \textbf{Validity threat} & \textbf{App.\ check} \\
 \midrule
@@ -28,13 +28,24 @@ Cross-city transfer &
   Subset sampling; padding inflation &
   \ref{sec:appendix_subset_sensitivity}, \ref{sec:appendix_no_pad_sensitivity} \\
 Temporal subgroup &
-  $\DeltaTemp$: weekend$-$weekday (norm.) &
+  $\DeltaTemp$: weekend$-$weekday (norm.; mph comparison) &
   Within-split stratification; no new data &
-  Normalized-unit amplification &
-  \ref{sec:appendix_temporal_cov} \\
+  Metric-dependent sign reversal &
+  \ref{sec:appendix_temporal_absolute}, \ref{sec:appendix_temporal_cov} \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\paragraph{How to read the audit.}
+Each column in the main tables is an estimand, not a single leaderboard score.
+Clean MAE identifies the checkpoint being audited. $\DeltaSensor$ measures
+incremental damage from silent zero-masking on the source city. Cross-city MAE
+measures zero-shot transfer under matched structural access, and $\DeltaTemp$
+measures a weekday/weekend subgroup gap inside the held-out source-city test
+split. We therefore compare models within a shift axis and treat changes in
+rank across axes as the object of study. This convention also avoids turning
+the masked-MAE convention used by newer adaptive-relation models into a false
+clean-performance comparison with the canonical bank.
 
 \subsection{Backbone Architectures}
 \label{subsec:backbones}
@@ -73,29 +84,34 @@ adaptive embed 20, patience 30); both are frozen at shift-eval time.
 \subsection{Backbone Bank Protocol}
 \label{subsec:bank}
 
-We train each backbone on METR-LA~\citep{li2018dcrnn} (207 sensors, 34,272
-timesteps at 5-min, ${\sim}4$ months, chronological 70/10/20 split) with three
-seeds (0,1,2). Checkpoints are frozen after training; no re-training occurs
-at shift-eval time. In-distribution MAE (mph, denormalized): DCRNN
-$6.58 \pm 0.03$, MTGNNLight $6.88 \pm 0.11$, STGCN $7.12 \pm 0.05$,
-GWNet[Strong] $7.42 \pm 0.04$, GRU $7.49 \pm 0.12$, GWNet[CM] $7.83 \pm 0.10$,
-GWNet $7.85 \pm 0.11$. GWNet underperforms DCRNN and even MTGNNLight on
-in-distribution data despite its adaptive adjacency---a limitation discussed
-in \S\ref{sec:discussion}.
+We train each backbone once on METR-LA~\citep{li2018dcrnn} using the
+chronological 70/10/20 split and three fixed seeds. The resulting checkpoints
+are frozen before any shift evaluation: no model is re-trained, fine-tuned, or
+selected separately for sensor dropout, cross-city transfer, or temporal
+subgroup analysis.
+An additional four-backbone few-shot probe relaxes this constraint to test
+limited target-data adaptation (Appendix~\ref{sec:appendix_fewshot}).
+
+Table~\ref{tab:main} reports the clean METR-LA MAE together with the three
+shift metrics. The clean column is included only to anchor the starting point
+of each checkpoint. Our claims are not based on clean ranking: a backbone can
+be useful for diagnosing a failure mechanism even when it is not the strongest
+source-city forecaster. For the same reason, GWNet[CM] and GWNet[Strong] are
+treated as control checkpoints for the GWNet finding, not as additional entries
+in the main bank.
 
 \subsection{Extended adaptive-relation models}
 \label{subsec:extended_models}
 
-To probe generality, we add three architectures (same METR-LA split, 3 seeds,
-frozen after training):
+To probe generality, we add three architectures using the same METR-LA split
+and frozen-checkpoint rule:
 \textbf{AGCRN}~\citep{bai2020agcrn} (node-adaptive GRU, no temporal
 covariates); \textbf{MegaCRN}~\citep{jiang2023megacrn} (meta-graph memory
 with TOD/DOW inputs); \textbf{STAEformer}~\citep{liu2023staeformer}
 (Transformer with spatial-temporal adaptive embeddings encoding temporal
-covariates). In-distribution masked MAE (mph, excluding zero-speed targets):
-AGCRN $4.09 \pm 0.02$, MegaCRN $3.04 \pm 0.06$, STAEformer $2.93 \pm 0.01$.
-These use masked MAE, the canonical bank uses plain MAE; we avoid direct
-cross-family clean-performance ranking.
+covariates). These models use their standard masked-MAE convention, while the
+canonical bank uses plain MAE; Table~\ref{tab:extended} reports clean values
+only to identify checkpoints, not to rank clean performance across families.
 
 \subsection{Distribution shifts}
 \label{subsec:shifts}
@@ -109,7 +125,11 @@ report the pre-registered primary-mask aggregate; Appendix~\ref{sec:appendix_mul
 reports 5-mask aggregates to separate mask-sampling from model-weight variance.
 GRU is the main mask-sampling caveat. Structured dropout patterns
 (hub and contiguous) are in Appendix~\ref{sec:appendix_structured_dropout}.
-This protocol isolates silent failure.
+This protocol isolates silent failure; the LOCF comparison in
+Appendix~\ref{sec:appendix_imputation} shows that effective imputation can
+largely remove the zero-mask gap.
+Supplementary probes add stale hold, noise, bias, and intermittent missingness
+(Appendix~\ref{sec:appendix_corruption_suite}).
 
 \paragraph{Cross-city transfer.}
 The frozen METR-LA model is evaluated zero-shot on
@@ -131,14 +151,17 @@ artifact of privileged topology access
 MAE is normalized with source-city statistics for cross-architecture
 comparability.
 
-\paragraph{Temporal shift.}
+\paragraph{Temporal subgroup shift.}
 METR-LA spans weekdays and weekends with different traffic patterns; the
 model is trained on both. We stratify the test set by day type---weekday
 (5,104 windows) and weekend (1,728 windows)---and report
 $\DeltaTemp = \mathrm{MAE}_{\text{weekend}} - \mathrm{MAE}_{\text{weekday}}$.
 This is a subgroup performance gap within the existing test split, not
-deployment to a new time window. It requires no additional data and reveals
-whether graph structure helps one traffic regime more than the other.
+deployment to a new time window. In addition to the normalized gaps, we report
+the extended models' masked-mph gaps on the same checkpoints and windows
+(Appendix~\ref{sec:appendix_temporal_absolute}). The latter exclude zero-valued
+targets, whereas normalized MAE includes all targets; the comparison changes
+both scaling and the target mask.
 
 \paragraph{Protocol summary.}
 {\small Train on METR-LA (207 sensors, 5-min, 70/10/20 split); 3 seeds,

@@ -1,9 +1,8 @@
 \documentclass{article}
 
 % ── NeurIPS 2026 Evaluations & Datasets Track ─────────────────────────────────
-% Double-blind submission (default for evaluation papers)
-\usepackage[eandd]{neurips_2026}
-% Camera-ready: \usepackage[eandd, final]{neurips_2026}
+% Camera-ready version.
+\usepackage[eandd,final]{neurips_2026}
 
 % ── Packages ──────────────────────────────────────────────────────────────────
 % Note: geometry and times are loaded by neurips_2026.sty; do not re-load them.
@@ -13,14 +12,32 @@
 \usepackage{float}
 \usepackage{xcolor}
 \usepackage{hyperref}
+\hypersetup{
+  hidelinks,
+  pdftitle={Traffic STGNNs across Sensor, City, and Time Shifts: Routing Concentration Tracks Sensitivity to Sensor Dropout},
+  pdfauthor={Xile Wang and Mingqi Yang}
+}
 \input{math_commands}
 \usepackage{cleveref}
 
 % ── Document ──────────────────────────────────────────────────────────────────
-\title{Routing Concentration Predicts Sensor-Dropout Fragility:\\
-       A Multi-Shift Diagnostic of Traffic STGNNs}
+\title{Traffic STGNNs across Sensor, City, and Time Shifts:\\
+       Routing Concentration Tracks\\
+       Sensitivity to Sensor Dropout}
 
-\author{Anonymous Authors}
+\author{%
+  Xile Wang \\
+  School of Management \\
+  South China University of Technology \\
+  Guangzhou, China \\
+  \texttt{xile.wang@outlook.com}
+  \And
+  Mingqi Yang \\
+  School of Management \\
+  South China University of Technology \\
+  Guangzhou, China \\
+  \texttt{yangmq@scut.edu.cn}
+}
 
 \begin{document}
 \maketitle
@@ -36,6 +53,11 @@
 \input{sections/5_mechanism}
 \input{sections/6_discussion}
 \input{sections/7_conclusion}
+
+\begin{ack}
+This work was supported by the National Natural Science Foundation of China (Grant No. 62506134), the Guangdong-Hong Kong-Macao Applied Mathematics Center Project (Grant No. 2026A1515060008), and the Natural Science Foundation of Guangdong Province (Grant No. 2026A1515010171).
+The authors declare no competing interests.
+\end{ack}
 
 \bibliographystyle{abbrvnat}
 \bibliography{references}

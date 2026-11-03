@@ -1,0 +1,31 @@
+% Original submitted supplementary-checks table, moved from the main text.
+\begin{table}[h]
+\centering
+\caption{Key supplementary checks behind the main findings.
+Each row points to the corresponding appendix experiment.}
+\label{tab:consolidated}
+\small
+\begin{tabular}{p{2.8cm}p{5.5cm}c}
+\toprule
+\textbf{Experiment} & \textbf{Key result} & \textbf{Ref.} \\
+\midrule
+GWNet[Best] 12-config sweep (P21)
+  & $\DeltaSensor{=}+0.042$ ($2.1{\times}$ DCRNN); the gap persists after tuning
+  & \ref{sec:appendix_stronger_gwnet} \\
+PEMS04 cross-city (P18)
+  & DCRNN best in both directions: $7.01$/$2.65$ mph vs next-best $11.03$/$4.58$ mph
+  & \ref{sec:appendix_pems04} \\
+Source-adj vs target-adj
+  & STGCN's apparent advantage shrinks ($0.249$ src-only vs $0.202$ target-adj)
+  & \ref{sec:appendix_source_adj} \\
+Hub dropout
+  & GWNet $+45\%$ ($+0.127$ vs. matched $+0.088$); DCRNN $-62\%$ ($+0.008$)
+  & \ref{sec:appendix_structured_dropout} \\
+Per-horizon city MAE (P19)
+  & GWNet: $+4\%$ h1$\to$h12 growth vs DCRNN $+46\%$
+  & \ref{sec:appendix_horizon} \\
+\bottomrule
+\end{tabular}
+\vskip 0.03in
+{\footnotesize PEMS04 cross-city values are denormalized mph; all $\Delta$ values are normalized.}
+\end{table}

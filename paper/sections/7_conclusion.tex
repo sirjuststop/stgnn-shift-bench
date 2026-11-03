@@ -3,10 +3,12 @@
 
 This audit does not identify a universally robust traffic STGNN. It identifies
 a failure coordinate. Sensor-dropout fragility tracks adaptive-adjacency
-concentration (Pearson $\rho{=}{+}0.979$ on METR-LA, $+0.910$ on PEMS04);
-GWNet is the high-concentration endpoint, and mask-aware inference recovers
-$75\%$ of its gap without retraining. Cross-city and temporal fragility sit on
-separate axes: MegaCRN leads zero-shot transfer yet carries $8$--$9{\times}$
-DCRNN's temporal subgroup gap. Model choice should follow the expected shift
-type and the routing concentration of the backbone; the submission includes the
-frozen-checkpoint protocol and recommendation artifact.
+concentration (Pearson $\rho{=}{+}0.974$ across six adaptive architectures on
+METR-LA, with positive associations on three source datasets);
+mask-aware inference recovers
+$75\%$ of its gap without retraining. Cross-city and temporal evaluation
+reveal different effects: MegaCRN leads source-normalized transfer, while
+MegaCRN's and STAEformer's weekday/weekend gaps reverse sign under masked-mph
+reporting. Model assessment should state both the expected shift and the
+metric convention; the frozen-checkpoint protocol makes these distinctions
+visible.

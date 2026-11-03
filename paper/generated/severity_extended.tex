@@ -1,0 +1,16 @@
+\begin{table}[h]
+\centering\small
+\caption{Physical-unit zero-fill severity comparison, healthy-sensor split. GTS and DGCRN extend the concentration range; routing-mass values are rounded reported values. DCRNN uses a fixed graph.}
+\label{tab:severity_extended}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Backbone} & \textbf{Max mass} & \textbf{10\%} & \textbf{20\%} & \textbf{30\%} & \textbf{40\%} & \textbf{50\%} \\
+\midrule
+DCRNN & --- & $+0.07$ & $+0.21$ & $+0.39$ & $+0.60$ & $+0.81$ \\
+MTGNN-Light & 0.16 & $+0.19$ & $+0.54$ & $+0.99$ & $+1.54$ & $+2.22$ \\
+GWNet & 0.23 & $+0.32$ & $+0.96$ & $+1.65$ & $+2.67$ & $+3.47$ \\
+GTS & 0.29 & $+0.41$ & $+0.96$ & $+1.75$ & $+2.53$ & $+3.26$ \\
+DGCRN & 0.32 & $+0.38$ & $+1.51$ & $+2.85$ & $+4.92$ & $+6.34$ \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -30,7 +30,11 @@ models (AGCRN, MegaCRN, STAEformer). Each frozen checkpoint is evaluated under
 three shifts: \textbf{sensor dropout} (10--50\% zeroed at inference, 5 random
 masks), \textbf{cross-city transfer} (zero-shot METR-LA $\to$ PEMS-BAY under
 matched structural access), and \textbf{temporal shift} (weekend vs.\ weekday
-windows within the METR-LA test set).
+windows within the METR-LA test set). The sensor experiment diagnoses silent
+zero-masking: reliable last-observed-value carry-forward (LOCF) largely removes
+the gap in the imputation comparison. We report temporal subgroup differences
+in both normalized and physical units, since the two conventions can reverse
+the apparent direction of a model's gap.
 
 \paragraph*{Contributions.}
 \begin{enumerate}
@@ -39,21 +43,22 @@ windows within the METR-LA test set).
         evaluate them under sensor dropout, cross-city transfer, and
         weekday/weekend temporal subgroup shift using a unified
         matched-structural-access protocol.
-        The frozen-checkpoint registry and evaluation scripts are included with
-        the submission and mirrored at the anonymous repository
-        \url{https://anonymous.4open.science/r/stgnn-shift-bench-DDFB}.
+        The code repository contains the frozen-checkpoint registry and
+        evaluation scripts:
+        \url{https://github.com/sirjuststop/stgnn-shift-bench}.
 
   \item \textbf{Routing concentration as a failure coordinate.}
         Sensor-dropout fragility tracks adjacency concentration
-        (Pearson $\rho{=}{+}0.979$ across four adaptive backbones,
-        replicating at $+0.910$ on a second city). GWNet's dense softmax
+        (Pearson $\rho{=}{+}0.974$ across six adaptive backbones,
+        with positive associations on three source datasets). GWNet's dense softmax
         routing explains its fragility; AGCRN and STAEformer, also adaptive,
         match DCRNN because their routing is sparser. A mask-aware inference
         variant recovers $75\%$ of GWNet's dropout gap without retraining.
 
   \item \textbf{Cross-axis tradeoff and recommendation artifact.}
-        Rankings differ across deployment axes: models that lead zero-shot
-        cross-city transfer carry the largest weekday/weekend gaps.
+        Rankings differ across deployment axes and reporting conventions:
+        source-normalized transfer favors MegaCRN, while its large normalized
+        weekday/weekend gap reverses sign under masked-mph evaluation.
         We include a recommendation artifact that maps each backbone to its
         anticipated failure mode under each shift.
 \end{enumerate}

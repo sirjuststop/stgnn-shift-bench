@@ -1,0 +1,17 @@
+\begin{table}[h]
+\centering\small
+\caption{Additional sensor corruptions on the canonical bank and GWNet[Strong] control: 30\% affected channels, healthy-sensor split. Entries are reported MAE increases in mph relative to clean inputs.}
+\label{tab:corruption_summary}
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Backbone} & \textbf{Zero} & \textbf{Stale} & \textbf{Noise} & \textbf{Bias} & \textbf{Intermittent} \\
+\midrule
+DCRNN & $+0.39$ & $+0.18$ & $+0.28$ & $+1.00$ & $+0.21$ \\
+GRU & $+0.88$ & $+0.58$ & $+0.20$ & $+1.02$ & $+0.25$ \\
+STGCN & $+1.50$ & $+0.32$ & $+1.34$ & $+4.24$ & $+0.80$ \\
+MTGNN-Light & $+0.99$ & $+0.30$ & $+0.29$ & $+2.12$ & $+0.52$ \\
+GWNet & $+1.65$ & $+0.28$ & $+0.16$ & $+1.96$ & $+0.73$ \\
+GWNet[Strong] & $+1.49$ & $+0.39$ & $+0.29$ & $+3.12$ & $+0.78$ \\
+\bottomrule
+\end{tabular}
+\end{table}

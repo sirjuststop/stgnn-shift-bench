@@ -51,19 +51,13 @@ partially restore robustness without retraining.
 \begin{table}[H]
 \centering
 \caption{\textbf{Mask-aware routing reduces GWNet's multi-mask dropout gap.}\space
-Dropped-sensor rows/columns are zeroed and renormalized; 3 seeds $\times$ 5
-random 30\% masks.}
+Dropped-sensor rows/columns are zeroed and renormalized; each of 3 seeds is
+averaged over 5 random 30\% masks. Error bars summarize the seed means;
+recovery is the mean of per-seed recovery ratios.}
 \label{tab:mask_aware}
 \vskip 0.05in
 \small
-\begin{tabular}{lcc}
-\toprule
-\textbf{Variant} & \textbf{$\DeltaSensor$ (30\%, multi-mask)} & \textbf{Recovery} \\
-\midrule
-GWNet[standard]    & $+0.092 \pm 0.030$ & --- \\
-GWNet[mask-aware]  & $+0.023 \pm 0.018$ & $75.2\%$ \\
-\bottomrule
-\end{tabular}
+\input{generated/mask_aware_rows}
 \end{table}
 
 Mask-aware routing recovers $75.2\%$, compared with $43.1\%$ for fixed
@@ -76,32 +70,31 @@ hub-30\% dropout (Appendix~\ref{sec:appendix_mask_aware_sweep}).
 \subsection{Routing concentration as a shared mechanism hypothesis}
 \label{sec:routing_spectrum}
 
-The GWNet analysis above is model-specific evidence for a monotonic relation
-over \emph{all four} adaptive-graph models in our bank
-($n{=}4$ adaptive backbones). Measuring adjacency concentration as
-$\text{max\_mass}$ (mean per-row maximum probability) on METR-LA test samples
-yields AGCRN $0.008$, MegaCRN $0.008$, MTGNN $0.16$, GWNet $0.23$. Pairing
-with each model's $\DeltaSensor$ ($+0.011$, ${-}0.005$, ${+}0.051$,
-${+}0.092$) gives Pearson $\rho{=}{+}0.979$ (over the four adaptive
-backbones; Appendix~\ref{sec:appendix_routing_spectrum}).
-The relation is stable across seeds (per-seed Pearson $+0.96 \pm 0.04$, $n{=}3$
-seeds); Spearman $\rho_S{=}{+}0.80$, with the only rank exchange between AGCRN
-and MegaCRN whose max\_mass values are tied within proxy precision
-(Appendix~\ref{sec:appendix_routing_spectrum_seedvar}).
-These are the routing-spectrum estimates used for the correlation; the main
-tables keep the pre-registered primary-mask estimand.
-Per-architecture adjacency proxies are canonical and averaged over rows,
-samples, and three seeds; STAEformer has no single row-stochastic adjacency and
-is excluded from the Pearson (full proxy definitions in
-Appendix~\ref{sec:appendix_routing_spectrum}).
-The relation replicates on PEMS04 with native checkpoints
-($\rho{=}{+}0.910$ on the same four adaptive backbones, vs.\ $+0.979$ on
-METR-LA; Appendix~\ref{sec:appendix_pems04_routing}); MegaCRN's
-METR-LA-specific negative $\DeltaSensor$ becomes positive on PEMS04
-($+0.057$), \emph{consistent with} (rather than fully confirming) the
-weekday-prior smoothing diagnosis: a no-covariate retrain remains future
-work (\S\ref{sec:discussion}). We treat the result as a two-city replicated
-shared-mechanism \emph{hypothesis}, not a universal rule.
+The GWNet analysis above provides model-specific evidence; we next examine
+the association over the four adaptive-graph models in our bank
+($n{=}4$ adaptive backbones). We measure adjacency concentration as
+$\text{max\_mass}$, the mean per-row maximum routing probability, using each
+model's native relation proxy. Pairing this proxy with the routing-spectrum
+$\DeltaSensor$ estimand gives Pearson $\rho{=}{+}0.979$
+(Appendix~\ref{sec:appendix_routing_spectrum}). Removing GWNet leaves
+$\rho{=}{+}0.961$; the exact permutation test gives $p{=}0.083$
+($n{=}4$; Appendix~\ref{sec:appendix_routing_loo}).
+Seed-level and rank diagnostics are in
+Appendix~\ref{sec:appendix_routing_spectrum_seedvar}. STAEformer has no single
+row-stochastic adjacency and is excluded from this proxy comparison.
+The main tables retain their primary-mask estimand.
+We extend the architecture sample with GTS~\citep{shang2021discrete}
+(link-predictor graph learning) and DGCRN~\citep{li2021dgcrn}
+(input-conditioned dynamic graphs), selected for their distinct mechanisms.
+Across six architectures, $\rho{=}{+}0.974$ with exact permutation
+$p{=}0.003$; dropping GWNet leaves $+0.973$, and the minimum leave-one-out
+value is $+0.961$. Native-source associations remain positive on METR-LA,
+PEMS-BAY, and PEMS04 ($+0.974$, $+0.75$, $+0.63$), although the PEMS04
+result is not significant at 0.05 (Appendix~\ref{sec:appendix_routing_extended}).
+The original four-model relation also replicates on native PEMS04 checkpoints
+($\rho{=}{+}0.910$; Appendix~\ref{sec:appendix_pems04_routing}). Together,
+these comparisons support a shared-mechanism hypothesis within the evaluated
+architectures and traffic datasets.
 A local perturbation argument supports this: zero-masking a dropped sensor $j$
 shifts each kept node $i$ by $A_{ij}H_jW$; averaging over rows bounds the
 mean signal disruption by $B_H B_W |\mathcal{I}|\,\mathrm{max\_mass}(A)$.
@@ -117,23 +110,26 @@ $k{=}\text{full}$ (Appendix~\ref{sec:appendix_density_sweep}).
 \subsection{Ruling out two natural mechanism hypotheses}
 \label{sec:polish_ablations}
 
-Two ablations narrow the MegaCRN/STAEformer temporal finding without closing it.
-Randomizing or swapping explicit time embeddings leaves MegaCRN's temporal gap
-unchanged and reduces STAEformer's by only 12.5\%, so TOD/DOW covariates are
-not the main driver. MegaCRN's negative sensor delta is adjacency-mediated
+Two ablations probe the normalized MegaCRN/STAEformer temporal gaps.
+Randomizing or swapping explicit time embeddings leaves MegaCRN's normalized gap
+unchanged and reduces STAEformer's by only 12.5\%, so TOD/DOW covariates alone
+do not explain that metric. MegaCRN's negative sensor delta is adjacency-mediated
 smoothing toward a weekday-dominated prior, not evidence that MegaCRN directly
-tolerates dropout (Appendix~\ref{sec:appendix_memory_ablation}). The residual
-temporal fragility appears to lie in the memory bank or encoder dynamics;
-isolating it requires a no-covariate retraining, left to future work
-(Appendix~\ref{sec:appendix_temporal_cov}).
+tolerates dropout (Appendix~\ref{sec:appendix_memory_ablation}). These
+interventions do not establish excess temporal error in mph, where the gaps
+reverse sign. Isolating the remaining normalized-gap mechanism requires
+retraining, left to future work (Appendix~\ref{sec:appendix_temporal_cov}).
 
 \subsection{Severity, degree stratification, and imputation baselines}
 
-GWNet is the most sensitive backbone at all five dropout ratios
+In the original three-model severity comparison, GWNet is the most sensitive
+backbone at all five dropout ratios
 (GWNet/DCRNN ratio grows $2.5\times \to 4.6\times$ from $10\%$ to $40\%$;
-Appendix~\ref{sec:appendix_severity}). Its highest-degree quartile suffers
+Appendix~\ref{sec:appendix_severity}). The extended physical-unit comparison
+places DGCRN, the highest-concentration model, at the most fragile endpoint
+at four of five severities (Table~\ref{tab:severity_extended}). GWNet's highest-degree quartile suffers
 $\DeltaSensor{=}{+}0.121$ versus $+0.066$ for Q1 ($1.83\times$); DCRNN shows
 no degree dependence (Appendix~\ref{sec:appendix_degree_stratification}).
 Last-observed-value carry-forward (LOCF) recovers ${\geq}97\%$ of the zero-mask
-gap across backbones, so the ranking is specific to silent-failure zero-masking
+gap across the four backbones in that comparison, so the ranking is specific to silent-failure zero-masking
 (Appendix~\ref{sec:appendix_imputation}).

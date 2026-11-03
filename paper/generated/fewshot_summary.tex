@@ -1,0 +1,15 @@
+\begin{table}[h]
+\centering\small
+\caption{Limited target-data adaptation: target-test MAE in mph on one fixed 207-node PEMS-BAY subset, using target normalization. This is a separate probe from the five-subset source-normalized main comparison.}
+\label{tab:fewshot_summary}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Model} & \textbf{$k=0$} & \textbf{$k=50$} & \textbf{$k=200$} & \textbf{$k=800$} \\
+\midrule
+DCRNN & $2.69$ & $2.69$ & $2.66$ & $2.67$ \\
+MTGNN-Light & $4.13$ & $3.82$ & $3.79$ & $3.78$ \\
+GWNet & $4.22$ & $4.06$ & $4.13$ & $4.11$ \\
+GRU & $4.44$ & $4.25$ & $4.21$ & $4.18$ \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "stgnn-stress"
+version = "0.1.0a1"
+description = "Deployment-shift stress testing and architecture recommendation for frozen STGNN checkpoints (NeurIPS 2026 E&D artifact)."
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [{ name = "Xile Wang", email = "xile.wang@outlook.com" }, { name = "Mingqi Yang", email = "yangmq@scut.edu.cn" }]
+license = { text = "MIT" }
+keywords = ["spatiotemporal", "graph-neural-networks", "robustness", "stress-testing", "traffic-forecasting"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "numpy>=1.21",
+]
+
+[project.optional-dependencies]
+torch = ["torch>=1.13"]
+dev = ["pytest>=7", "ruff"]
+
+[tool.setuptools]
+packages = ["stgnn_stress", "stgnn_stress.shifts"]
+package-dir = { "stgnn_stress" = ".", "stgnn_stress.shifts" = "shifts" }
+
+[tool.setuptools.package-data]
+stgnn_stress = ["data/*.json"]

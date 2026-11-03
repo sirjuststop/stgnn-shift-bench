@@ -8,40 +8,42 @@ Under silent-failure zero-mask dropout, DCRNN, AGCRN, and STAEformer degrade
 much less than GWNet; the GWNet gap is tied to dense softmax routing and the
 mask-aware variant recovers 75\% without retraining. For zero-shot cross-city
 transfer on METR-LA/PEMS-BAY-style highway networks, MegaCRN and DCRNN are
-strong; for weekday/weekend subgroup shift, MegaCRN and STAEformer carry the
-largest gaps. These recommendations do not extrapolate beyond the settings
-evaluated.
+strong. Weekday/weekend comparisons require an explicit metric: MegaCRN and
+STAEformer have positive normalized gaps but negative masked-mph gaps.
+Their normalized values alone should not drive temporal deployment guidance.
 
 \paragraph{Implications for robustness evaluation.}
 A clean-test leaderboard is not enough when the deployment shift is unknown.
 More expressive relation learning changes which deployment axis is vulnerable
 rather than removing vulnerability, so benchmarks should report multi-shift
 robustness alongside in-distribution accuracy. GWNet controls rule out a simple
-training artifact: relative
-sensitivity (1.1\% vs.\ 0.3\% for DCRNN), a 12-config capacity sweep
-(Table~\ref{tab:consolidated}), and MTGNNLight's lower fragility under adaptive
-topology.
+training artifact: fixed-adjacency substitution, a 12-config capacity sweep,
+and MTGNNLight's lower fragility under adaptive topology all point to routing
+concentration rather than optimizer failure (Table~\ref{tab:consolidated}).
 
 \paragraph{Recommendation artifact.}
-The submission includes a pip-installable recommendation artifact.
-Given a backbone name and anticipated deployment context (sensor reliability
-level, source/target city pairing, weekday/weekend exposure), it returns a
-per-axis fragility profile and suggested mitigation (e.g., mask-aware routing
-for silent-failure settings, avoidance of dense-softmax adjacency under high
-dropout rates). The artifact draws directly from the frozen-checkpoint registry
-and shift-eval tables reported here; it does not generalize beyond the eight
-backbones, two source cities, and three shift axes evaluated.
+The release includes a small decision table and scripts built from the frozen
+checkpoint registry. Given a backbone name and anticipated deployment context
+(sensor reliability level, source/target city pairing, weekday/weekend
+exposure), the table returns the observed per-axis fragility profile and a
+matching mitigation, such as mask-aware routing for silent-failure settings or
+avoiding dense-softmax adjacency under high dropout rates. It does not
+generalize beyond the eight backbones, two source cities, and three shift axes
+evaluated.
 A $2{\times}2{\times}2$ deployment-profile decision table and conservative
 rankings (demoting MegaCRN on the sensor axis due to its smoothing-artifact
-negative delta) are in Appendix~\ref{sec:appendix_decision_tree}.
+negative delta) are in Appendix~\ref{sec:appendix_decision_tree}. Its temporal
+axis uses the original normalized gap; weekend-related recommendations are
+therefore specific to that metric, rather than rankings of physical error.
 
 \paragraph{Limitations.}
 The study does not exhaust adaptive-relation traffic models (e.g., ASTGCN,
 DSTAGNN). MegaCRN's negative sensor delta is adjacency-mediated smoothing, and
-the temporal gap is not explained by TOD/DOW covariates; the remaining source
-likely lies in memory-bank or encoder dynamics and needs a no-covariate
-retraining. The main training source is METR-LA, with a three-source extension
-ongoing.
+the normalized temporal gap is not explained by TOD/DOW covariates alone.
+Its sign reversal under masked-mph reporting makes the evaluation convention
+part of the finding. The main training source is METR-LA; PEMS04 is used as a targeted
+replication for cross-city transfer and routing concentration, not as a full
+source-city sweep.
 The fragility ranking is also specific to silent zero-masking: LOCF recovers
 most of the gap (Appendix~\ref{sec:appendix_imputation}).
 

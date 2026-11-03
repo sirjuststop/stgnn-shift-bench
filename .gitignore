@@ -83,3 +83,18 @@ submission_neurips2026*/
 .agents/
 AGENTS.md
 POLISH_PLAN_4v17p1.md
+
+# Camera-ready release files
+!paper/main.bbl
+!stgnn_stress/
+!stgnn_stress/**
+!third_party/
+!third_party/**
+!external_repos/
+external_repos/*
+!external_repos/AGCRN/
+!external_repos/AGCRN/**
+paper/build-*.console.txt
+stgnn_stress/build/
+stgnn_stress/*.egg-info/
+stgnn_stress/**/__pycache__/

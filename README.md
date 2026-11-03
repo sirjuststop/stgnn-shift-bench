@@ -1,135 +1,115 @@
-# How Adaptive Traffic Models Redistribute Fragility
-## A Multi-Shift Diagnostic of Spatiotemporal Architectures
+# Traffic STGNNs across Sensor, City, and Time Shifts
 
-*Submitted to NeurIPS 2026 Evaluations & Datasets Track*
+## Routing Concentration Tracks Sensitivity to Sensor Dropout
 
----
+**Xile Wang and Mingqi Yang**
+School of Management, South China University of Technology
 
-## Overview
+NeurIPS 2026 Evaluations & Datasets camera-ready artifact.
 
-We conduct a controlled diagnostic of eight spatiotemporal graph neural network (STGNN) architectures under three deployment-realistic distribution shifts: **city transfer**, **sensor dropout**, and **temporal span**. All evaluations use frozen checkpoints trained once on METR-LA — no target-domain retraining, no cherry-picking.
+[Paper PDF](paper/main.pdf) | [Paper source and build instructions](paper/README.md) | [Revision notes](paper/REVISION_NOTES.md)
 
-Key findings:
-- Adaptive models (AGCRN, MegaCRN, STAEformer) show lower city-transfer error than graph-free baselines but amplify sensor-dropout fragility by 2–4×.
-- A pre-registered routing-density hypothesis is confirmed across both METR-LA (ρ = +0.979) and PEMS04 (ρ = +0.910): denser learned adjacency correlates with higher sensor-shift sensitivity.
-- Four of five pre-registered hypotheses were refuted; the failures are documented explicitly as part of the evaluation contribution.
+We evaluate eight frozen traffic forecasting architectures under sensor dropout, cross-city transfer, and weekday/weekend subgroup differences. Sensor-dropout sensitivity tracks routing concentration, while cross-city and temporal rankings depend on the shift and reporting convention. The expanded routing comparison includes six graph-based adaptive architectures. A mask-aware GWNet intervention recovers about 75% of its multi-mask dropout gap without retraining.
 
-**Paper**: [`paper/main.pdf`](paper/main.pdf)
+The final paper distinguishes normalized/plain temporal error from masked physical-unit error. It also separates statistics recomputed from saved results from additional aggregates reported in the authors' rebuttal. The latter are preserved as aggregate tables; new training or inference was not performed during this revision.
 
----
+## Rebuild the paper and revised assets
 
-## Repository Structure
+The source and compiled PDF are in `paper/`. A LaTeX distribution can compile the manuscript without datasets or checkpoints:
 
-```
-configs/                     # frozen training hyperparameters
-  stgnn_unified.yaml
-experiments/                 # evaluation + training scripts
-  stgnn_backbone_bank.py     # all 8 backbone model definitions
-  stgnn_shift_eval_v2.py     # main shift evaluation (city / sensor / temporal)
-  pems04_routing_gate_native.py
-  mask_aware_dropout_sweep.py
-  cross_city_no_pad_sensitivity.py
-  ...
-baselines/
-  stgnn_protocol_registry.json   # checkpoint manifest + test metrics
-  stgnn/                         # METR-LA frozen checkpoints (3 seeds each)
-  stgnn_bay207/                  # PEMS-BAY source-polish checkpoints
-  stgnn_official_fix/            # AGCRN / MegaCRN / STAEformer checkpoints
-  stgnn_pems04_extra/            # PEMS04 extra seeds
-results/
-  official_adaptive_relation/
-    UPDATED_MERGED_COMPARISON_TABLE_2026-04-16.csv   # Table 1 source
-    UPDATED_MERGED_COMPARISON_TABLE_2026-04-16.json
-  polish_v15/
-    pems04_native_routing_gate.json
-    mask_aware_ratio_sweep.json
-    cross_city_no_pad_sensitivity.json
-paper/
-  main.pdf      # compiled paper (double-blind)
-  main.tex      # LaTeX source
-  sections/     # per-section .tex files
-  figures/      # all figures + generation scripts
+```sh
+cd paper
+pdflatex -interaction=nonstopmode -halt-on-error main.tex
+bibtex main
+pdflatex -interaction=nonstopmode -halt-on-error main.tex
+pdflatex -interaction=nonstopmode -halt-on-error main.tex
 ```
 
----
+From the repository root, regenerate Figure 1 and the revised tables:
 
-## Reproducing Results
+```sh
+python -m pip install numpy matplotlib
+python paper/figures/build_camera_ready_assets.py --from-packaged-inputs
+```
 
-### 1. Environment setup
+The numerical inputs are included in `paper/inputs/asset_sources.json`. This command rebuilds the presentation of saved results, without running model evaluation.
 
-```bash
+## Experiment environment and data
+
+```sh
 conda create -n stgnn python=3.10
 conda activate stgnn
 pip install -r requirements.txt
 ```
 
-### 2. Data
+Download the original datasets under their distribution terms:
 
-Download and place datasets under `data/`:
+| Dataset | Source | Local directory |
+|---------|--------|-----------------|
+| METR-LA | [DCRNN](https://github.com/liyaguang/DCRNN) | `data/metr-la/` |
+| PEMS-BAY | [DCRNN](https://github.com/liyaguang/DCRNN) | `data/pems-bay/` |
+| PEMS04 | [ASTGNN](https://github.com/guoshnBJTU/ASTGNN) | `data/pems04/` |
 
-| Dataset | Source | Path |
-|---------|--------|------|
-| METR-LA | [DCRNN repo](https://github.com/liyaguang/DCRNN) | `data/metr-la/` |
-| PEMS-BAY | [DCRNN repo](https://github.com/liyaguang/DCRNN) | `data/pems-bay/` |
-| PEMS04 | [ASTGNN repo](https://github.com/guoshnBJTU/ASTGNN) | `data/pems04/` |
+The loaders accept `METR-LA.csv` / `PEMS-BAY.csv`, or HDF5 files as described in `experiments/stgnn_backbone_bank.py`. Adjacency files are `data/metr-la/adj_mx.pkl` and `data/pems-bay/adj_mx_bay.pkl`. Raw datasets are not redistributed here.
 
-Expected files: `metr-la.h5`, `adj_mx.pkl` for METR-LA; `pems-bay.h5`, `adj_mx_bay.pkl` for PEMS-BAY.
+`baselines/stgnn_protocol_registry.json` identifies saved checkpoints and their configurations. The original frozen checkpoint files remain in `baselines/`. Canonical-bank evaluation and the three official adaptive models have separate entry points:
 
-### 3. Main shift evaluation (Table 1)
+```sh
+python experiments/stgnn_shift_eval_v2.py --help
+python experiments/eval_official_adaptive_baselines.py --help
+```
 
-```bash
-# All 8 backbones × 3 shifts — reads frozen checkpoints from baselines/
+For example, to evaluate the canonical bank with source-only structural access and write into a new directory:
+
+```sh
 python experiments/stgnn_shift_eval_v2.py \
-    --registry baselines/stgnn_protocol_registry.json \
-    --output_dir results/my_run/
+  --registry baselines/stgnn_protocol_registry.json \
+  --backbones dcrnn gwnet gru stgcn mtgnn \
+  --source_only_adj_control \
+  --output_dir results/my_run/canonical
+
+python experiments/eval_official_adaptive_baselines.py \
+  --models agcrn megacrn staeformer \
+  --registry baselines/stgnn_protocol_registry.json \
+  --output_dir results/my_run/adaptive
 ```
 
-### 4. Routing-density analysis (§5.2)
+Model definitions used by the official adapters are included in `third_party/` and `external_repos/AGCRN/`. The AGCRN files are pinned to the commit recorded by the existing model adapter; upstream attribution and license are preserved.
 
-```bash
-python experiments/routing_sparsity_spectrum.py \
-    --registry baselines/stgnn_protocol_registry.json \
-    --output results/my_run/routing_density.json
+The registry also retains six auxiliary BAY-source STGCN/MTGNN checkpoint entries whose weight files are unavailable. These are separate from the METR-LA source bank used by the commands above.
+
+## Recommendation artifact
+
+Run from the repository root:
+
+```python
+from stgnn_stress import recommend_architecture
+
+rec = recommend_architecture(
+    sensor_churn=True, city_transfer=False, weekend_heavy=False
+)
+print(rec.architecture, rec.runner_up, rec.margin)
 ```
 
-### 5. PEMS04 native replication (Appendix)
+The frozen recommendation table is `stgnn_stress/data/decision_tree.json`. Its temporal axis uses the original normalized error profile, as explained in the paper; it does not rank masked physical-unit weekend errors. The package's shift harness is a scaffold; use the experiment entry points above for evaluation.
 
-```bash
-python experiments/pems04_routing_gate_native.py \
-    --registry baselines/stgnn_protocol_registry.json \
-    --output results/my_run/pems04_routing.json
-```
+## Result and source map
 
-### 6. Mask-aware dropout sweep (Appendix)
+| Location | Contents |
+|----------|----------|
+| `configs/stgnn_unified.yaml` | Canonical-bank training configuration |
+| `experiments/` | Training and evaluation entry points |
+| `baselines/` | Frozen checkpoints and registry |
+| `results/official_adaptive_relation/` | Saved main comparison and adaptive evaluation results |
+| `results/polish_v15/` | Native PEMS04 routing, mask-aware sweep, and city-transfer checks |
+| `paper/generated/metrics.json` | Reaggregated camera-ready statistics and source hashes |
+| `paper/generated/rebuttal_reported.json` | Separately identified author-reported aggregate results |
+| `paper/lay_summary.txt` | General-audience summary for the submission system |
 
-```bash
-python experiments/mask_aware_dropout_sweep.py \
-    --registry baselines/stgnn_protocol_registry.json \
-    --output results/my_run/mask_sweep.json
-```
+## Funding
 
----
-
-## Checkpoint Manifest
-
-`baselines/stgnn_protocol_registry.json` lists every frozen checkpoint with its backbone, dataset, seed, and in-distribution test metrics. All evaluation scripts load checkpoints via this registry.
-
-Training hyperparameters are frozen in `configs/stgnn_unified.yaml` and were held constant across all eight backbones and all seeds.
-
----
-
-## Figures
-
-All figures are reproducible from the canonical results CSV. Generation scripts are in `paper/figures/`:
-
-```bash
-python paper/figures/gen_shift_profiles_v15.py \
-    --table results/official_adaptive_relation/UPDATED_MERGED_COMPARISON_TABLE_2026-04-16.csv \
-    --out paper/figures/shift_profiles.pdf
-```
-
----
+This work was supported by the National Natural Science Foundation of China (Grant No. 62506134), the Guangdong-Hong Kong-Macao Applied Mathematics Center Project (Grant No. 2026A1515060008), and the Natural Science Foundation of Guangdong Province (Grant No. 2026A1515010171). The authors declare no competing interests.
 
 ## License
 
-Code released under MIT License. Model checkpoints are derived from publicly available STGNN implementations; see individual backbone attributions in `experiments/stgnn_backbone_bank.py`.
+Project code follows the repository's MIT license declaration. Third-party model code retains its upstream attribution and terms; see the relevant directories and model-source references in `experiments/official_adaptive_models.py`.

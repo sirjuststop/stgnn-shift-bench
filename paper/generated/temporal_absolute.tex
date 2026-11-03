@@ -1,0 +1,19 @@
+% Generated from TEMPORAL_RERUN_SUMMARY_2026-04-16.json; population std across 3 seeds.
+\begin{table}[h]
+\centering
+\small
+\caption{Weekday/weekend gap under two reporting conventions. The same
+checkpoints and test windows are used in both columns; normalized MAE uses
+all targets, while masked mph excludes zero targets. Negative gaps mean
+lower weekend error. Mean $\pm$ population std over three seeds.}
+\label{tab:temporal_absolute}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Model} & \textbf{Normalized/plain gap} & \textbf{Masked-mph gap} \\
+\midrule
+AGCRN & $+0.061\pm0.008$ & $+0.750\pm0.013$ \\
+MegaCRN & $+0.734\pm0.019$ & $-0.594\pm0.051$ \\
+STAEformer & $+0.750\pm0.003$ & $-0.612\pm0.002$ \\
+\bottomrule
+\end{tabular}
+\end{table}
