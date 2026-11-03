@@ -5,24 +5,23 @@ Traffic forecasting supports urban services such as ride-hailing dispatch,
 signal timing, and congestion management. STGNNs are now standard
 tools~\citep{li2018dcrnn,wu2019gwnet,yu2018stgcn}, but they are usually
 selected with training and test data from the same city, sensors, and time
-window. Deployment is less tidy: sensors fail silently, a model trained in one
+window. In deployment, sensors can fail silently, a model trained in one
 city may be applied to another, and traffic changes between weekdays and
-weekends. Clean MAE alone does not say which architecture survives which shift.
+weekends. Clean MAE alone does not indicate how well a model handles these changes.
 
 Prior STGNN robustness work proposes OOD interventions via retrieval or
 pruning~\citep{zhang2025strap,jing2026tlgpstgn} or frames cross-city transfer
-as federated learning~\citep{zeng2025fedtt}. What is missing is a
-controlled \emph{diagnostic}: the same frozen backbone evaluated under several
-deployment-realistic shifts, with differences traced to concrete
+as federated learning~\citep{zeng2025fedtt}. A controlled \emph{diagnostic}
+is still needed: the same frozen backbone evaluated under several
+deployment shifts, with differences traced to
 architectural choices. We also pre-register hypotheses so failed predictions
 remain part of the evidence (Appendix~\ref{sec:appendix_preregistered}).
 Cross-city comparisons need one more control:
 adaptive models can in principle re-learn a target topology, while fixed-graph
 models cannot. A matched-structural-access protocol, where every backbone uses
-source-city topology, removes that asymmetry. The contribution is an evaluation
-object, not a new forecaster: a frozen-checkpoint protocol, a shift taxonomy,
-and a mechanism audit for when the clean-test ranking is no longer the ranking
-that matters.
+source-city topology, removes that asymmetry. We use this protocol to study
+when model rankings change across shifts and to examine the architectural
+mechanisms behind those changes.
 
 We assemble a bank of eight architectures trained on METR-LA: a five-model
 canonical bank spanning graph-free (GRU), fixed-graph (DCRNN, STGCN), and

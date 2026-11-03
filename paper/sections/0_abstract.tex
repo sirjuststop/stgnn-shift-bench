@@ -9,12 +9,11 @@ the use of adaptive adjacency itself. Across six adaptive backbones, mean row
 maximum routing mass correlates with dropout degradation at Pearson
 $\rho{=}{+}0.974$, with positive associations on three source datasets.
 Graph WaveNet exhibits concentrated routing and dropout sensitivity, while AGCRN and
-STAEformer stay close to DCRNN when sensors are zeroed. The other shifts
-separate from this pattern: MegaCRN leads source-normalized cross-city
+STAEformer stay close to DCRNN when sensors are zeroed. Rankings differ under
+the other shifts: MegaCRN leads source-normalized cross-city
 transfer, while weekday/weekend rankings depend on the reporting convention.
 MegaCRN and STAEformer have large normalized gaps but lower weekend error
-in masked mph, exposing a metric-dependent ranking reversal.
+in masked mph, so the sign of the temporal gap depends on the metric.
 In this backbone bank, strong performance under one shift does not imply
-robustness under another. We release a registry of frozen checkpoints,
-evaluation code, and a decision table mapping each backbone to its main failure
-mode.
+robustness under another. We release a frozen-checkpoint registry,
+evaluation code, and a decision table summarizing model failure modes.

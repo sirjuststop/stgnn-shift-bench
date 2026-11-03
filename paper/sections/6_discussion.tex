@@ -2,20 +2,20 @@
 \label{sec:discussion}
 
 \paragraph{Deployment guidance.}
-Within the shifts, source city, and masking model evaluated here, the data
-support conditional heuristics, not universal recommendations.
+Within the shifts, source city, and masking model evaluated here, the results
+suggest several practical choices.
 Under silent-failure zero-mask dropout, DCRNN, AGCRN, and STAEformer degrade
 much less than GWNet; the GWNet gap is tied to dense softmax routing and the
 mask-aware variant recovers 75\% without retraining. For zero-shot cross-city
-transfer on METR-LA/PEMS-BAY-style highway networks, MegaCRN and DCRNN are
-strong. Weekday/weekend comparisons require an explicit metric: MegaCRN and
+transfer on METR-LA/PEMS-BAY-style highway networks, MegaCRN and DCRNN
+perform well. Weekday/weekend comparisons require an explicit metric: MegaCRN and
 STAEformer have positive normalized gaps but negative masked-mph gaps.
 Their normalized values alone should not drive temporal deployment guidance.
 
 \paragraph{Implications for robustness evaluation.}
-A clean-test leaderboard is not enough when the deployment shift is unknown.
-More expressive relation learning changes which deployment axis is vulnerable
-rather than removing vulnerability, so benchmarks should report multi-shift
+Clean-test rankings can change under deployment shifts.
+More expressive relation learning affects which shifts a model is sensitive to,
+so benchmarks should report multi-shift
 robustness alongside in-distribution accuracy. GWNet controls rule out a simple
 training artifact: fixed-adjacency substitution, a 12-config capacity sweep,
 and MTGNNLight's lower fragility under adaptive topology all point to routing
@@ -40,17 +40,16 @@ therefore specific to that metric, rather than rankings of physical error.
 The study does not exhaust adaptive-relation traffic models (e.g., ASTGCN,
 DSTAGNN). MegaCRN's negative sensor delta is adjacency-mediated smoothing, and
 the normalized temporal gap is not explained by TOD/DOW covariates alone.
-Its sign reversal under masked-mph reporting makes the evaluation convention
-part of the finding. The main training source is METR-LA; PEMS04 is used as a targeted
+The temporal gap also reverses sign under masked-mph reporting.
+The main training source is METR-LA; PEMS04 is used as a targeted
 replication for cross-city transfer and routing concentration, not as a full
 source-city sweep.
 The fragility ranking is also specific to silent zero-masking: LOCF recovers
 most of the gap (Appendix~\ref{sec:appendix_imputation}).
 
 \paragraph{Scope of the zero-mask diagnostic.}
-The zero-mask sensor-dropout protocol is a silent-outage diagnostic, not a
-prescription for reliable-imputation regimes. LOCF is a valid mitigation when
-recent readings are trustworthy, and the gap reported here applies to
+The zero-mask sensor-dropout protocol evaluates silent sensor outages.
+LOCF is useful when recent readings are reliable, and the gap reported here applies to
 deployments where telemetry is delayed, where multi-source carry-forward is
-unreliable, or where sensors fail outright. We do not extrapolate the fragility
-ranking to settings in which last-observation backfill is broadly safe.
+unreliable, or where sensors fail outright. We limit this ranking to settings
+without reliable last-observation backfill.

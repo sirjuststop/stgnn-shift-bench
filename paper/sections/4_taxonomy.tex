@@ -45,7 +45,7 @@ GWNet despite also learning topology. This rules out ``adaptive graph'' as the
 right explanatory variable; the contrast is between sparse learned routing and
 dense all-pairs softmax. Capacity controls reduce but do not remove the GWNet
 gap (Table~\ref{tab:consolidated}; Appendix~\ref{sec:appendix_multimask}).
-The same reading also survives a stronger missingness pattern: hub dropout
+The same pattern holds under hub dropout, which
 widens GWNet's gap while making DCRNN less sensitive, which is the expected
 direction if dropped high-flow nodes expose concentrated learned routes rather
 than merely increasing the number of missing inputs.
@@ -57,7 +57,7 @@ for bias, compared with DCRNN's $+0.28$ and $+1.00$ mph, respectively
 \paragraph{Cross-city transfer under matched structural access.}
 Under source-only adjacency, DCRNN is the strongest canonical-bank transfer
 baseline. The result is not a simple fixed-vs-adaptive split: STGCN loses its
-target-adjacency advantage once target topology is withheld, and then sits near
+target-adjacency advantage once target topology is withheld, and then performs similarly to
 GWNet under the fair comparison. The DCRNN advantage also holds on a second
 city pair, while padding sensitivity changes absolute MAE but not the ordering
 (Table~\ref{tab:consolidated}; Appendix~\ref{sec:appendix_no_pad_sensitivity}).
@@ -142,12 +142,12 @@ greater physical-error fragility: scaling and target masking reverse the sign
 for two models (Appendix~\ref{sec:appendix_temporal_absolute}). Covariate
 interventions address the normalized gap, not this absolute-error ranking.
 
-\paragraph{Synthesis: axis-specific failure modes.}
-Modern adaptive-relation models split their failures across deployment axes
+\paragraph{Comparison across shifts.}
+The adaptive-relation models differ across deployment settings
 (Figure~\ref{fig:shift_profiles}): AGCRN and STAEformer match DCRNN under
 sensor dropout, MegaCRN leads source-normalized cross-city transfer, and
-temporal comparisons expose a reporting-convention effect. The shared sensor-dropout coordinate is routing
-concentration: it tracks fragility even when clean accuracy and cross-city
+temporal comparisons depend on the reporting convention. Routing concentration
+tracks sensor-dropout sensitivity even when clean accuracy and cross-city
 ranking move in different directions. The sensor-dropout ranking is specific
 to silent zero-masking; under last-observed-value carry-forward
 (LOCF) the four backbones in the imputation comparison recover

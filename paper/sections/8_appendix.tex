@@ -282,7 +282,7 @@ GWNet's hub-dropout sensitivity is \textbf{45\% higher} than uniform random ($+0
 matched single-mask protocol shared with Table~\ref{tab:main}):
 hub nodes feed GWNet's densest adaptive-routing pathways, so removing them is especially damaging.
 DCRNN and STGCN show \emph{lower} $\DeltaSensor$ under hub/contiguous dropout ($+0.008$, $+0.026$)
-than under uniform random---an important methodological note: when hubs are dropped, the
+than under uniform random dropout. When hubs are dropped, the
 kept sensors are peripheral nodes with simpler traffic dynamics, making the prediction task
 inherently easier. The clean-kept and masked-kept MAEs both drop for DCRNN/STGCN under hub
 dropout, but the \emph{gap} also shrinks, since DCRNN's bidirectional diffusion redistributes
@@ -650,7 +650,7 @@ The padding bias is small for the fixed-graph backbones DCRNN ($-0.15$ mph)
 and STGCN ($-0.12$ mph) but larger for GWNet, MTGNN, and GRU
 ($-0.66$, $-0.73$, $-0.73$ mph): index-repetition padding flatters the
 adaptive and graph-free models on PEMS04 $\to$ METR-LA by roughly $6$--$7\%$
-of their already-large MAE. Crucially, the \emph{ranking} is unchanged: DCRNN
+of their already-large MAE. The \emph{ranking} is unchanged: DCRNN
 remains best in both columns, and the gap to the next-best model
 (STGCN, $\approx 7$ vs.\ MTGNN, $\geq 10$) is preserved. The PEMS04 $\to$
 PEMS-BAY direction is unaffected since target $>$ source (subsample only,
@@ -708,7 +708,7 @@ GWNet[Strong] & $0.333$ & $0.401$ & $0.468$ & $0.390$ & $0.457$ & $0.522$ & $0.2
 \end{table}
 
 Under clean inference and sensor dropout, all backbones show the expected near-monotone
-MAE growth with horizon. Under cross-city transfer the story splits:
+MAE growth with horizon. Under cross-city transfer the models differ:
 DCRNN and STGCN retain normal growth ($+46\%$ and $+33\%$ from $h{=}1$ to $h{=}12$),
 whereas GWNet, GWNet[Strong], MTGNNLight, and GRU are nearly flat ($+2\%$--$+7\%$).
 For the adaptive-graph models, the transfer error is therefore paid \emph{up-front} as a

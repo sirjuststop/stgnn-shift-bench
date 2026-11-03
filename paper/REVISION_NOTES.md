@@ -1,5 +1,6 @@
 # Camera-ready changes, 2026-11-03
 
+- Light language edit: replaced abstract labels and conversational metaphors with direct descriptions, and shortened repeated summaries. Numbers, equations, citations, tables, figures, and the approved contribution bullets are unchanged.
 - Follow-up style revision: simplified the author affiliations to university, city, and email; rewrote each contribution as one sentence beginning with "We", without bold lead-ins or numerical results.
 - Added the authors, affiliations, email addresses, funding acknowledgments, and competing-interests statement; enabled the NeurIPS 2026 E&D final format.
 - Updated temporal comparisons throughout the paper and Figure 1 to distinguish normalized/plain MAE from masked MAE in mph. The two conventions can reverse the weekday/weekend gap.
