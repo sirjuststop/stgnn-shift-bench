@@ -5,7 +5,7 @@
 \item {\bf Claims}
     \item[] Question: Do the main claims made in the abstract and introduction accurately reflect the paper's contributions and scope?
     \item[] Answer: \answerYes{}.
-    \item[] Justification: The abstract and introduction state that the paper is a pre-registered diagnostic of frozen traffic STGNNs, not a new model or dataset. The scope is limited to the evaluated shifts, source cities, and masking assumptions.
+    \item[] Justification: The abstract and introduction state that the paper is an evaluation of frozen traffic STGNNs with pre-registered predictions. The scope is limited to the evaluated shifts, source cities, and masking assumptions.
 
 \item {\bf Limitations}
     \item[] Question: Does the paper discuss the limitations of the work performed by the authors?
@@ -25,7 +25,7 @@
 \item {\bf Open access to data and code}
     \item[] Question: Does the paper provide open access to the data and code, with sufficient instructions to faithfully reproduce the main experimental results, as described in supplemental material?
     \item[] Answer: \answerYes{}.
-    \item[] Justification: The submission includes evaluation scripts, configs, result tables, and the recommendation artifact. The raw traffic datasets are public third-party datasets and are cited rather than redistributed.
+    \item[] Justification: The submission includes evaluation scripts, configs, result tables, and the model-selection table. The raw traffic datasets are public third-party datasets and are cited rather than redistributed.
 
 \item {\bf Experimental setting/details}
     \item[] Question: Does the paper specify all the training and test details (e.g., data splits, hyperparameters, how they were chosen, type of optimizer) necessary to understand the results?
@@ -56,7 +56,7 @@
 \item {\bf Safeguards}
     \item[] Question: Does the paper describe safeguards that have been put in place for responsible release of data or models that have a high risk for misuse (e.g., pre-trained language models, image generators, or scraped datasets)?
     \item[] Answer: \answerNA{}.
-    \item[] Justification: The paper does not release high-risk generative models, scraped datasets, or sensitive personal data. It uses public traffic forecasting benchmarks and lightweight evaluation artifacts.
+    \item[] Justification: The paper does not release high-risk generative models, scraped datasets, or sensitive personal data. It uses public traffic forecasting benchmarks and lightweight evaluation code.
 
 \item {\bf Licenses for existing assets}
     \item[] Question: Are the creators or original owners of assets (e.g., code, data, models), used in the paper, properly credited and are the license and terms of use explicitly mentioned and properly respected?
@@ -67,7 +67,7 @@
 \item {\bf New assets}
     \item[] Question: Are new assets introduced in the paper well documented and is the documentation provided alongside the assets?
     \item[] Answer: \answerYes{}.
-    \item[] Justification: The new assets are evaluation scripts, canonical result tables, and a small recommendation artifact rather than a new dataset. Appendix~\ref{sec:appendix_reproducibility} documents their role and file locations.
+    \item[] Justification: The new assets are evaluation scripts, canonical result tables, and a model-selection table. Appendix~\ref{sec:appendix_reproducibility} documents their role and file locations.
 
 \item {\bf Crowdsourcing and research with human subjects}
     \item[] Question: For crowdsourcing experiments and research with human subjects, does the paper include the full text of instructions given to participants and screenshots, if applicable, as well as details about compensation (if any)?
@@ -82,6 +82,6 @@
 \item {\bf Declaration of LLM usage}
     \item[] Question: Does the paper describe the usage of LLMs if it is an important, original, or non-standard component of the core methods in this research? Note that if the LLM is used only for writing, editing, or formatting purposes and does \emph{not} impact the core methodology, scientific rigor, or originality of the research, declaration is not required.
     \item[] Answer: \answerNA{}.
-    \item[] Justification: LLMs are not a component of the scientific method, experiments, routing diagnostic, or recommendation artifact; any language editing assistance does not affect the core methodology or results.
+    \item[] Justification: LLMs are not a component of the scientific method, experiments, routing analysis, or model-selection table; any language editing assistance does not affect the core methodology or results.
 
 \end{enumerate}

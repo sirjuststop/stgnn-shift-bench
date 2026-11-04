@@ -1,21 +1,18 @@
-\section{Problem Setup and Backbone Bank}
+\section{Experimental Setup}
 \label{sec:setup}
 
-The audit evaluates eight frozen STGNN architectures under three
-deployment-motivated shifts. Table~\ref{tab:audit_design} summarizes each
-shift axis, its metric, the protocol control, the main validity threat, and
-the appendix that addresses it.
+We evaluate eight frozen STGNN architectures under sensor dropout, city transfer, and temporal subgroup differences. Table~\ref{tab:audit_design} lists the metrics, controls, and supplementary comparisons.
 
 \begin{table}[H]
 \centering
-\caption{\textbf{Audit design.} Three deployment-motivated conditions evaluated
+\caption{\textbf{Evaluation design.} Three test conditions evaluated
 with the same frozen checkpoints.}
 \label{tab:audit_design}
 \vskip 0.05in
 \small
 \begin{tabular}{p{2.3cm}p{2.6cm}p{2.6cm}p{2.8cm}p{1.5cm}}
 \toprule
-\textbf{Shift axis} & \textbf{Metric} & \textbf{Control} & \textbf{Validity threat} & \textbf{App.\ check} \\
+\textbf{Condition} & \textbf{Metric} & \textbf{Control} & \textbf{Validity threat} & \textbf{App.\ check} \\
 \midrule
 Sensor dropout &
   $\DeltaSensor$: MAE delta (norm.) &
@@ -36,18 +33,16 @@ Temporal subgroup &
 \end{tabular}
 \end{table}
 
-\paragraph{How to read the audit.}
+\paragraph{Reported metrics.}
 Each column measures a separate quantity: clean MAE identifies the checkpoint,
 $\DeltaSensor$ measures damage from silent zero-masking, cross-city MAE measures
 zero-shot transfer under matched structural access, and $\DeltaTemp$ measures
-a within-split weekday/weekend gap. We compare models within each axis;
-the columns do not form a single leaderboard score.
+a within-split weekday/weekend gap. We compare models separately for each condition.
 
 \subsection{Backbone Architectures}
 \label{subsec:backbones}
 
-The canonical bank covers five architectures from graph-free to fixed-graph to
-adaptive-graph.
+The five-model canonical bank includes graph-free, fixed-graph, and adaptive-graph architectures.
 
 \textbf{DCRNN}~\citep{li2018dcrnn} uses a bidirectional diffusion GRU on a
 fixed road-distance adjacency $\Aadj$ (truncated at $K$ hops in both
@@ -72,12 +67,11 @@ softmax and isolates whether dropout fragility depends on adjacency density or
 on topology learning per se (P14).
 
 These five share a unified config (hidden dim 64, seq/pred 12, Adam $1{\times}10^{-3}$,
-weight decay $10^{-4}$, cosine schedule, 100 epochs, patience 15). To rule out
-training-artifact explanations of GWNet's fragility, we additionally train
+weight decay $10^{-4}$, cosine schedule, 100 epochs, patience 15). To test whether longer training or greater capacity reduces GWNet's fragility, we also train
 \textbf{GWNet[CM]} (patience 30) and \textbf{GWNet[Strong]} (P17; hidden 128,
 adaptive embed 20, patience 30); both are frozen at shift-eval time.
 
-\subsection{Backbone Bank Protocol}
+\subsection{Training and evaluation}
 \label{subsec:bank}
 
 We train each backbone once on METR-LA~\citep{li2018dcrnn} using the
@@ -85,22 +79,15 @@ chronological 70/10/20 split and three fixed seeds. The resulting checkpoints
 are frozen before any shift evaluation: no model is re-trained, fine-tuned, or
 selected separately for sensor dropout, cross-city transfer, or temporal
 subgroup analysis.
-An additional four-backbone few-shot probe relaxes this constraint to test
-limited target-data adaptation (Appendix~\ref{sec:appendix_fewshot}).
+A separate few-shot experiment tests limited target-data adaptation in four models (Appendix~\ref{sec:appendix_fewshot}).
 
 Table~\ref{tab:main} reports the clean METR-LA MAE together with the three
-shift metrics. The clean column is included only to anchor the starting point
-of each checkpoint. Our claims are not based on clean ranking: a backbone can
-be useful for diagnosing a failure mechanism even when it is not the strongest
-source-city forecaster. For the same reason, GWNet[CM] and GWNet[Strong] are
-treated as control checkpoints for the GWNet finding, not as additional entries
-in the main bank.
+shift metrics. Clean MAE gives each checkpoint's performance before the test conditions change. GWNet[CM] and GWNet[Strong] serve as training and capacity controls for the GWNet results.
 
 \subsection{Extended adaptive-relation models}
 \label{subsec:extended_models}
 
-To probe generality, we add three architectures using the same METR-LA split
-and frozen-checkpoint rule:
+Three additional architectures use the same METR-LA split and remain frozen during evaluation:
 \textbf{AGCRN}~\citep{bai2020agcrn} (node-adaptive GRU, no temporal
 covariates); \textbf{MegaCRN}~\citep{jiang2023megacrn} (meta-graph memory
 with TOD/DOW inputs); \textbf{STAEformer}~\citep{liu2023staeformer}
@@ -124,12 +111,12 @@ channels, and MAE is computed on the kept sensors only so clean and masked
 evaluations are directly comparable. Tables~\ref{tab:main}--\ref{tab:extended}
 report the pre-registered primary-mask aggregate; Appendix~\ref{sec:appendix_multimask}
 reports 5-mask aggregates to separate mask-sampling from model-weight variance.
-GRU is the main mask-sampling caveat. Structured dropout patterns
+GRU varies most across mask samples. Structured dropout patterns
 (hub and contiguous) are in Appendix~\ref{sec:appendix_structured_dropout}.
 This protocol isolates silent failure; the LOCF comparison in
 Appendix~\ref{sec:appendix_imputation} shows that effective imputation can
 largely remove the zero-mask gap when the true failure mask is available.
-Supplementary probes add stale hold, noise, bias, and intermittent missingness
+Additional experiments test stale hold, noise, bias, and intermittent missingness
 (Appendix~\ref{sec:appendix_corruption_suite}).
 
 \paragraph{Cross-city transfer.}

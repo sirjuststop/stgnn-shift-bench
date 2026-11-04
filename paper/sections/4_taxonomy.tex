@@ -1,19 +1,13 @@
-\section{Robustness Taxonomy}
+\section{Results across Test Conditions}
 \label{sec:taxonomy}
 
 \paragraph{Pre-registered hypotheses.}
 We pre-registered 16 predictions in five stages before running the corresponding experiments.
 Of these, 10 were confirmed, 4 were refuted, and 2 were partially confirmed.
-The full prediction--outcome ledger is in Appendix~\ref{sec:appendix_preregistered};
-the relevant confirmed predictions (P14--P19, P21) are referenced inline where their results appear.
-We use the ledger to keep the taxonomy falsifiable: failed predictions remain
-in the appendix, and main-text claims are tied either to a pre-specified
-contrast or to a control experiment that removes a concrete artifact.
+Appendix~\ref{sec:appendix_preregistered} lists the predictions and outcomes; the corresponding experiment identifiers (P14--P19, P21) accompany the results below.
 
 Table~\ref{tab:main} reports the main results across all five backbones and three shift types.
-The columns should not be averaged into a single robustness score. They use
-different estimands and normalizers, so the evidence is the change in ordering
-from one deployment axis to the next.
+Each column measures a different response to the test conditions. We examine how model ordering changes between columns.
 
 \begin{table}[H]
 \centering
@@ -39,15 +33,12 @@ GWNet (dense adaptive adj)    & $7.85 \pm 0.11$ & $+0.088 \pm 0.017$ & $0.268 \p
 \end{table}
 
 \paragraph{Sensor dropout.}
-The sensor axis separates GWNet from the other canonical backbones. DCRNN and
+GWNet has the largest sensor-dropout increase in the canonical bank. DCRNN and
 GRU have the smallest deltas, while MTGNNLight is markedly less fragile than
 GWNet despite also learning topology. Learning a graph is therefore not enough to explain the fragility;
 the relevant contrast is sparse learned routing versus dense all-pairs softmax. Capacity controls reduce but do not remove the GWNet
 gap (Table~\ref{tab:consolidated}; Appendix~\ref{sec:appendix_stronger_gwnet}).
-The same pattern holds under hub dropout, which
-widens GWNet's gap while making DCRNN less sensitive, which is the expected
-direction if dropped high-degree nodes expose concentrated learned routes rather
-than merely increasing the number of missing inputs.
+Dropping high-degree sensors increases GWNet's gap but reduces DCRNN's. This difference is consistent with GWNet relying more heavily on routes through these sensors.
 The ranking also depends on corruption type: at 30\% affected channels,
 GWNet's healthy-sensor increase is $+0.16$ mph for noise but $+1.96$ mph
 for bias, compared with DCRNN's $+0.28$ and $+1.00$ mph, respectively
@@ -55,47 +46,27 @@ for bias, compared with DCRNN's $+0.28$ and $+1.00$ mph, respectively
 
 \paragraph{Cross-city transfer under matched structural access.}
 Under source-only adjacency, DCRNN is the strongest canonical-bank transfer
-baseline. The result is not a simple fixed-vs-adaptive split: STGCN loses its
-target-adjacency advantage once target topology is withheld, and then performs similarly to
-GWNet under the fair comparison. The DCRNN advantage also holds on a second
+baseline. STGCN, also a fixed-graph model, loses much of its advantage when target topology is withheld and then performs similarly to GWNet. The DCRNN advantage also holds on a second
 city pair, while padding sensitivity changes absolute MAE but not the ordering
 (Table~\ref{tab:consolidated}; Appendix~\ref{sec:appendix_no_pad_sensitivity}).
 The GRU baseline is useful here because it removes graph mismatch entirely and
 still transfers worst in the canonical bank. Cross-city robustness therefore
 does not come from ignoring structure; it depends on how the source-city
-structure is used when the target graph is unavailable. A limited-adaptation
-probe is reported in Appendix~\ref{sec:appendix_fewshot}.
+structure is used when the target graph is unavailable. A limited fine-tuning comparison is reported in Appendix~\ref{sec:appendix_fewshot}.
 
 \paragraph{Temporal subgroup shift (canonical bank).}
-Within the canonical bank, weekend/weekday gaps are effectively tied: the
-between-model spread is small relative to the sensor and city-transfer
-separations, and it is not aligned with graph type. None of these architectures
-condition on explicit time-of-day or day-of-week, and the gaps show no
-dependence on graph type. We therefore treat the
-canonical-bank temporal column as a negative result and as the baseline for
-\S\ref{sec:extended}, where reporting conventions change the interpretation of
-the extended models' temporal gaps.
+The canonical models have similar weekend/weekday gaps, with much less separation than under sensor dropout or city transfer. None uses explicit time-of-day or day-of-week inputs, and graph type does not explain the small differences. The extended models show larger differences whose interpretation depends on the error metric (\S\ref{sec:extended}).
 
-\paragraph{Shift-specificity (canonical bank).}
-DCRNN leads source-only city transfer, while the sensor-dropout and temporal
-rankings differ from it; the adaptive-relation models in \S\ref{sec:extended}
-change the transfer ordering again. Capacity, source-adjacency, structured
-dropout, and horizon controls are consolidated in
-Appendix Table~\ref{tab:consolidated}.
+Appendix Table~\ref{tab:consolidated} summarizes the capacity, source-adjacency, structured-dropout, and horizon comparisons.
 
-\subsection{External validity: modern adaptive-relation models}
+\subsection{AGCRN, MegaCRN, and STAEformer}
 \label{sec:extended}
 
-The canonical bank covers four spatial-aggregation strategies but omits the
-newer adaptive-relation designs used in recent traffic forecasting work. To
-test whether the findings carry over, we add three
-architectures (AGCRN, MegaCRN, STAEformer) trained on the same METR-LA data
-with the same split, frozen after training, evaluated under the same protocol.
-Table~\ref{tab:extended} reports results alongside DCRNN as a reference.
+Table~\ref{tab:extended} compares AGCRN, MegaCRN, and STAEformer with DCRNN. All use the same METR-LA split and remain frozen during evaluation.
 
 \begin{table}[H]
 \centering
-\caption{\textbf{Adaptive-relation models under the three shift axes.}
+\caption{\textbf{Adaptive-relation models under the three test conditions.}
 Clean MAE follows each architecture's standard masked-MAE convention; shift
 columns use the same normalized protocol as Table~\ref{tab:main}.}
 \label{tab:extended}
@@ -122,8 +93,7 @@ AGCRN and STAEformer stay near DCRNN on sensor dropout, so GWNet's result
 cannot be read as ``adaptive graphs are fragile.'' The distinction is dense
 all-pairs softmax (Eq.~\ref{eq:adaptive_adj}) versus node-specific or
 attention-mediated relations. MegaCRN's negative delta is non-monotonic in
-dropout ratio and is treated conservatively as adjacency-mediated smoothing
-toward a weekday prior (\S\ref{sec:polish_ablations}), not as direct dropout
+dropout ratio and is attributed to adjacency-mediated smoothing toward a weekday prior (\S\ref{sec:polish_ablations}), not as direct dropout
 robustness.
 
 \paragraph{Cross-city transfer.}
@@ -158,7 +128,7 @@ third-source benchmark (\S\ref{sec:discussion}).
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figures/shift_profiles.pdf}
-\caption{\textbf{Shift profiles and the absolute-unit temporal correction.}
+\caption{\textbf{Sensor-dropout, transfer, and temporal errors.}
 Sensor and city panels show all eight backbones; the dashed line separates
 the canonical and extended banks. Hatched bars show PEMS04-native replication.
 The temporal panel shows masked-mph gaps for the three extended models:

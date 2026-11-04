@@ -1,12 +1,7 @@
 \section{Mechanism: dense adaptive routing and sensor-dropout fragility}
 \label{sec:mechanism}
 
-The taxonomy shows that GWNet's dense learned routing is fragile under sensor
-dropout, whereas AGCRN and STAEformer, which also learn spatial relations, are
-not (Table~\ref{tab:extended}). We analyze GWNet because it exhibits the failure;
-an ablation on a robust backbone would leave little fragility to attribute.
-We test whether the dense adaptive adjacency (Eq.~\ref{eq:adaptive_adj}) drives
-the failure and whether it can be reduced without retraining.
+GWNet is much more sensitive to sensor dropout than AGCRN and STAEformer (Table~\ref{tab:extended}). We use GWNet to test whether replacing or modifying its dense adaptive adjacency (Eq.~\ref{eq:adaptive_adj}) reduces this sensitivity without retraining.
 
 \subsection{Ablation: adaptive vs.\ fixed adjacency}
 
@@ -65,27 +60,23 @@ Mask-aware routing recovers $75.2\%$ of the multi-mask gap, whereas fixed
 substitution reduces the primary-mask gap by $43.1\%$. A plausible reason is
 that masking only the affected rows and columns keeps the remaining learned
 routes, which fixed substitution discards. These percentages use different
-mask protocols. The intervention is ${\sim}25$ LoC and
-can be applied to existing GWNet checkpoints. The recovery is stable across
+mask protocols. The implementation requires about 25 lines of code and applies to existing GWNet checkpoints. The recovery is stable across
 dropout ratios: $70$--$76\%$ for random $10$--$40\%$ dropout and $71\%$ for
 hub-30\% dropout (Appendix~\ref{sec:appendix_mask_aware_sweep}).
 
-\subsection{Routing concentration as a shared mechanism hypothesis}
+\subsection{Routing concentration across models}
 \label{sec:routing_spectrum}
 
-The GWNet analysis above provides model-specific evidence; we next examine
-the association over the four adaptive-graph models in our bank
-($n{=}4$ adaptive backbones). We measure adjacency concentration as
+We next compare routing concentration and dropout sensitivity across the four adaptive-graph models ($n{=}4$). We measure adjacency concentration as
 $\text{max\_mass}$, the mean per-row maximum routing probability, using each
-model's native relation proxy. Pairing this proxy with the routing-spectrum
-$\DeltaSensor$ estimand gives Pearson $\rho{=}{+}0.979$
+model's native relation proxy. Using the routing-spectrum $\DeltaSensor$ values gives Pearson $\rho{=}{+}0.979$
 (Appendix~\ref{sec:appendix_routing_spectrum}). Removing GWNet leaves
 $\rho{=}{+}0.961$; the exact permutation test gives $p{=}0.083$
 ($n{=}4$; Appendix~\ref{sec:appendix_routing_loo}).
 Seed-level and rank diagnostics are in
 Appendix~\ref{sec:appendix_routing_spectrum_seedvar}. STAEformer has no single
 row-stochastic adjacency and is excluded from this proxy comparison.
-The main tables retain their primary-mask estimand; substituting those deltas
+The main tables use the primary mask; substituting their deltas
 reduces the four-model correlation to $+0.880$.
 We extend the architecture sample with GTS~\citep{shang2021discrete}
 (link-predictor graph learning) and DGCRN~\citep{li2023dgcrn}
@@ -95,9 +86,7 @@ dropping GWNet leaves $+0.973$, and the minimum leave-one-out value is $+0.961$.
 Native-source associations are positive but weaker on PEMS-BAY ($+0.75$) and
 PEMS04 ($+0.63$; Appendix~\ref{sec:appendix_routing_extended}).
 The original four-model relation also replicates on native PEMS04 checkpoints
-($\rho{=}{+}0.910$; Appendix~\ref{sec:appendix_pems04_routing}). Together,
-these comparisons support a shared-mechanism hypothesis within the evaluated
-architectures and traffic datasets.
+($\rho{=}{+}0.910$; Appendix~\ref{sec:appendix_pems04_routing}). Concentrated routing is associated with higher dropout sensitivity across these comparisons.
 A local perturbation argument supports this: zero-masking a dropped sensor $j$
 shifts each kept node $i$ by $A_{ij}H_jW$; averaging over rows bounds the
 mean signal disruption by $B_H B_W |\mathcal{I}|\,\mathrm{max\_mass}(A)$.
@@ -106,14 +95,14 @@ $\mathrm{max\_mass}$ as a tail-risk proxy for iid dropout.
 This is a single-layer perturbation bound, not a full-horizon MAE theorem. The
 complete derivation and caveats are in Appendix~\ref{sec:appendix_theory}.
 
-Within GWNet, top-$k$ sparsification at inference traces the same curve:
+Within GWNet, varying the number of retained neighbors at inference gives a similar trend:
 relative fragility rises from $0.80\%$ at $k{=}10$ to $1.17\%$ at
 $k{=}\text{full}$ (Appendix~\ref{sec:appendix_density_sweep}).
 
-\subsection{Ruling out two natural mechanism hypotheses}
+\subsection{Temporal covariates and memory ablations}
 \label{sec:polish_ablations}
 
-Two ablations probe the normalized MegaCRN/STAEformer temporal gaps.
+Two ablations test explanations for the normalized MegaCRN/STAEformer temporal gaps.
 Randomizing or swapping explicit time embeddings leaves MegaCRN's normalized gap
 unchanged and reduces STAEformer's by only 12.5\%, so TOD/DOW covariates alone
 do not explain that metric. MegaCRN's negative sensor delta is adjacency-mediated
@@ -129,8 +118,7 @@ In the original three-model severity comparison, GWNet is the most sensitive
 backbone at all five dropout ratios
 (GWNet/DCRNN ratio grows $2.5\times \to 4.6\times$ from $10\%$ to $40\%$;
 Appendix~\ref{sec:appendix_severity}). The extended physical-unit comparison
-places DGCRN, the highest-concentration model, at the most fragile endpoint
-at four of five severities (Table~\ref{tab:severity_extended}). GWNet's highest-degree quartile suffers
+shows the largest error increase for DGCRN, the highest-concentration model, at four of five dropout rates (Table~\ref{tab:severity_extended}). GWNet's highest-degree quartile suffers
 $\DeltaSensor{=}{+}0.121$ versus $+0.066$ for Q1 ($1.83\times$); DCRNN shows
 no degree dependence (Appendix~\ref{sec:appendix_degree_stratification}).
 Last-observed-value carry-forward (LOCF) recovers ${\geq}97\%$ of the zero-mask

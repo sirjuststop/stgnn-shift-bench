@@ -6,25 +6,23 @@ NeurIPS Datasets and Benchmarks papers such as BEIR~\citep{thakur2021beir}
 and RobustBench~\citep{croce2021robustbench} extend model evaluation to
 generalization and robustness. The closest spatiotemporal
 analogue is \citet{yi2021benchmarking}'s corruption benchmark for video
-models. Here, we focus on traffic forecasting: the same frozen STGNNs are
-audited under sensor failure, city transfer, and temporal subgroup shift.
+models. Here, we focus on traffic forecasting: we evaluate the same frozen STGNNs under sensor failure, city transfer, and temporal subgroup shift.
 Traffic OOD work mostly proposes adaptation or retrieval methods, and
 spatiotemporal benchmarks test corruption robustness or zero-shot transfer;
-neither pairs frozen-architecture diagnostics with mechanism analysis.
+Our comparison combines these tests with interventions on the models' routing mechanisms.
 
 \paragraph{Spatiotemporal graph neural networks for traffic.}
 DCRNN~\citep{li2018dcrnn}, STGCN~\citep{yu2018stgcn}, Graph
 WaveNet~\citep{wu2019gwnet}, GRU, and MTGNNLight span graph-free, fixed-graph,
-and adaptive-graph designs in our canonical bank. We extend the diagnostic to
+and adaptive-graph designs in our canonical bank. We also evaluate
 AGCRN~\citep{bai2020agcrn}, MegaCRN~\citep{jiang2023megacrn}, and
-STAEformer~\citep{liu2023staeformer}, all competitive traffic forecasters with
-learned spatial or temporal relation modules. The comparison separates topology
+STAEformer~\citep{liu2023staeformer}, which learn spatial or temporal relations. The comparison separates topology
 learning from routing concentration: MTGNNLight's sparse learned graph is less
 fragile than GWNet's dense softmax graph, while AGCRN and STAEformer match
 DCRNN under sensor dropout.
 
 \paragraph{Distribution shift in spatiotemporal models.}
-Recent methods address distribution shift in STGNNs.
+
 STRAP~\citep{zhang2025strap} and TL-GPSTGN~\citep{jing2026tlgpstgn} propose
 OOD interventions through retrieval or graph-context pruning. We examine how
 sensitivity varies across backbones and shifts, and which architectural choices
@@ -41,8 +39,7 @@ target-city adaptation.
 \paragraph{Topology-agnostic and foundation-model approaches.}
 Topology-free time-series foundation models such as
 Chronos~\citep{ansari2024chronos} adapt through pretraining or fine-tuning
-rather than explicit road topology. Our zero-shot setting asks which
-architectural properties reduce fragility before any adaptation is available.
+rather than explicit road topology. We compare architectural differences before adaptation.
 
 \paragraph{Sensor failure and data imputation.}
 Mask-aware reconstruction architectures such as GRIN~\citep{cini2022grin} and

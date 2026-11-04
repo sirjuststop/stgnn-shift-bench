@@ -1,57 +1,55 @@
 \section{Discussion}
 \label{sec:discussion}
 
-\paragraph{Deployment guidance.}
-Within the shifts, source city, and masking model evaluated here, the results
-suggest several practical choices.
-Under silent-failure zero-mask dropout, DCRNN, AGCRN, and STAEformer degrade
-much less than GWNet; the GWNet gap is tied to dense softmax routing and the
-mask-aware variant recovers 75\% without retraining. For zero-shot cross-city
-transfer on METR-LA/PEMS-BAY-style highway networks, MegaCRN and DCRNN
-perform well. Weekday/weekend comparisons require an explicit metric: MegaCRN and
-STAEformer have positive normalized gaps but negative masked-mph gaps.
-Their normalized values alone should not drive temporal deployment guidance.
+The experiments suggest different model choices for different operating
+conditions. Under silent zero-filling, DCRNN, AGCRN, and STAEformer degrade
+less than GWNet. When failed sensors are identified, LOCF removes most of
+the error increase, and mask-aware routing recovers 75\% of GWNet's gap
+without retraining. MegaCRN and DCRNN perform well in zero-shot transfer
+between the highway networks studied here. Temporal comparisons depend on
+the error metric: MegaCRN and STAEformer have positive normalized
+weekday/weekend gaps but lower weekend error in masked mph.
 
-\paragraph{Implications for robustness evaluation.}
-In our bank, the clean-test ranking changes under sensor dropout and only
-partly predicts cross-city transfer. Richer relation learning is not uniformly
-more robust; weaknesses appear on different axes. Benchmarks should therefore
-report per-shift results alongside in-distribution accuracy. The GWNet controls
-make simple optimizer failure an unlikely explanation for its fragility
-(Table~\ref{tab:consolidated}).
+These differences explain why clean-test accuracy alone is insufficient for
+model selection. The same architecture can handle one change well and
+another poorly. In GWNet, increasing capacity and extending training reduce
+the sensor-dropout gap but do not remove it
+(Table~\ref{tab:consolidated}). Reporting the separate sensor, transfer,
+and temporal results makes these tradeoffs visible.
 
-\paragraph{Recommendation artifact.}
-The released $2{\times}2{\times}2$ decision table maps sensor reliability,
-city transfer, and weekend exposure to observed fragility and mitigations
-(Appendix~\ref{sec:appendix_decision_tree}). It covers the eight-model bank
-and demotes MegaCRN's smoothing-related negative sensor delta. Its temporal
-axis uses normalized gaps. AGCRN, recommended for two weekend-exposed
-profiles, has the only positive masked-mph weekend gap among the extended
-models (Table~\ref{tab:temporal_absolute}); these cells should not be used to
-choose models for physical-error performance.
+\paragraph{Model selection.}
+The released $2{\times}2{\times}2$ decision table combines sensor reliability,
+city transfer, and weekend exposure
+(Appendix~\ref{sec:appendix_decision_tree}). It covers the eight models and
+adjusts MegaCRN's rank to account for its smoothing-related negative sensor
+delta. Its temporal recommendations use normalized gaps: AGCRN is selected
+for two weekend-exposed profiles, although it has the only positive
+masked-mph weekend gap among the extended models
+(Table~\ref{tab:temporal_absolute}). Model choices based on physical error
+should therefore use the masked-mph comparison directly.
 
 \paragraph{Limitations.}
-All datasets are highway loop-detector data. METR-LA is the main training
-source, with PEMS-BAY and PEMS04 used for targeted replications; urban
-arterials and probe data remain untested. The model set is not exhaustive
-(e.g., ASTGCN~\citep{guo2019astgcn}, DSTAGNN~\citep{lan2022dstagnn}), and the
-main results use three training seeds. Zero-shot transfer is a diagnostic
-floor, not a deployment recommendation; the few-shot probe covers four
-backbones and limited adaptation (Appendix~\ref{sec:appendix_fewshot}). The
-weekday/weekend comparison is a subgroup analysis within one test split,
-not an OOD test. Walk-forward evaluation remains future work, and the gap's
-sign depends on normalization and target masking. The six-architecture
-concentration correlation weakens on PEMS-BAY and PEMS04; interventions
-support the link only for GWNet. MegaCRN's negative sensor delta reflects
-adjacency-mediated smoothing, and TOD/DOW covariates alone do not explain
-its normalized temporal gap.
+The datasets contain highway loop-detector measurements. METR-LA is the
+main training source; PEMS-BAY and PEMS04 provide additional comparisons.
+Urban arterials and probe data remain untested. The model set omits, among
+others, ASTGCN~\citep{guo2019astgcn} and DSTAGNN~\citep{lan2022dstagnn},
+and the main results use three training seeds. Zero-shot transfer measures
+performance before adaptation; the few-shot experiment covers only four
+models and limited fine-tuning (Appendix~\ref{sec:appendix_fewshot}).
+The weekday/weekend analysis compares groups within one test split;
+testing on a later time period would require walk-forward evaluation.
+The six-model concentration correlation is weaker on PEMS-BAY and PEMS04,
+and the routing interventions were tested only on GWNet. The ablations
+attribute MegaCRN's negative sensor delta to adjacency-mediated smoothing,
+but time-of-day and day-of-week inputs alone do not explain its normalized
+temporal gap.
 
-\paragraph{Scope of the zero-mask diagnostic.}
-Zero is a physically possible speed, so a zero reading alone cannot identify
-failure. Corruptions are assigned by a failure mask, not by observed values;
-valid zeros at kept sensors are not classified as failures. Both remedies
-require identifying failed sensors: LOCF uses the true failure mask
-(Appendix~\ref{sec:appendix_imputation}), and detector errors increase MAE for
-mask-aware routing (Appendix~\ref{sec:appendix_mask_fpfn}). We did not test LOCF
-under imperfect detection. The gap applies where failures go undetected,
-telemetry is delayed, or carry-forward is unreliable.
+\paragraph{Identifying sensor failures.}
+A zero reading can represent stopped traffic as well as sensor failure.
+Our corruption mask identifies the failed sensors; valid zeros at other
+sensors remain unchanged. LOCF and mask-aware routing both require this
+identification. Detector errors increase MAE for mask-aware routing
+(Appendix~\ref{sec:appendix_mask_fpfn}); LOCF was tested only with the true
+failure mask (Appendix~\ref{sec:appendix_imputation}). The zero-fill results
+apply when failures go undetected, telemetry is delayed, or carrying forward
+the last observation is unreliable.

@@ -1,15 +1,16 @@
-Traffic forecasting benchmarks leave open how architectures behave when
-sensors fail, models move between cities, or weekday and weekend traffic differ.
-We evaluate eight STGNN architectures under these three conditions using frozen
-checkpoints and matched access to source-city topology. Sensitivity to silent
-zero-filling is associated with learned routing concentration. Across six
-adaptive backbones trained on METR-LA, including GTS and DGCRN added for this
-analysis, the correlation between mean row-maximum routing
-mass and dropout degradation is Pearson $\rho{=}{+}0.974$; it is positive but
-weaker on PEMS-BAY and PEMS04. Graph WaveNet degrades sharply, while AGCRN and
-STAEformer stay close to DCRNN. When failed sensors are known, carrying forward
-the last observed value (LOCF) removes most of the gap. Rankings differ under
-the other conditions: MegaCRN leads source-normalized cross-city transfer,
-while MegaCRN and STAEformer have positive normalized weekday/weekend gaps
-but lower weekend error in masked mph. We release a frozen-checkpoint registry,
-evaluation code, and a decision table summarizing model failure modes.
+Traffic forecasting models encounter failed sensors, unfamiliar cities, and
+changes in traffic patterns, yet clean-test accuracy gives little indication
+of their performance under these conditions. We compare eight STGNN
+architectures using frozen checkpoints and matched access to source-city
+topology. Under silent zero-filling, sensor-dropout sensitivity correlates
+with routing concentration: the Pearson correlation between mean row-maximum
+routing mass and error increase is $\rho{=}{+}0.974$ across six adaptive
+architectures trained on METR-LA, including GTS and DGCRN. The association
+is positive but weaker on PEMS-BAY and PEMS04. Graph WaveNet degrades sharply,
+whereas AGCRN and STAEformer perform similarly to DCRNN. Carrying forward
+the last observed value (LOCF) removes most of the gap when failed sensors
+are known. The other tests give different rankings. MegaCRN has the lowest
+source-normalized cross-city error. MegaCRN and STAEformer have positive
+normalized weekday/weekend gaps but lower weekend error in masked mph.
+We release the checkpoint registry, evaluation code, and a decision table
+that summarizes these differences for model selection.

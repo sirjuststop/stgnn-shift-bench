@@ -1,55 +1,51 @@
 \section{Introduction}
 \label{sec:intro}
 
-Traffic forecasting supports urban services such as ride-hailing dispatch,
-signal timing, and congestion management. STGNNs are now standard
-tools~\citep{li2018dcrnn,wu2019gwnet,yu2018stgcn}, but they are usually
-selected with training and test data from the same city, sensors, and time
-window. In deployment, sensors can fail silently, a model trained in one
-city may be applied to another, and traffic changes between weekdays and
-weekends. Clean MAE alone does not indicate how well a model handles these changes.
+Traffic forecasting models are usually compared on training and test data from
+the same city and sensor network. This setting supports the development of
+STGNNs~\citep{li2018dcrnn,wu2019gwnet,yu2018stgcn}, but leaves several
+deployment questions unanswered. How much does prediction deteriorate when
+sensors fail? Does a model retain its advantage in another city? Does it
+perform equally well on weekdays and weekends? A low clean-test MAE does not
+answer these questions.
 
-Prior STGNN robustness work proposes OOD interventions via retrieval or
-pruning~\citep{zhang2025strap,jing2026tlgpstgn} or frames cross-city transfer
-as federated learning~\citep{zeng2025fedtt}. A controlled \emph{diagnostic}
-is still needed: the same frozen backbone evaluated under several
-deployment shifts, with differences traced to
-architectural choices. We also pre-register hypotheses so failed predictions
-remain part of the evidence (Appendix~\ref{sec:appendix_preregistered}).
-Cross-city comparisons need one more control:
-adaptive models can in principle re-learn a target topology, while fixed-graph
-models cannot. A matched-structural-access protocol, where every backbone uses
-source-city topology, removes that asymmetry. We use this protocol to study
-when model rankings change across shifts and to examine the architectural
-mechanisms behind those changes.
+Existing work addresses distribution shift through retrieval,
+pruning~\citep{zhang2025strap,jing2026tlgpstgn}, or federated
+adaptation~\citep{zeng2025fedtt}. We instead compare trained architectures
+without adapting them to each test condition. Holding the checkpoints fixed
+lets us examine which failures recur across models and test possible causes
+through inference-time interventions. We register predictions before each
+experiment and report both confirmed and refuted predictions
+(Appendix~\ref{sec:appendix_preregistered}).
 
-We assemble a bank of eight architectures trained on METR-LA: a five-model
-canonical bank spanning graph-free (GRU), fixed-graph (DCRNN, STGCN), and
-adaptive-graph (MTGNNLight, GWNet) models, plus three modern adaptive-relation
-models (AGCRN, MegaCRN, STAEformer). Each frozen checkpoint is evaluated under
-three shifts: \textbf{sensor dropout} (10--50\% zeroed at inference, 5 random
-masks), \textbf{cross-city transfer} (zero-shot METR-LA $\to$ PEMS-BAY under
-matched structural access), and \textbf{temporal subgroup} (weekend vs.\ weekday
-windows within the METR-LA test set). The sensor experiment targets silent
-zero-filling; when failed sensors are known, carrying forward the last observed
-value (LOCF) removes most of the gap (Appendix~\ref{sec:appendix_imputation}). We report temporal subgroup differences
-in both normalized and physical units, since the two conventions can reverse
-the apparent direction of a model's gap.
+We train eight architectures on METR-LA. The first five cover graph-free
+(GRU), fixed-graph (DCRNN, STGCN), and adaptive-graph (MTGNNLight, GWNet)
+designs; AGCRN, MegaCRN, and STAEformer extend the comparison to newer
+methods for learning spatial and temporal relations. We evaluate sensor
+dropout (10--50\% of channels zeroed at inference, 5 random masks), zero-shot
+transfer from METR-LA to PEMS-BAY, and weekday/weekend differences within
+the METR-LA test set.
 
-Our main contributions are as follows:
+Two choices are essential to interpreting these comparisons. First, all
+models use source-city topology in the main transfer experiment. Otherwise,
+fixed-graph models could receive a target road graph that models with learned
+source-node embeddings cannot use. Second, we report temporal errors in
+both normalized and physical units because scaling and target masking can
+reverse the sign of the weekday/weekend gap. For sensor dropout, we compare
+silent zero-filling with last-observation-carried-forward (LOCF) imputation
+when failed sensors are known (Appendix~\ref{sec:appendix_imputation}).
+
+Our contributions are as follows:
 \begin{itemize}
-  \item We introduce a frozen-checkpoint evaluation protocol for traffic STGNNs
-        under sensor, city, and temporal shifts, with matched structural access
-        for cross-city comparison.
-
-  \item We show that routing concentration tracks sensor-dropout sensitivity
-        across adaptive backbones and test this link on Graph WaveNet with
-        inference-time interventions.
-
-  \item We provide a shift-specific robustness taxonomy and a recommendation
-        artifact to support model selection across deployment conditions and
-        evaluation conventions.
+  \item We compare frozen traffic STGNNs under sensor dropout, city transfer,
+        and temporal subgroup differences, with matched access to road
+        topology in the transfer experiment.
+  \item We relate routing concentration to sensor-dropout sensitivity across
+        adaptive models and test the role of routing through Graph WaveNet
+        interventions.
+  \item We characterize how model rankings change across test conditions and
+        provide a decision table for model selection under the evaluated settings.
 \end{itemize}
 
-Code and artifacts are available at
+Code, checkpoints, and result tables are available at
 \url{https://github.com/sirjuststop/stgnn-shift-bench}.

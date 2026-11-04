@@ -5,9 +5,9 @@
 **Xile Wang and Mingqi Yang**
 South China University of Technology
 
-NeurIPS 2026 Evaluations & Datasets camera-ready artifact.
+NeurIPS 2026 Evaluations & Datasets camera-ready paper and code.
 
-Revision v5 (2026-11-04) corrects protocol comparisons, transfer rankings, and statistical reporting, and simplifies the manuscript and accompanying documentation.
+Revision v6 (2026-11-04) rewrites the introduction and discussion and revises wording throughout the methods, results, and appendix.
 
 [Paper PDF](paper/main.pdf) | [Paper source and build instructions](paper/README.md) | [Revision notes](paper/REVISION_NOTES.md)
 
@@ -78,7 +78,7 @@ python experiments/eval_official_adaptive_baselines.py \
 
 Model definitions used by the official adapters are included in `third_party/` and `external_repos/AGCRN/`. The AGCRN files are pinned to the commit recorded by the existing model adapter; upstream attribution and license are preserved.
 
-## Recommendation artifact
+## Model-selection table
 
 Run from the repository root:
 
@@ -101,7 +101,7 @@ The frozen recommendation table is `stgnn_stress/data/decision_tree.json`. Its t
 | `experiments/` | Training and evaluation entry points |
 | `baselines/` | Frozen checkpoints and registry |
 | `results/official_adaptive_relation/` | Saved main comparison and adaptive evaluation results |
-| `results/polish_v15/` | Native PEMS04 routing, mask-aware sweep, and city-transfer checks |
+| `results/polish_v15/` | Native PEMS04 routing, mask-aware evaluations, and city-transfer checks |
 | `paper/generated/metrics.json` | Reaggregated camera-ready statistics and source hashes |
 | `paper/generated/rebuttal_reported.json` | Separately identified author-reported aggregate results |
 | `paper/lay_summary.txt` | General-audience summary for the submission system |

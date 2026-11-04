@@ -1,12 +1,13 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-Across six adaptive architectures trained on METR-LA, sensitivity to silent
-zero-filling correlates with routing concentration
-(Pearson $\rho{=}{+}0.974$); the association is positive but weaker on PEMS-BAY
-and PEMS04. For Graph WaveNet, mask-aware inference recovers $75\%$ of the
-dropout gap without retraining when failed sensors are known. Cross-city and
-temporal evaluation give different rankings: MegaCRN leads source-normalized
-transfer, and the sign of MegaCRN's and STAEformer's weekday/weekend gap
-depends on whether errors use normalized units or masked mph. Robustness
-claims for traffic STGNNs should name both the shift and the metric.
+The evaluated STGNNs respond differently to sensor failure, city transfer,
+and weekday/weekend traffic. Routing concentration correlates with sensitivity
+to silent zero-filling across six METR-LA-trained adaptive architectures
+(Pearson $\rho{=}{+}0.974$), with weaker positive associations on PEMS-BAY
+and PEMS04. In Graph WaveNet, modifying routes around known failed sensors
+recovers $75\%$ of the dropout gap without retraining. MegaCRN achieves the
+lowest source-normalized transfer error, while its weekday/weekend gap and
+STAEformer's change sign between normalized error and masked mph. These
+results show why model selection requires separate comparisons for the
+expected failures, transfer conditions, and error metric.
