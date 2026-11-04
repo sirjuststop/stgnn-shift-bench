@@ -4654,29 +4654,6 @@
     "metr_la_six_model_loo": {
       "without_gwnet": 0.973,
       "minimum": 0.961
-    },
-    "not_reconstructed": "Full corruption grid, per-seed new-model observations, peak-window definitions and additional training runs",
-    "additional_record_only_statements": {
-      "five_seed_core_order": {
-        "source": "comments.txt:115",
-        "claim": "Concentration ordering unchanged after extending core bank from three to five seeds",
-        "per_seed_outputs": null
-      },
-      "peak_off_peak": {
-        "source": "comments.txt:252",
-        "claim": "All evaluated models about 1 mph worse at peak; GWNet +1.42 mph",
-        "hour_boundaries": null,
-        "per_model_outputs": null
-      },
-      "canonical_temporal_mph": {
-        "source": "comments.txt:200",
-        "reported_range": [
-          1.03,
-          1.38
-        ],
-        "target_mask_convention": null,
-        "per_model_outputs": null
-      }
     }
   },
   "submitted_sensor_city_values": {

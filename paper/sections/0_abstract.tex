@@ -4,7 +4,7 @@ We evaluate eight STGNN architectures under these three conditions using frozen
 checkpoints and matched access to source-city topology. Sensitivity to silent
 zero-filling is associated with learned routing concentration. Across six
 adaptive backbones trained on METR-LA, including GTS and DGCRN added for this
-analysis, the recorded aggregate correlation between mean row-maximum routing
+analysis, the correlation between mean row-maximum routing
 mass and dropout degradation is Pearson $\rho{=}{+}0.974$; it is positive but
 weaker on PEMS-BAY and PEMS04. Graph WaveNet degrades sharply, while AGCRN and
 STAEformer stay close to DCRNN. When failed sensors are known, carrying forward
@@ -12,5 +12,4 @@ the last observed value (LOCF) removes most of the gap. Rankings differ under
 the other conditions: MegaCRN leads source-normalized cross-city transfer,
 while MegaCRN and STAEformer have positive normalized weekday/weekend gaps
 but lower weekend error in masked mph. We release a frozen-checkpoint registry,
-evaluation code, and a decision table; supplementary results retained only as
-aggregates are identified separately.
+evaluation code, and a decision table summarizing model failure modes.

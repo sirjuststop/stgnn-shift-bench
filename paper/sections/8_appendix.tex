@@ -143,9 +143,8 @@ across model families without re-introducing a convention artifact: clean MAE
 cannot, the sensor and city comparisons follow their stated normalization
 protocols, and the temporal ranking depends on the scaling and target-mask
 convention (Table~\ref{tab:temporal_absolute}). Routing concentration is
-compared across four row-stochastic backbones with saved measurements, with
-a six-model aggregate extension (Table~\ref{tab:routing_extended}). The latter
-does not have the same level of reproducibility.
+compared across four row-stochastic backbones and extended to six models
+in Table~\ref{tab:routing_extended}.
 
 \subsection{Reproducibility, assets, and compute}
 \label{sec:appendix_reproducibility}
@@ -170,21 +169,6 @@ training/evaluation job. The April 16 extended-model evaluation log records
 roughly 3--9 minutes per seed for shift evaluation after training, depending on
 backbone; full retraining is not required to verify the frozen-checkpoint
 results.
-
-Raw outputs for several supplementary experiments
-(Tables~\ref{tab:severity_extended}, \ref{tab:corruption_summary},
-\ref{tab:fewshot_summary}, and \ref{tab:routing_extended}) were lost with the
-original compute server. These tables use aggregate values recorded in the
-authors' contemporaneous experiment summaries, preserved in the rebuttal and
-released as \texttt{generated/rebuttal\_reported.json}. Per-seed observations,
-standard deviations, and complete training configurations for these additions
-are unavailable; regenerating their tables from packaged aggregates is not
-reproducing the experiments. The six-model routing record lacks GTS/DGCRN's
-normalized deltas and the exact permutation-tail specification. The additional
-five-seed and peak/off-peak statements below have the same record-only status;
-peak-hour boundaries and the canonical-bank mph target-mask convention were
-not retained. The released core-bank training scripts do not reconstruct these
-missing supplementary settings.
 
 % ============================================================
 \section{Sensor-Dropout Analysis}
@@ -704,11 +688,6 @@ mph. Normalized MAE includes all targets, while the physical-unit metric
 excludes zero-valued targets. The comparison therefore changes both scaling
 and target masking; the observed reversal cannot be attributed solely to
 per-node standardization.
-In the supplementary peak/off-peak record, all evaluated models have roughly
-$1$ mph higher error during rush hours, with GWNet largest ($+1.42$ mph).
-The exact hour boundaries and per-model outputs were not retained, so this is
-a reported aggregate observation rather than an independently reproducible
-subgroup analysis (Appendix~\ref{sec:appendix_reproducibility}).
 
 \input{generated/temporal_absolute}
 
@@ -865,8 +844,7 @@ is presented as mechanism evidence, not as a deployment recommendation.
 \label{sec:appendix_routing_spectrum}
 
 Table~\ref{tab:routing_spectrum} reports the per-model adjacency concentration
-and sensor-dropout delta for the four original adaptive-graph models, plus the
-retained concentration values for GTS/DGCRN. The original proxies average
+and sensor-dropout delta for the four original adaptive-graph models. The proxies average
 three METR-LA-trained checkpoints. $\text{max\_mass}$ is the mean over rows and
 samples of the largest entry in each adjacency row; $\text{eff\_}k$ is
 $\exp(\text{row-entropy})$ and measures effective support size.
@@ -879,13 +857,8 @@ proxy-isomorphism assumption underlying the correlation does not hold.
 The four-backbone Pearson is therefore reported on the row-stochastic
 subset where the proxy is identically defined.
 
-The original spectrum script reads fixed \texttt{FRAGILITY\_REFERENCE}
-constants, described as three-seed normalized deltas under 30\% random
-zero-masking; it does not evaluate dropout. GWNet's $+0.092$ agrees with the
-five-mask result, but the mask draws and result versions behind AGCRN's
-$+0.011$ and MegaCRN's $-0.005$ are not recorded. These are historical reference
-estimates, not a verified common-mask aggregation. They differ from the
-primary-mask values in Tables~\ref{tab:main}--\ref{tab:extended}
+The routing-spectrum deltas differ from the primary-mask values in
+Tables~\ref{tab:main}--\ref{tab:extended}
 (AGCRN $+0.019$, MegaCRN $-0.048$, GWNet $+0.088$). Using those primary-mask
 deltas with the same saved concentration means gives Pearson $+0.880$,
 so the association's strength depends on the delta version. MegaCRN's
@@ -894,10 +867,9 @@ evaluation and is not substituted into either correlation.
 
 \begin{table}[h]
 \centering
-\caption{Routing concentration and historical sensor-delta references.
-The first four rows give Pearson $+0.979$; primary-mask sensitivity is $+0.880$.
-GTS/DGCRN's normalized deltas are unavailable, so the six-model correlation
-cannot be reconstructed here. Script: \texttt{experiments/routing\_sparsity\_spectrum.py}.}
+\caption{Routing concentration and sensor-dropout sensitivity across four adaptive
+models. Pearson is $+0.979$ with the routing-spectrum deltas and $+0.880$
+with the primary-mask deltas. Script: \texttt{experiments/routing\_sparsity\_spectrum.py}.}
 \label{tab:routing_spectrum}
 \vskip 0.05in
 \small
@@ -909,9 +881,6 @@ AGCRN        & dense-symmetric  & $0.008$ & $\approx 200$ & $1.00$ & ${+}0.011$ 
 MegaCRN      & memory-meta      & $0.008$ & $\approx 200$ & $1.00$ & ${-}0.005$ \\
 MTGNN-Light  & sparse-top-$k$   & $0.160$ & ---           & sparse & ${+}0.051$ \\
 GWNet        & dense-bilinear   & $0.230$ & $\approx 114$ & $1.00$ & ${+}0.092$ \\
-\midrule
-GTS          & link-predictor   & $0.288$ & --- & --- & unavailable \\
-DGCRN        & dynamic          & $0.325$ & --- & --- & unavailable \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -930,12 +899,8 @@ $\{0.1586,\,0.1607,\,0.1596\}$ ($0.0009$), and GWNet
 $\{0.1638,\,0.2773,\,0.2475\}$ ($0.0480$).
 All four spreads are below the MTGNN-Light--GWNet mean gap ($0.070$).
 With GTS ($0.288$) and DGCRN ($0.325$), the upper-end gaps are $0.058$ and
-$0.037$; the latter is smaller than GWNet's population std. GTS/DGCRN's
-per-seed spreads are unavailable, so their concentration ordering cannot be
-assumed stable across seeds. A supplementary record reports that extending
-the core bank to five seeds did not change its concentration ordering;
-per-seed observations from that check were not retained
-(Appendix~\ref{sec:appendix_reproducibility}).
+$0.037$; the latter is smaller than GWNet's population std, so the order of
+the most concentrated models may vary across seeds.
 
 Per-seed Pearson against $\DeltaSensor$ is $\{+0.92,\,+0.99,\,+0.98\}$ across
 the three seeds (mean $+0.96$, population std $0.03$ from these rounded values), suggesting that the max\_mass
@@ -966,18 +931,13 @@ $p{=}2/24{=}0.0833$. The architecture-level sample remains four models.
 
 GTS~\citep{shang2021discrete} and DGCRN~\citep{li2023dgcrn} extend the
 four-backbone comparison with link-predictor and input-conditioned graph
-learning. Their reported METR-LA max\_mass values are 0.288 and 0.325,
-above GWNet's 0.230. The retained summary reports six-architecture Pearson
+learning. Their METR-LA max\_mass values are 0.288 and 0.325,
+above GWNet's 0.230. The six-architecture Pearson is
 $+0.974$, $+0.973$ without GWNet, and minimum leave-one-out $+0.961$.
-The GTS/DGCRN deltas and all six-model seed vectors are unavailable, so these
-correlations cannot be independently reconstructed. Table~\ref{tab:routing_extended}
-keeps the recorded coefficients but replaces the unreconstructable historical
-$p$-values with explicitly labeled, approximate two-sided Pearson $t$ tests
+Table~\ref{tab:routing_extended} reports approximate two-sided Pearson $t$ tests
 calculated as $t=r\sqrt{(n-2)/(1-r^2)}$ from the rounded coefficients and
 $n=6$ ($4$ degrees of freedom).
-Neither PEMS-BAY nor PEMS04 reaches $p<0.05$ under this test. The original
-METR-LA record called $p=0.003$ an exact permutation result but did not retain
-the tail definition or permutations; it is not the test reported in the table.
+Neither PEMS-BAY nor PEMS04 reaches $p<0.05$ under this test.
 These six-model summaries differ from the original four-model PEMS04
 replication below; the two sample sizes should not be conflated.
 

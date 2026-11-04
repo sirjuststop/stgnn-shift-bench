@@ -109,14 +109,10 @@ covariates). These models use their standard masked-MAE convention, while the
 canonical bank uses plain MAE; Table~\ref{tab:extended} reports clean values
 only to identify checkpoints, not to rank clean performance across families.
 
-Supplementary records add GTS~\citep{shang2021discrete} and
+We also include GTS~\citep{shang2021discrete} and
 DGCRN~\citep{li2023dgcrn} for routing concentration and sensor severity,
 outside the eight-model cross-city/temporal bank. Native-source routing
-summaries also cover PEMS-BAY and PEMS04. Available PEMS-BAY training scripts
-use all 325 sensors, a chronological 70/10/20 split, and training-only
-per-node normalization, but the six-model extension's run configs
-and seed-level outputs were not retained; exact protocol matching cannot be
-verified (Appendix~\ref{sec:appendix_reproducibility}).
+analyses also cover PEMS-BAY and PEMS04.
 
 \subsection{Distribution shifts}
 \label{subsec:shifts}

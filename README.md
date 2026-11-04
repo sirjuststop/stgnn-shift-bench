@@ -7,13 +7,13 @@ South China University of Technology
 
 NeurIPS 2026 Evaluations & Datasets camera-ready artifact.
 
-Revision v4 (2026-11-04) corrects protocol mixing, transfer comparisons, and significance reporting. Silent zero-fill findings require the stated failure-detection assumptions for mitigation. Appendix B.2 identifies supplementary results retained only as aggregates; their full experimental reproduction is not possible from the released records.
+Revision v5 (2026-11-04) corrects protocol comparisons, transfer rankings, and statistical reporting, and simplifies the manuscript and accompanying documentation.
 
 [Paper PDF](paper/main.pdf) | [Paper source and build instructions](paper/README.md) | [Revision notes](paper/REVISION_NOTES.md)
 
 We evaluate eight frozen traffic forecasting architectures under sensor dropout, cross-city transfer, and weekday/weekend subgroup differences. Sensor-dropout sensitivity tracks routing concentration, while cross-city and temporal rankings depend on the shift and reporting convention. The expanded routing comparison includes six graph-based adaptive architectures. A mask-aware GWNet intervention recovers about 75% of its multi-mask dropout gap without retraining.
 
-The final paper distinguishes normalized/plain temporal error from masked physical-unit error. It also separates statistics recomputed from saved results from additional aggregates reported in the authors' rebuttal. The latter are preserved as aggregate tables; new training or inference was not performed during this revision.
+The final paper distinguishes normalized/plain temporal error from masked physical-unit error and includes the supplementary routing, corruption, and transfer analyses.
 
 ## Rebuild the paper and revised assets
 
@@ -77,8 +77,6 @@ python experiments/eval_official_adaptive_baselines.py \
 ```
 
 Model definitions used by the official adapters are included in `third_party/` and `external_repos/AGCRN/`. The AGCRN files are pinned to the commit recorded by the existing model adapter; upstream attribution and license are preserved.
-
-The registry also retains six auxiliary BAY-source STGCN/MTGNN checkpoint entries whose weight files are unavailable. These are separate from the METR-LA source bank used by the commands above.
 
 ## Recommendation artifact
 

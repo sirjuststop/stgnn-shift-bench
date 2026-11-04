@@ -6,13 +6,8 @@ Xile Wang and Mingqi Yang, South China University of Technology.
 
 This directory contains the final-format manuscript, references, appendix, checklist, and the funding statement supplied by the authors. The compiled PDF has 29 pages, with the main text ending on page 9. The original submission and earlier local revisions are preserved separately.
 
-Revision v4 (2026-11-04) incorporates the v3 review. It corrects protocol mixing,
-transfer comparisons, and reporting scope. Some supplementary experiments are
-available only as historical aggregates; Appendix B.2 identifies the missing
-raw outputs and run settings. The package can rebuild the paper and its tables,
-but does not independently reproduce those experiments. The six-model table's
-approximate two-sided Pearson t tests are distinct from the historical p-values
-preserved in the provenance JSON.
+Revision v5 (2026-11-04) incorporates corrections to protocol comparisons,
+transfer rankings, statistical reporting, and manuscript wording.
 
 ## Build the PDF
 

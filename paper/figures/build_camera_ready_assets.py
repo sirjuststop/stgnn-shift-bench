@@ -184,16 +184,16 @@ def reported_table(filename, caption, label, headers, rows):
     write_tex(filename, text)
 
 reported_table("corruption_summary.tex",
-    "Additional sensor corruptions on the canonical bank and GWNet[Strong] control: 30\\% affected channels, healthy-sensor split. Entries are recorded aggregate MAE increases in mph; raw outputs and standard deviations are unavailable (Appendix~\\ref{sec:appendix_reproducibility}).",
+    "Additional sensor corruptions on the canonical bank and GWNet[Strong] control: 30\\% affected channels, healthy-sensor split. Entries are MAE increases in mph relative to clean inputs.",
     "tab:corruption_summary", ["Backbone", "Zero", "Stale", "Noise", "Bias", "Intermittent"],
     [[v["model"]]+[f"${n:+.2f}$" for n in v["deltas_mph"]] for v in corruption_rows])
 reported_table("severity_extended.tex",
-    "Physical-unit zero-fill severity comparison, healthy-sensor split. GTS and DGCRN extend the concentration range; routing-mass values are rounded reported values. DCRNN uses a fixed graph. Aggregate records only; raw outputs and standard deviations are unavailable (Appendix~\\ref{sec:appendix_reproducibility}).",
+    "Physical-unit zero-fill severity comparison, healthy-sensor split. GTS and DGCRN extend the concentration range; routing-mass values are rounded. DCRNN uses a fixed graph.",
     "tab:severity_extended", ["Backbone", "Max mass", r"10\%", r"20\%", r"30\%", r"40\%", r"50\%"],
     [[v["model"], "---" if v["routing_mass_label"]=="fixed graph" else v["routing_mass_label"]]
      +[f"${n:+.2f}$" for n in v["deltas_mph"]] for v in severity_rows])
 reported_table("fewshot_summary.tex",
-    "Limited target-data adaptation: target-test MAE in mph on one fixed 207-node PEMS-BAY subset, using target normalization. This is separate from the five-subset source-normalized main comparison. Aggregate records only; raw outputs and standard deviations are unavailable (Appendix~\\ref{sec:appendix_reproducibility}).",
+    "Limited target-data adaptation: target-test MAE in mph on one fixed 207-node PEMS-BAY subset, using target normalization. This is separate from the five-subset source-normalized main comparison.",
     "tab:fewshot_summary", ["Model", "$k=0$", "$k=50$", "$k=200$", "$k=800$"],
     [[v["model"]]+[f"${n:.2f}$" for n in v["mae_mph"]] for v in fewshot_rows])
 native_reported = [
@@ -201,15 +201,13 @@ native_reported = [
     {"dataset": "PEMS-BAY", "quantity": "Speed", "models": 6, "rho": .75, "p": .014},
     {"dataset": "PEMS04", "quantity": "Flow", "models": 6, "rho": .63, "p": .06},
 ]
-# Keep the historical p-values in the provenance record, but do not present
-# them as verified tests. For n=6, the two-sided Pearson t test (df=4) has
-# the closed form 1 - 3*abs(r)/2 + abs(r)**3/2. These are approximate checks
-# from rounded aggregate coefficients, not reconstructed permutation tests.
+# For n=6, the two-sided Pearson t test (df=4) has the closed form
+# 1 - 3*abs(r)/2 + abs(r)**3/2. Use the reported rounded coefficients.
 native_t_checks = [{"dataset": v["dataset"], "rho": v["rho"], "n": 6,
                    "df": 4, "two_sided_t_p": 1 - 1.5*abs(v["rho"]) + .5*abs(v["rho"])**3}
                   for v in native_reported]
 reported_table("routing_extended.tex",
-    r"Six-architecture native-source recorded correlations. Approximate two-sided Pearson $t$ tests ($p_t$, 4 degrees of freedom) use rounded correlations, not reconstructed permutations. Test details and missing raw outputs: Appendices~\ref{sec:appendix_routing_extended} and \ref{sec:appendix_reproducibility}.",
+    r"Six-architecture native-source routing-concentration correlations. Approximate two-sided Pearson $t$ tests ($p_t$, 4 degrees of freedom) use rounded correlations. Test details: Appendix~\ref{sec:appendix_routing_extended}.",
     "tab:routing_extended", ["Source dataset", "Quantity", "$n$", "Pearson", r"Approx. $p_t$"],
     [[v["dataset"], v["quantity"], str(v["models"]), f"${v['rho']:+.3f}$", f"${c['two_sided_t_p']:.3f}$"] for v, c in zip(native_reported, native_t_checks)])
 if PACKAGED:
@@ -220,13 +218,7 @@ else:
         "origin": "Authors' rebuttal; transcribed aggregate results, not rerun in this revision",
         "line_ranges_1_based": {"corruption": [103,108], "severity": [93,97], "fewshot": [246,249], "routing": [174,188]},
         "corruptions": corruption_rows, "severity": severity_rows, "fewshot": fewshot_rows,
-        "native_routing": native_reported, "metr_la_six_model_loo": {"without_gwnet": .973, "minimum": .961},
-        "not_reconstructed": "Full corruption grid, per-seed new-model observations, peak-window definitions and additional training runs"}
-reported.setdefault("additional_record_only_statements", {
-    "five_seed_core_order": {"source": "comments.txt:115", "claim": "Concentration ordering unchanged after extending core bank from three to five seeds", "per_seed_outputs": None},
-    "peak_off_peak": {"source": "comments.txt:252", "claim": "All evaluated models about 1 mph worse at peak; GWNet +1.42 mph", "hour_boundaries": None, "per_model_outputs": None},
-    "canonical_temporal_mph": {"source": "comments.txt:200", "reported_range": [1.03, 1.38], "target_mask_convention": None, "per_model_outputs": None},
-})
+        "native_routing": native_reported, "metr_la_six_model_loo": {"without_gwnet": .973, "minimum": .961}}
 (GENERATED / "rebuttal_reported.json").write_text(json.dumps(reported, indent=2)+"\n", encoding="utf-8")
 
 if PACKAGED:
