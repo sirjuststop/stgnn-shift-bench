@@ -1,5 +1,5 @@
 {
-  "date_local": "2026-11-03",
+  "date_local": "2026-11-04",
   "kind": "Reaggregation and presentation of existing results; no training or inference",
   "source_sha256": {
     "submission_neurips2026_20260506.zip": "56af8dc047272d9463f3c1e9c5aef33bb7bfdcbe9f5fd7b8df0a8262602aa634",
@@ -41,7 +41,43 @@
       "mtgnn": 0.9880898377787534,
       "gwnet": 0.9607519143940524
     },
-    "exact_abs_tail_p": 0.08333333333333333
+    "exact_abs_tail_p": 0.08333333333333333,
+    "primary_mask_sensitivity_rho": 0.8796493771836762,
+    "primary_mask_deltas": {
+      "agcrn": 0.019,
+      "megacrn": -0.048,
+      "mtgnn": 0.051,
+      "gwnet": 0.088
+    },
+    "max_mass_population_std": {
+      "agcrn": 0.0011247951122185624,
+      "megacrn": 0.0015042346069769324,
+      "mtgnn": 0.0008854909469663442,
+      "gwnet": 0.048017474701215035
+    },
+    "six_model_t_checks_from_rounded_reported_rho": [
+      {
+        "dataset": "METR-LA",
+        "rho": 0.974,
+        "n": 6,
+        "df": 4,
+        "two_sided_t_p": 0.0010052120000000886
+      },
+      {
+        "dataset": "PEMS-BAY",
+        "rho": 0.75,
+        "n": 6,
+        "df": 4,
+        "two_sided_t_p": 0.0859375
+      },
+      {
+        "dataset": "PEMS04",
+        "rho": 0.63,
+        "n": 6,
+        "df": 4,
+        "two_sided_t_p": 0.18002349999999995
+      }
+    ]
   },
   "mask_aware_r30": {
     "ratio": 0.3,

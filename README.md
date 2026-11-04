@@ -7,6 +7,8 @@ South China University of Technology
 
 NeurIPS 2026 Evaluations & Datasets camera-ready artifact.
 
+Revision v4 (2026-11-04) corrects protocol mixing, transfer comparisons, and significance reporting. Silent zero-fill findings require the stated failure-detection assumptions for mitigation. Appendix B.2 identifies supplementary results retained only as aggregates; their full experimental reproduction is not possible from the released records.
+
 [Paper PDF](paper/main.pdf) | [Paper source and build instructions](paper/README.md) | [Revision notes](paper/REVISION_NOTES.md)
 
 We evaluate eight frozen traffic forecasting architectures under sensor dropout, cross-city transfer, and weekday/weekend subgroup differences. Sensor-dropout sensitivity tracks routing concentration, while cross-city and temporal rankings depend on the shift and reporting convention. The expanded routing comparison includes six graph-based adaptive architectures. A mask-aware GWNet intervention recovers about 75% of its multi-mask dropout gap without retraining.

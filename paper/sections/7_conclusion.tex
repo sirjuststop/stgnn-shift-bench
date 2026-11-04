@@ -1,12 +1,12 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-Sensor-dropout sensitivity tracks adaptive-adjacency
-concentration (Pearson $\rho{=}{+}0.974$ across six adaptive architectures on
-METR-LA, with positive associations on three source datasets);
-mask-aware inference recovers
-$75\%$ of GWNet's gap without retraining. Cross-city and temporal evaluation
-give different rankings: MegaCRN leads source-normalized transfer, while
-MegaCRN's and STAEformer's weekday/weekend gaps reverse sign under masked-mph
-reporting. Model assessment should specify both the expected shift and the
-metric used.
+Across six adaptive architectures trained on METR-LA, the retained aggregate
+results associate sensitivity to silent zero-filling with routing concentration
+(Pearson $\rho{=}{+}0.974$); the association is positive but weaker on PEMS-BAY
+and PEMS04. For Graph WaveNet, mask-aware inference recovers $75\%$ of the
+dropout gap without retraining when failed sensors are known. Cross-city and
+temporal evaluation give different rankings: MegaCRN leads source-normalized
+transfer, and the sign of MegaCRN's and STAEformer's weekday/weekend gap
+depends on whether errors use normalized units or masked mph. Robustness
+claims for traffic STGNNs should name both the shift and the metric.

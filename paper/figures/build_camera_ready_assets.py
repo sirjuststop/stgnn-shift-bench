@@ -184,16 +184,16 @@ def reported_table(filename, caption, label, headers, rows):
     write_tex(filename, text)
 
 reported_table("corruption_summary.tex",
-    "Additional sensor corruptions on the canonical bank and GWNet[Strong] control: 30\\% affected channels, healthy-sensor split. Entries are reported MAE increases in mph relative to clean inputs.",
+    "Additional sensor corruptions on the canonical bank and GWNet[Strong] control: 30\\% affected channels, healthy-sensor split. Entries are recorded aggregate MAE increases in mph; raw outputs and standard deviations are unavailable (Appendix~\\ref{sec:appendix_reproducibility}).",
     "tab:corruption_summary", ["Backbone", "Zero", "Stale", "Noise", "Bias", "Intermittent"],
     [[v["model"]]+[f"${n:+.2f}$" for n in v["deltas_mph"]] for v in corruption_rows])
 reported_table("severity_extended.tex",
-    "Physical-unit zero-fill severity comparison, healthy-sensor split. GTS and DGCRN extend the concentration range; routing-mass values are rounded reported values. DCRNN uses a fixed graph.",
+    "Physical-unit zero-fill severity comparison, healthy-sensor split. GTS and DGCRN extend the concentration range; routing-mass values are rounded reported values. DCRNN uses a fixed graph. Aggregate records only; raw outputs and standard deviations are unavailable (Appendix~\\ref{sec:appendix_reproducibility}).",
     "tab:severity_extended", ["Backbone", "Max mass", r"10\%", r"20\%", r"30\%", r"40\%", r"50\%"],
     [[v["model"], "---" if v["routing_mass_label"]=="fixed graph" else v["routing_mass_label"]]
      +[f"${n:+.2f}$" for n in v["deltas_mph"]] for v in severity_rows])
 reported_table("fewshot_summary.tex",
-    "Limited target-data adaptation: target-test MAE in mph on one fixed 207-node PEMS-BAY subset, using target normalization. This is a separate probe from the five-subset source-normalized main comparison.",
+    "Limited target-data adaptation: target-test MAE in mph on one fixed 207-node PEMS-BAY subset, using target normalization. This is separate from the five-subset source-normalized main comparison. Aggregate records only; raw outputs and standard deviations are unavailable (Appendix~\\ref{sec:appendix_reproducibility}).",
     "tab:fewshot_summary", ["Model", "$k=0$", "$k=50$", "$k=200$", "$k=800$"],
     [[v["model"]]+[f"${n:.2f}$" for n in v["mae_mph"]] for v in fewshot_rows])
 native_reported = [
@@ -201,10 +201,17 @@ native_reported = [
     {"dataset": "PEMS-BAY", "quantity": "Speed", "models": 6, "rho": .75, "p": .014},
     {"dataset": "PEMS04", "quantity": "Flow", "models": 6, "rho": .63, "p": .06},
 ]
+# Keep the historical p-values in the provenance record, but do not present
+# them as verified tests. For n=6, the two-sided Pearson t test (df=4) has
+# the closed form 1 - 3*abs(r)/2 + abs(r)**3/2. These are approximate checks
+# from rounded aggregate coefficients, not reconstructed permutation tests.
+native_t_checks = [{"dataset": v["dataset"], "rho": v["rho"], "n": 6,
+                   "df": 4, "two_sided_t_p": 1 - 1.5*abs(v["rho"]) + .5*abs(v["rho"])**3}
+                  for v in native_reported]
 reported_table("routing_extended.tex",
-    "Six-architecture native-source routing-concentration summaries, adding GTS and DGCRN to the original four graph-based adaptive models. Values are the reported aggregate correlations and p-values; the METR-LA test is an exact permutation test.",
-    "tab:routing_extended", ["Source dataset", "Quantity", "$n$", "Pearson", "$p$"],
-    [[v["dataset"], v["quantity"], str(v["models"]), f"${v['rho']:+.3f}$", f"${v['p']:.3f}$"] for v in native_reported])
+    r"Six-architecture native-source recorded correlations. Approximate two-sided Pearson $t$ tests ($p_t$, 4 degrees of freedom) use rounded correlations, not reconstructed permutations. Test details and missing raw outputs: Appendices~\ref{sec:appendix_routing_extended} and \ref{sec:appendix_reproducibility}.",
+    "tab:routing_extended", ["Source dataset", "Quantity", "$n$", "Pearson", r"Approx. $p_t$"],
+    [[v["dataset"], v["quantity"], str(v["models"]), f"${v['rho']:+.3f}$", f"${c['two_sided_t_p']:.3f}$"] for v, c in zip(native_reported, native_t_checks)])
 if PACKAGED:
     reported = package["reported_aggregates"]
     assert reported["native_routing"] == native_reported
@@ -215,6 +222,11 @@ else:
         "corruptions": corruption_rows, "severity": severity_rows, "fewshot": fewshot_rows,
         "native_routing": native_reported, "metr_la_six_model_loo": {"without_gwnet": .973, "minimum": .961},
         "not_reconstructed": "Full corruption grid, per-seed new-model observations, peak-window definitions and additional training runs"}
+reported.setdefault("additional_record_only_statements", {
+    "five_seed_core_order": {"source": "comments.txt:115", "claim": "Concentration ordering unchanged after extending core bank from three to five seeds", "per_seed_outputs": None},
+    "peak_off_peak": {"source": "comments.txt:252", "claim": "All evaluated models about 1 mph worse at peak; GWNet +1.42 mph", "hour_boundaries": None, "per_model_outputs": None},
+    "canonical_temporal_mph": {"source": "comments.txt:200", "reported_range": [1.03, 1.38], "target_mask_convention": None, "per_model_outputs": None},
+})
 (GENERATED / "rebuttal_reported.json").write_text(json.dumps(reported, indent=2)+"\n", encoding="utf-8")
 
 if PACKAGED:
@@ -288,9 +300,14 @@ fig.savefig(PAPER / "figures/shift_profiles.pdf", bbox_inches="tight")
 fig.savefig(PAPER / "figures/shift_profiles.png", dpi=180, bbox_inches="tight")
 plt.close(fig)
 
-output = {"date_local": "2026-11-03", "kind": "Reaggregation and presentation of existing results; no training or inference",
+primary_y = [submitted_rows[m]["sensor"] for m in models]
+primary_rho = correlation(x, primary_y)
+output = {"date_local": "2026-11-04", "kind": "Reaggregation and presentation of existing results; no training or inference",
     "source_sha256": package["original_source_sha256"] if PACKAGED else {p: hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in SOURCES},
-    "temporal": temporal, "routing": {"rho": rho, "leave_one_out": loo, "exact_abs_tail_p": perm_p},
+    "temporal": temporal, "routing": {"rho": rho, "leave_one_out": loo, "exact_abs_tail_p": perm_p,
+        "primary_mask_sensitivity_rho": primary_rho, "primary_mask_deltas": dict(zip(models, primary_y)),
+        "max_mass_population_std": {m: statistics.pstdev(v['max_mass_mean'] for v in routing[m]['per_seed']) for m in models},
+        "six_model_t_checks_from_rounded_reported_rho": native_t_checks},
     "mask_aware_r30": mask, "fpfn_penalties": fp_stats, "submitted_sensor_city_values": submitted_rows}
 (GENERATED / "metrics.json").write_text(json.dumps(output, indent=2)+"\n", encoding="utf-8")
 print(json.dumps({"generated": str(GENERATED), "rho": rho, "permutation_p": perm_p,

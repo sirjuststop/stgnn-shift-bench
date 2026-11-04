@@ -7,7 +7,11 @@
 
 Table~\ref{tab:preregistered} records all 16 pre-registered predictions alongside
 experimental outcomes. Predictions were added in five stages before running the
-corresponding experiments.
+corresponding experiments. The table is a selected scientific-claim ledger,
+not a consecutive experiment index: the first six rows retain the original
+unnumbered presentation, later rows retain historical experiment identifiers,
+and P7--P10 and P20 are not separately enumerated here. Numbering gaps do not
+represent additional outcomes counted in the total of 16.
 
 \textbf{Hosting and criteria.}
 The ledger is hosted in the project notebook
@@ -60,7 +64,7 @@ STGCN (fixed spectral adj) $\DeltaSensor \leq$ DCRNN (fixed diffusion adj)
   & Confirmed: ranking preserved; GWNet +41\% MAE at 150 nodes vs.\ $-2\%$ for DCRNN
   & {\checkmark} \\
 {[P12]} Hub dropout raises GWNet $\DeltaSensor$ relative to uniform random (dense routing)
-  & Confirmed: GWNet $+45\%$ ($+0.127$ vs.\ $+0.088$); DCRNN lower ($+0.008$ vs.\ random $+0.021$)
+  & Confirmed: GWNet $+44\%$ ($+0.127$ vs.\ $+0.088$); DCRNN lower ($+0.008$ vs.\ random $+0.020$)
   & {\checkmark} \\
 {[P13]} Mask-aware recovery meaningful with FP $\leq5\%$, FN $\leq10\%$ detection
   & Partial: error increases under imperfect detection; high variance at FP=10\%/FN=20\%
@@ -82,7 +86,7 @@ STGCN (fixed spectral adj) $\DeltaSensor \leq$ DCRNN (fixed diffusion adj)
   & Confirmed: $+0.050$ vs $+0.020$ ($2.5{\times}$); city $4.46$ vs $4.42$ mph
   & {\checkmark} \\
 {[P18]} DCRNN is best-generalizing on $\geq1$ PEMS04-source direction (PEMS04$\to$METR-LA, PEMS04$\to$PEMS-BAY)
-  & Confirmed on \emph{both}: DCRNN $7.01$/$2.65$ vs next-best GRU $11.03$/GWNet $4.58$
+  & Confirmed on \emph{both}: DCRNN $7.01$/$2.65$ mph; STGCN is close on METR-LA ($7.18$; Table~\ref{tab:no_pad_sensitivity})
   & {\checkmark} \\
 {[P19]} GWNet's per-horizon city-transfer MAE is flatter than DCRNN's (static mis-routing, not accumulation)
   & Confirmed: GWNet $+4\%$ h1$\to$h12 growth vs DCRNN $+46\%$
@@ -90,7 +94,7 @@ STGCN (fixed spectral adj) $\DeltaSensor \leq$ DCRNN (fixed diffusion adj)
 \midrule
 \multicolumn{3}{l}{\emph{P21 added prior to full-sweep best-config experiment:}} \\
 {[P21]} GWNet[Best] (12-config sweep: hidden 256, embed 32, lr 5e-4) still shows $\DeltaSensor{>}2{\times}$ DCRNN
-  & Confirmed: $+0.042$ vs $+0.020$ ($2.1{\times}$); in-dist $7.22$ mph; optimal training cannot eliminate routing fragility
+  & Confirmed: $+0.042$ vs $+0.020$ ($2.1{\times}$); in-dist $7.22$ mph; tuning over a 12-configuration grid does not remove the fragility
   & {\checkmark} \\
 \bottomrule
 \end{tabular}
@@ -129,7 +133,7 @@ Clean MAE              & T.\ref{tab:main}, T.\ref{tab:extended}                 
 $\DeltaSensor$         & T.\ref{tab:main}, T.\ref{tab:extended}                              & normalized                   & source-stat            & Yes (within-family) \\
 Cross-city MAE         & T.\ref{tab:main}, T.\ref{tab:extended}                              & normalized                   & source / target (both) & Yes (matched-access) \\
 $\DeltaTemp$           & T.\ref{tab:main}, T.\ref{tab:extended}, T.\ref{tab:temporal_absolute} & normalized / masked mph & per-model & Metric-dependent \\
-Routing concentration  & T.\ref{tab:routing_spectrum}, App.~\ref{sec:appendix_pems04_routing} & unitless $[0,1]$            & per-row                & Yes (proxy-matched, $n{=}4$) \\
+Routing concentration  & T.\ref{tab:routing_spectrum}, T.\ref{tab:routing_extended} & unitless $[0,1]$            & per-row                & Proxy-matched; $n{=}4$, extended $n{=}6$ \\
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -139,8 +143,9 @@ across model families without re-introducing a convention artifact: clean MAE
 cannot, the sensor and city comparisons follow their stated normalization
 protocols, and the temporal ranking depends on the scaling and target-mask
 convention (Table~\ref{tab:temporal_absolute}). Routing concentration is
-compared across the four
-row-stochastic backbones for which the proxy is identically defined.
+compared across four row-stochastic backbones with saved measurements, with
+a six-model aggregate extension (Table~\ref{tab:routing_extended}). The latter
+does not have the same level of reproducibility.
 
 \subsection{Reproducibility, assets, and compute}
 \label{sec:appendix_reproducibility}
@@ -165,6 +170,21 @@ training/evaluation job. The April 16 extended-model evaluation log records
 roughly 3--9 minutes per seed for shift evaluation after training, depending on
 backbone; full retraining is not required to verify the frozen-checkpoint
 results.
+
+Raw outputs for several supplementary experiments
+(Tables~\ref{tab:severity_extended}, \ref{tab:corruption_summary},
+\ref{tab:fewshot_summary}, and \ref{tab:routing_extended}) were lost with the
+original compute server. These tables use aggregate values recorded in the
+authors' contemporaneous experiment summaries, preserved in the rebuttal and
+released as \texttt{generated/rebuttal\_reported.json}. Per-seed observations,
+standard deviations, and complete training configurations for these additions
+are unavailable; regenerating their tables from packaged aggregates is not
+reproducing the experiments. The six-model routing record lacks GTS/DGCRN's
+normalized deltas and the exact permutation-tail specification. The additional
+five-seed and peak/off-peak statements below have the same record-only status;
+peak-hour boundaries and the canonical-bank mph target-mask convention were
+not retained. The released core-bank training scripts do not reconstruct these
+missing supplementary settings.
 
 % ============================================================
 \section{Sensor-Dropout Analysis}
@@ -210,7 +230,10 @@ increment among the models shown. Thus the silent-zero ranking does not
 extend unchanged to other corruptions. The reporting split matters too:
 under zero-fill, DCRNN's increase is $+0.39$ mph on healthy sensors and
 $+4.32$ mph on faulty sensors; GWNet's corresponding values are $+1.65$
-and $+2.01$ mph.
+and $+2.01$ mph. This comparison covers one severity (30\%) and the
+healthy-sensor split. For zero-fill we also give the faulty-sensor values for
+DCRNN and GWNet; whole-network results and other severities for the non-zero
+corruptions are not tabulated.
 
 \input{generated/corruption_summary}
 
@@ -262,7 +285,7 @@ Hub: top-$k$ degree sensors dropped.
 Contiguous: BFS cluster from highest-degree seed.
 GWNet ordering is preserved ($>$STGCN$>$DCRNN); structured patterns amplify GWNet's fragility
 but reduce DCRNN/STGCN's apparent sensitivity, because hub dropout keeps peripheral
-(easier-to-predict) sensors.}
+sensors that may be easier to predict.}
 \label{tab:structured_dropout}
 \vskip 0.1in
 \small
@@ -270,21 +293,20 @@ but reduce DCRNN/STGCN's apparent sensitivity, because hub dropout keeps periphe
 \toprule
 \textbf{Backbone} & \textbf{Random (uniform)} & \textbf{Hub dropout} & \textbf{Contiguous dropout} \\
 \midrule
-DCRNN (fixed diffusion) & $+0.021$ & $+0.008$ & $+0.005$ \\
-STGCN (fixed spectral)  & $+0.079$ & $+0.026$ & $+0.022$ \\
+DCRNN (fixed diffusion) & $+0.020$ & $+0.008$ & $+0.005$ \\
+STGCN (fixed spectral)  & $+0.078$ & $+0.026$ & $+0.022$ \\
 GWNet (adaptive adj)    & $+0.088$ & $+0.127$ & $+0.096$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 The relative ordering GWNet $>$ STGCN $>$ DCRNN is preserved under all patterns.
-GWNet's hub-dropout sensitivity is \textbf{45\% higher} than uniform random ($+0.127$ vs.\ $+0.088$,
+GWNet's hub-dropout sensitivity is \textbf{44\% higher} than uniform random ($+0.127$ vs.\ $+0.088$,
 matched single-mask protocol shared with Table~\ref{tab:main}):
 hub nodes feed GWNet's densest adaptive-routing pathways, so removing them is especially damaging.
 DCRNN and STGCN show \emph{lower} $\DeltaSensor$ under hub/contiguous dropout ($+0.008$, $+0.026$)
 than under uniform random dropout. When hubs are dropped, the
-kept sensors are peripheral nodes with simpler traffic dynamics, making the prediction task
-inherently easier. The clean-kept and masked-kept MAEs both drop for DCRNN/STGCN under hub
+kept sensors are peripheral nodes, which plausibly makes prediction easier. The clean-kept and masked-kept MAEs both drop for DCRNN/STGCN under hub
 dropout, but the \emph{gap} also shrinks, since DCRNN's bidirectional diffusion redistributes
 information effectively even when hub inputs are absent.
 
@@ -317,7 +339,7 @@ GWNet           & $+0.066$ & $+0.076$ & $+0.085$ & $+0.121$ & $1.83\times$ \\
 
 GWNet is the only backbone with a strongly monotonic degree$\to$fragility pattern.
 MTGNNLight's weak positive relationship ($1.25\times$) and STGCN's intermediate ratio ($1.50\times$)
-show that some degree sensitivity exists in fixed-topology models too, but neither
+show that some degree sensitivity exists in other models, but neither
 reaches GWNet's dense-adaptive-graph level ($1.83\times$), and only GWNet's increase is monotonic across
 Q1$\to$Q4.
 
@@ -352,9 +374,9 @@ multi-mask baseline in Table~\ref{tab:mask_aware} would mix protocols.
 \label{sec:appendix_mask_aware_sweep}
 
 The mask-aware GWNet variant (Section~\ref{sec:mechanism}) is reported in
-the main text at a single 30\% random-mask operating point. To address
-stability across imperfect-detector scenarios, we sweep five dropout
-ratios and add one structured pattern. All cells use 3 GWNet seeds
+the main text at a single 30\% random-mask operating point. To test stability
+across dropout ratios, we sweep five ratios and add one structured pattern,
+using the true failure mask throughout. All cells use 3 GWNet seeds
 $\times$ 5 mask seeds; structured pattern uses the top-30\% nodes by
 adjacency degree (one mask per seed).
 
@@ -382,14 +404,19 @@ Random $40\%$       & $+0.145 \pm 0.026$ & $+0.035 \pm 0.006$ & $\phantom{0}75\%
 Hub-30\% (structured) & $+0.116 \pm 0.037$ & $+0.034 \pm 0.001$ & $\phantom{0}71\%$ \\
 \bottomrule
 \end{tabular}
+\par\vskip 0.03in
+{\footnotesize Hub selection differs from Table~\ref{tab:structured_dropout}:
+this sweep ranks by the count of nonzero neighbors, whereas that table ranks
+by the sum of adjacency weights. The resulting failure sets differ, accounting
+for the distinct standard deltas ($0.116$ vs.\ $0.127$).}
 \end{table}
 
 The mask-aware recovery is in the $70$--$76\%$ band across the $10$--$40\%$ sweep
 (the $5\%$ row's nominal $109\%$ reflects an absolute $\DeltaSensor^{\text{mask-aware}}$
 within seed noise of zero). Hub-dropout, where 30\% of \emph{high-degree}
 nodes fail simultaneously, is recovered at $71\%$---comparable to the
-random-30\% main-text result---supporting the argument that the mechanism
-generalizes beyond the random-uniform mask used in the headline claim.
+random-30\% main-text result---so the mitigation is not specific to the
+random mask used in the main text.
 
 \subsection{LOCF and mean imputation baselines}
 \label{sec:appendix_imputation}
@@ -421,10 +448,10 @@ LOCF essentially eliminates the zero-mask degradation for all four backbones.
 Mean imputation performs similarly to or worse than zero-masking, because the test-split
 mean is influenced by the training distribution and creates a biased proxy in shifted
 traffic conditions.
-The LOCF result shows that the architectural fragility ranking we measure (GWNet
-$>$ STGCN $>$ DCRNN) is specific to the zero-masking failure mode; any system with
-temporal carry-forward (including simple telemetry holdover) would largely eliminate
-the architectural gap.
+The LOCF result shows that the fragility ranking (GWNet $>$ STGCN $>$ DCRNN)
+is specific to zero-masking. Because the comparison uses the true failure mask,
+it shows what carry-forward achieves when failed readings are identified,
+not what it achieves with an imperfect detector.
 
 % ============================================================
 \section{Cross-City Transfer Analysis}
@@ -444,7 +471,8 @@ with the broader traffic forecasting literature).
 
 \begin{table}[h]
 \centering
-\caption{Cross-city MAE under two normalization conventions.
+\caption{Cross-city MAE under two normalization conventions, using target
+adjacency for DCRNN/STGCN (not the source-only main comparison).
 Source-stat: METR-LA train mean/std for both normalization and denormalization
 (lower = PEMS-BAY traffic is statistically simpler in normalized space).
 Target-stat: PEMS-BAY train statistics for denormalization (interpretable mph units).
@@ -546,13 +574,15 @@ GWNet (dense adaptive)  & $0.268 \pm 0.006$ & $0.268 \pm 0.006$ & $4.42 \pm 0.15
 \end{table}
 
 The source-only column (main table) tells the cleaner mechanistic story:
-DCRNN retains a 49\% advantage over GWNet under the fair source-only constraint
-($0.180$ vs $0.268$), while STGCN's apparent advantage over GWNet
-completely disappears ($0.249 \approx 0.268$).
+DCRNN has lower MAE under the source-only constraint
+($0.180$ vs.\ GWNet's $0.268$, which is $49\%$ higher), while STGCN's advantage over GWNet
+largely disappears ($0.249$ vs.\ $0.268$).
 STGCN's city-transfer advantage in the target-adj column ($0.202$) arises
 from access to the target-city adjacency matrix, not from architectural generalization.
 DCRNN's bidirectional diffusion generalizes better even when confined to source topology,
-supporting its designation as the most transfer-robust backbone in this study.
+supporting its designation as the most transfer-robust backbone in the
+canonical bank; among all eight models, MegaCRN has the lowest source-stat
+MAE (Table~\ref{tab:extended}).
 
 \subsection{Limited target-data adaptation}
 \label{sec:appendix_fewshot}
@@ -573,18 +603,21 @@ the source-normalized main-table setting.
 \subsection{PEMS04-source second city pair (P18)}
 \label{sec:appendix_pems04}
 
-To test whether DCRNN's transfer advantage is METR-LA-specific, we train all four
-backbones (DCRNN, GWNet, GWNet[Strong], GRU) on PEMS04~\citep{guo2019astgcn}
+To test whether DCRNN's transfer advantage is METR-LA-specific, we train the
+four variants shown here (DCRNN, GWNet, GWNet[Strong], GRU) on PEMS04~\citep{guo2019astgcn}
 (307 sensors, California District 4 freeway, 16{,}992 timesteps) with the same frozen
 training protocol and evaluate zero-shot on METR-LA and PEMS-BAY, using 5 random
 307-node target subsets (seeds 42--46). The source PEMS04 adjacency is used for all
-backbones at inference, matching the P16 source-only fairness control.
+backbones at inference, matching the P16 source-only fairness control. Additional
+STGCN and MTGNN checkpoints are included in the padding check below; the four
+rows here do not exhaust the PEMS04-source bank.
 
 \begin{table}[h]
 \centering
 \caption{PEMS04-source cross-city transfer (3 seeds $\times$ 5 target subsets, mean $\pm$ std).
 PEMS04 in-dist MAE in native flow units; target MAE in target-stat mph.
-DCRNN is best in \emph{both} new directions by $>37\%$ margin.}
+DCRNN has the lowest MAE in both directions; STGCN is close on METR-LA
+when included in Table~\ref{tab:no_pad_sensitivity}.}
 \label{tab:pems04_cross_city}
 \vskip 0.1in
 \small
@@ -600,20 +633,20 @@ GRU           & $25.81 \pm 0.06$ & $11.03 \pm 0.01$ & $4.68 \pm 0.03$ \\
 \end{tabular}
 \end{table}
 
-DCRNN remains the best-generalizing backbone in both PEMS04-source directions, mirroring
-the METR-LA-source and the PEMS-BAY $\to$ METR-LA reverse-transfer finding in
-Section~\ref{sec:discussion}. Combined, the advantage holds over \textbf{four
-city-pair directions} on three distinct cities, ruling out METR-LA-specific confounds.
-Interestingly, GWNet[Strong] is \emph{worse} than default GWNet on PEMS04$\to$METR-LA
-($12.58$ vs $11.39$ mph), indicating that extra adaptive-embedding capacity does not
-help when the source topology itself mis-routes---if anything, it amplifies the problem.
+DCRNN has the lowest MAE in both PEMS04-source directions; on PEMS04$\to$METR-LA,
+STGCN is close behind ($7.18$ vs.\ $7.01$ mph, Table~\ref{tab:no_pad_sensitivity}).
+Together with METR-LA$\to$PEMS-BAY, the DCRNN advantage within these comparisons
+holds over three transfer directions among three cities, making a
+METR-LA-specific explanation unlikely. GWNet[Strong] is worse than default
+GWNet on PEMS04$\to$METR-LA ($12.58$ vs.\ $11.39$ mph), so extra
+adaptive-embedding capacity does not help here and may make transfer worse.
 
 \subsection{Cross-city zero-padding sensitivity}
 \label{sec:appendix_no_pad_sensitivity}
 
 The cross-city eval in
 \texttt{experiments/stgnn\_shift\_eval\_v5\_pems04.py} (lines 87--91) uses
-index-repetition padding when target $N$ < source $N$: for PEMS04 (307) $\to$
+index-repetition padding when target $N < N_{\mathrm{source}}$: for PEMS04 (307) $\to$
 METR-LA (207) the \texttt{keep} list is the 207 unique target nodes followed
 by 100 copies of node index 0, and MAE is averaged over all 307 prediction
 slots. The duplicate slots feed a single repeated input, which can either
@@ -651,8 +684,8 @@ and STGCN ($-0.12$ mph) but larger for GWNet, MTGNN, and GRU
 ($-0.66$, $-0.73$, $-0.73$ mph): index-repetition padding flatters the
 adaptive and graph-free models on PEMS04 $\to$ METR-LA by roughly $6$--$7\%$
 of their already-large MAE. The \emph{ranking} is unchanged: DCRNN
-remains best in both columns, and the gap to the next-best model
-(STGCN, $\approx 7$ vs.\ MTGNN, $\geq 10$) is preserved. The PEMS04 $\to$
+remains best in both columns, STGCN remains second ($\approx 7$ mph), and
+the other models stay above $10$ mph. The PEMS04 $\to$
 PEMS-BAY direction is unaffected since target $>$ source (subsample only,
 no padding).
 
@@ -671,6 +704,11 @@ mph. Normalized MAE includes all targets, while the physical-unit metric
 excludes zero-valued targets. The comparison therefore changes both scaling
 and target masking; the observed reversal cannot be attributed solely to
 per-node standardization.
+In the supplementary peak/off-peak record, all evaluated models have roughly
+$1$ mph higher error during rush hours, with GWNet largest ($+1.42$ mph).
+The exact hour boundaries and per-model outputs were not retained, so this is
+a reported aggregate observation rather than an independently reproducible
+subgroup analysis (Appendix~\ref{sec:appendix_reproducibility}).
 
 \input{generated/temporal_absolute}
 
@@ -711,10 +749,9 @@ Under clean inference and sensor dropout, all backbones show the expected near-m
 MAE growth with horizon. Under cross-city transfer the models differ:
 DCRNN and STGCN retain normal growth ($+46\%$ and $+33\%$ from $h{=}1$ to $h{=}12$),
 whereas GWNet, GWNet[Strong], MTGNNLight, and GRU are nearly flat ($+2\%$--$+7\%$).
-For the adaptive-graph models, the transfer error is therefore paid \emph{up-front} as a
-static structural mis-routing that saturates within the first prediction step---consistent
-with the mask-aware adjacency intervention (Section~\ref{sec:mechanism}) recovering
-75\% of the dropout gap without any temporal modification.
+For the adaptive-graph models, this pattern is consistent with a static
+routing mismatch rather than error that accumulates over the horizon; the
+horizon profile alone does not establish the cause.
 
 \subsection{Temporal covariate ablation}
 \label{sec:appendix_temporal_cov}
@@ -828,8 +865,9 @@ is presented as mechanism evidence, not as a deployment recommendation.
 \label{sec:appendix_routing_spectrum}
 
 Table~\ref{tab:routing_spectrum} reports the per-model adjacency concentration
-and sensor-dropout delta for the four adaptive-graph models in our bank
-(METR-LA test set; three seeds). $\text{max\_mass}$ is the mean over rows and
+and sensor-dropout delta for the four original adaptive-graph models, plus the
+retained concentration values for GTS/DGCRN. The original proxies average
+three METR-LA-trained checkpoints. $\text{max\_mass}$ is the mean over rows and
 samples of the largest entry in each adjacency row; $\text{eff\_}k$ is
 $\exp(\text{row-entropy})$ and measures effective support size.
 
@@ -841,13 +879,25 @@ proxy-isomorphism assumption underlying the correlation does not hold.
 The four-backbone Pearson is therefore reported on the row-stochastic
 subset where the proxy is identically defined.
 
+The original spectrum script reads fixed \texttt{FRAGILITY\_REFERENCE}
+constants, described as three-seed normalized deltas under 30\% random
+zero-masking; it does not evaluate dropout. GWNet's $+0.092$ agrees with the
+five-mask result, but the mask draws and result versions behind AGCRN's
+$+0.011$ and MegaCRN's $-0.005$ are not recorded. These are historical reference
+estimates, not a verified common-mask aggregation. They differ from the
+primary-mask values in Tables~\ref{tab:main}--\ref{tab:extended}
+(AGCRN $+0.019$, MegaCRN $-0.048$, GWNet $+0.088$). Using those primary-mask
+deltas with the same saved concentration means gives Pearson $+0.880$,
+so the association's strength depends on the delta version. MegaCRN's
+$-0.040$ in Table~\ref{tab:memory_ablation} comes from a separate ablation
+evaluation and is not substituted into either correlation.
+
 \begin{table}[h]
 \centering
-\caption{Routing-sparsity spectrum vs.\ sensor-dropout fragility.
-Pearson correlation of $\text{max\_mass}$ and $\DeltaSensor$ across four adaptive
-models: $\rho = {+}0.979$. Script:
-\texttt{experiments/routing\_sparsity\_spectrum.py}. $\DeltaSensor$ values are
-the routing-spectrum estimates used for this correlation.}
+\caption{Routing concentration and historical sensor-delta references.
+The first four rows give Pearson $+0.979$; primary-mask sensitivity is $+0.880$.
+GTS/DGCRN's normalized deltas are unavailable, so the six-model correlation
+cannot be reconstructed here. Script: \texttt{experiments/routing\_sparsity\_spectrum.py}.}
 \label{tab:routing_spectrum}
 \vskip 0.05in
 \small
@@ -859,6 +909,9 @@ AGCRN        & dense-symmetric  & $0.008$ & $\approx 200$ & $1.00$ & ${+}0.011$ 
 MegaCRN      & memory-meta      & $0.008$ & $\approx 200$ & $1.00$ & ${-}0.005$ \\
 MTGNN-Light  & sparse-top-$k$   & $0.160$ & ---           & sparse & ${+}0.051$ \\
 GWNet        & dense-bilinear   & $0.230$ & $\approx 114$ & $1.00$ & ${+}0.092$ \\
+\midrule
+GTS          & link-predictor   & $0.288$ & --- & --- & unavailable \\
+DGCRN        & dynamic          & $0.325$ & --- & --- & unavailable \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -871,16 +924,21 @@ and $\DeltaSensor$ are monotonic across all four models.
 \label{sec:appendix_routing_spectrum_seedvar}
 
 Per-seed max\_mass values for the four adaptive backbones are AGCRN
-$\{0.0077,\,0.0076,\,0.0100\}$ (std $0.0014$), MegaCRN
-$\{0.0064,\,0.0093,\,0.0097\}$ (std $0.0018$), MTGNN-Light
-$\{0.1586,\,0.1607,\,0.1596\}$ (std $0.0011$), and GWNet
-$\{0.1638,\,0.2773,\,0.2475\}$ (std $0.0588$). Three of the four backbones
-have per-seed std below the smallest non-tied inter-family gap of $0.07$
-(MTGNN $0.16$ vs.\ GWNet $0.23$); GWNet's larger seed spread is the dominant
-source of within-family variability.
+$\{0.0077,\,0.0076,\,0.0100\}$ (population std $0.0011$), MegaCRN
+$\{0.0064,\,0.0093,\,0.0097\}$ ($0.0015$), MTGNN-Light
+$\{0.1586,\,0.1607,\,0.1596\}$ ($0.0009$), and GWNet
+$\{0.1638,\,0.2773,\,0.2475\}$ ($0.0480$).
+All four spreads are below the MTGNN-Light--GWNet mean gap ($0.070$).
+With GTS ($0.288$) and DGCRN ($0.325$), the upper-end gaps are $0.058$ and
+$0.037$; the latter is smaller than GWNet's population std. GTS/DGCRN's
+per-seed spreads are unavailable, so their concentration ordering cannot be
+assumed stable across seeds. A supplementary record reports that extending
+the core bank to five seeds did not change its concentration ordering;
+per-seed observations from that check were not retained
+(Appendix~\ref{sec:appendix_reproducibility}).
 
 Per-seed Pearson against $\DeltaSensor$ is $\{+0.92,\,+0.99,\,+0.98\}$ across
-the three seeds (mean $+0.96$, std $0.04$), suggesting that the max\_mass
+the three seeds (mean $+0.96$, population std $0.03$ from these rounded values), suggesting that the max\_mass
 relation is not an artifact of seed averaging despite GWNet's larger
 within-seed spread. Spearman over the four
 seed-mean values is $\rho_S{=}{+}0.80$; the single rank exchange swaps AGCRN
@@ -906,14 +964,20 @@ $p{=}2/24{=}0.0833$. The architecture-level sample remains four models.
 \subsection{Six-architecture extension and native-source summaries}
 \label{sec:appendix_routing_extended}
 
-GTS~\citep{shang2021discrete} and DGCRN~\citep{li2021dgcrn} extend the
+GTS~\citep{shang2021discrete} and DGCRN~\citep{li2023dgcrn} extend the
 four-backbone comparison with link-predictor and input-conditioned graph
 learning. Their reported METR-LA max\_mass values are 0.288 and 0.325,
-above GWNet's 0.230. The six-architecture Pearson is $+0.974$ with exact
-permutation $p=0.003$; removing GWNet gives $+0.973$, and the smallest
-leave-one-out correlation is $+0.961$. Table~\ref{tab:routing_extended}
-summarizes the native-source measurements. The sign is positive on all three
-datasets, while the strength varies and PEMS04 does not reach $p<0.05$.
+above GWNet's 0.230. The retained summary reports six-architecture Pearson
+$+0.974$, $+0.973$ without GWNet, and minimum leave-one-out $+0.961$.
+The GTS/DGCRN deltas and all six-model seed vectors are unavailable, so these
+correlations cannot be independently reconstructed. Table~\ref{tab:routing_extended}
+keeps the recorded coefficients but replaces the unreconstructable historical
+$p$-values with explicitly labeled, approximate two-sided Pearson $t$ tests
+calculated as $t=r\sqrt{(n-2)/(1-r^2)}$ from the rounded coefficients and
+$n=6$ ($4$ degrees of freedom).
+Neither PEMS-BAY nor PEMS04 reaches $p<0.05$ under this test. The original
+METR-LA record called $p=0.003$ an exact permutation result but did not retain
+the tail definition or permutations; it is not the test reported in the table.
 These six-model summaries differ from the original four-model PEMS04
 replication below; the two sample sizes should not be conflated.
 
@@ -961,9 +1025,9 @@ separate the low max\_mass of AGCRN/MegaCRN from the higher values of
 MTGNN/GWNet. (ii) MegaCRN's METR-LA-specific negative $\DeltaSensor$
 ($-0.005$) becomes positive on PEMS04 ($+0.057$), consistent with the
 adjacency-mediated weekday-prior smoothing diagnosis in
-Section~\ref{sec:polish_ablations}---the smoothing prior exists in METR-LA
-but not in the PEMS04 weekday distribution, while the routing-concentration
-mechanism is shared.
+Section~\ref{sec:polish_ablations}. This is consistent with the routing-concentration
+account, although four models on one additional dataset cannot establish a
+shared mechanism.
 
 \subsection{Theory sketch: first-order exposure bound}
 \label{sec:appendix_theory}
@@ -976,7 +1040,8 @@ $\mathcal{I} \subseteq [N]$ by zero-masking, the change in $h_i$ is
 $\Delta h_i = -\sum_{j \in \mathcal{I}} A_{ij} W x_j$.
 
 \paragraph{Exposure bound.}
-Taking norms and bounding input magnitudes by $\|x\|_\infty$:
+Taking norms and writing $\|x\|_\infty:=\max_j\|x_j\|_2$ for the largest
+node-feature norm:
 \begin{equation*}
   \|\Delta h_i\|_2 \leq \|W\|_2 \cdot \|x\|_\infty \cdot \sum_{j \in \mathcal{I}} A_{ij}.
 \end{equation*}
@@ -1007,10 +1072,14 @@ $A$,
   = p\sum_j A_{ij}=p,
 \end{equation*}
 which is independent of $m_i$. Thus $\text{max\_mass}(A)$ is best viewed as a
-tail-risk or worst-case exposure proxy. This is the role it plays in
-Table~\ref{tab:routing_spectrum}: the empirical $\rho{=}{+}0.979$ on METR-LA
-and $\rho{=}{+}0.910$ on PEMS04 show that the proxy tracks sensor-dropout
-fragility across adaptive backbones. The mask-aware intervention
+tail-risk or worst-case exposure proxy. The bound is also loose at the dropout
+rates used here: for $|\mathcal{I}|\approx62$ (30\% of 207 sensors),
+$|\mathcal{I}|m_i>1$ whenever $m_i>0.016$, whereas the mean row maxima for
+MTGNN-Light, GWNet, GTS and DGCRN are roughly 10--20 times larger. For such
+rows it is weaker than the trivial bound $\sum_{j\in\mathcal{I}}A_{ij}\leq1$.
+The argument motivates measuring max mass; it does not account for the size
+of the correlations in Tables~\ref{tab:routing_spectrum},
+\ref{tab:routing_extended}, and \ref{tab:pems04_routing}. The mask-aware intervention
 (Section~\ref{sec:mechanism}) targets the same exposure term by zeroing and
 renormalizing routes attached to known dropped sensors.
 
@@ -1062,7 +1131,7 @@ unchanged ($4.42 \to 4.46$ mph), the source-only adjacency gap to DCRNN persists
 monotonic ($1.72\times$ Q4/Q1, still far from DCRNN's $0.95\times$).
 
 The full 12-config sweep GWNet[Best] (hidden 256, embed 32, lr 5e-4, patience 30)
-further reduces the in-distribution gap ($7.22 \pm 0.04$ mph, closing 63\% of the gap
+further reduces the in-distribution gap ($7.22 \pm 0.04$ mph, closing about half of the gap
 to DCRNN) and the sensor-dropout fragility ($+0.042 \pm 0.002$), yet
 $\DeltaSensor$ remains $2.1\times$ DCRNN's $+0.020$---confirming P21.
 The source-only city-transfer normalized MAE ($0.262 \pm 0.009$) is identical to
@@ -1129,7 +1198,10 @@ are given separately in Table~\ref{tab:temporal_absolute}.
 \centering
 \caption{Architecture recommendation per deployment profile. Margin is the
 difference in weighted-risk score to the runner-up (lower = closer call).
-Confidence is margin normalized by runner-up risk.}
+Confidence is margin normalized by runner-up risk. AGCRN, recommended in the
+two weekend-exposed profiles without city transfer, has the only positive
+masked-mph weekend gap among the extended models (Table~\ref{tab:temporal_absolute});
+these cells should not guide selection for physical-error performance.}
 \label{tab:decision_tree}
 \vskip 0.05in
 \small
@@ -1154,5 +1226,5 @@ uniformly low fragility across axes. MegaCRN is recommended only under the
 single-shift city-transfer profile; STAEformer wins the sensor-only cell;
 AGCRN wins the two weekend-exposed cells without city transfer. The tree and
 supporting scripts are included in the repository artifact
-(\texttt{stgnn-stress}) so that practitioners can reproduce the recommendation
+(\texttt{stgnn-shift-bench}) so that practitioners can reproduce the recommendation
 and the underlying rankings on new frozen checkpoints.

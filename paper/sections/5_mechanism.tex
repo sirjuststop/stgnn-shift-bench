@@ -1,11 +1,12 @@
 \section{Mechanism: dense adaptive routing and sensor-dropout fragility}
 \label{sec:mechanism}
 
-The taxonomy shows GWNet's dense learned routing is fragile under sensor
-dropout while AGCRN and STAEformer, which also learn adaptive spatial
-relations, are not (Table~\ref{tab:extended}). Two questions follow: is the
-dense adaptive adjacency (Eq.~\ref{eq:adaptive_adj}) the driver, and can the
-failure mode be mitigated without retraining?
+The taxonomy shows that GWNet's dense learned routing is fragile under sensor
+dropout, whereas AGCRN and STAEformer, which also learn spatial relations, are
+not (Table~\ref{tab:extended}). We analyze GWNet because it exhibits the failure;
+an ablation on a robust backbone would leave little fragility to attribute.
+We test whether the dense adaptive adjacency (Eq.~\ref{eq:adaptive_adj}) drives
+the failure and whether it can be reduced without retraining.
 
 \subsection{Ablation: adaptive vs.\ fixed adjacency}
 
@@ -39,8 +40,8 @@ city-transfer MAE by $22\%$, at $+5.3\%$ in-distribution cost, past the
 pre-registered $\geq 30\%$ threshold for attributing fragility to the
 adaptive adjacency. Per-horizon decomposition (Table~\ref{tab:consolidated})
 shows GWNet's cross-city MAE is nearly horizon-flat ($+4\%$ growth
-$h{=}1{\to}12$) while DCRNN grows $+46\%$: the transfer gap is static
-structural mis-routing, not error accumulation.
+$h{=}1{\to}12$) while DCRNN grows $+46\%$, consistent with a static routing
+mismatch rather than error that accumulates over the horizon.
 
 \paragraph{Mask-aware adjacency variant.}
 Zeroing and renormalizing adjacency rows/columns for dropped sensors at
@@ -60,9 +61,11 @@ recovery is the mean of per-seed recovery ratios.}
 \input{generated/mask_aware_rows}
 \end{table}
 
-Mask-aware routing recovers $75.2\%$, compared with $43.1\%$ for fixed
-substitution: blocking only the affected rows/columns preserves useful learned
-routes while removing the failed sources. The intervention is ${\sim}25$ LoC and
+Mask-aware routing recovers $75.2\%$ of the multi-mask gap, whereas fixed
+substitution reduces the primary-mask gap by $43.1\%$. A plausible reason is
+that masking only the affected rows and columns keeps the remaining learned
+routes, which fixed substitution discards. These percentages use different
+mask protocols. The intervention is ${\sim}25$ LoC and
 can be applied to existing GWNet checkpoints. The recovery is stable across
 dropout ratios: $70$--$76\%$ for random $10$--$40\%$ dropout and $71\%$ for
 hub-30\% dropout (Appendix~\ref{sec:appendix_mask_aware_sweep}).
@@ -82,15 +85,16 @@ $\rho{=}{+}0.961$; the exact permutation test gives $p{=}0.083$
 Seed-level and rank diagnostics are in
 Appendix~\ref{sec:appendix_routing_spectrum_seedvar}. STAEformer has no single
 row-stochastic adjacency and is excluded from this proxy comparison.
-The main tables retain their primary-mask estimand.
+The main tables retain their primary-mask estimand; substituting those deltas
+reduces the four-model correlation to $+0.880$.
 We extend the architecture sample with GTS~\citep{shang2021discrete}
-(link-predictor graph learning) and DGCRN~\citep{li2021dgcrn}
+(link-predictor graph learning) and DGCRN~\citep{li2023dgcrn}
 (input-conditioned dynamic graphs), selected for their distinct mechanisms.
-Across six architectures, $\rho{=}{+}0.974$ with exact permutation
-$p{=}0.003$; dropping GWNet leaves $+0.973$, and the minimum leave-one-out
-value is $+0.961$. Native-source associations remain positive on METR-LA,
-PEMS-BAY, and PEMS04 ($+0.974$, $+0.75$, $+0.63$), although the PEMS04
-result is not significant at 0.05 (Appendix~\ref{sec:appendix_routing_extended}).
+The retained aggregate record reports $\rho{=}{+}0.974$ across six architectures;
+dropping GWNet leaves $+0.973$, and the minimum leave-one-out value is $+0.961$.
+Native-source associations are positive but weaker on PEMS-BAY ($+0.75$) and
+PEMS04 ($+0.63$). Missing per-model deltas prevent independent reconstruction
+of these six-model results (Appendix~\ref{sec:appendix_routing_extended}).
 The original four-model relation also replicates on native PEMS04 checkpoints
 ($\rho{=}{+}0.910$; Appendix~\ref{sec:appendix_pems04_routing}). Together,
 these comparisons support a shared-mechanism hypothesis within the evaluated
@@ -98,7 +102,7 @@ architectures and traffic datasets.
 A local perturbation argument supports this: zero-masking a dropped sensor $j$
 shifts each kept node $i$ by $A_{ij}H_jW$; averaging over rows bounds the
 mean signal disruption by $B_H B_W |\mathcal{I}|\,\mathrm{max\_mass}(A)$.
-Concentrated routing raises this bound proportionally; this is why we treat
+Concentrated routing raises this loose bound proportionally; we treat
 $\mathrm{max\_mass}$ as a tail-risk proxy for iid dropout.
 This is a single-layer perturbation bound, not a full-horizon MAE theorem. The
 complete derivation and caveats are in Appendix~\ref{sec:appendix_theory}.

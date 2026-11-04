@@ -1,4 +1,18 @@
-# Camera-ready changes, 2026-11-03
+# Camera-ready v4 review revision, 2026-11-04
+
+- Qualified the abstract and conclusion as associations under silent zero-filling; stated that LOCF and mask-aware routing require identifying failed sensors.
+- Added highway loop-detector, three-seed, zero-shot, within-split temporal, and walk-forward limitations, plus the reason for choosing GWNet for the intervention.
+- Corrected the GWNet capacity-gap recovery, PEMS04 transfer comparisons, and structured-dropout random baselines. Explained the different hub definitions used by two experiments.
+- Identified the original routing script's fixed historical delta references. Reusing the main-table primary-mask deltas gives four-model Pearson 0.879649 instead of 0.978827. Concentration standard deviations now use the population convention.
+- Listed all six retained concentration means, with unavailable GTS/DGCRN normalized deltas explicitly marked. The six-model coefficients remain historical aggregates. Replaced unsupported historical p-values in the table with approximate two-sided Pearson t tests from rounded correlations (df=4): 0.001, 0.086, and 0.180.
+- Disclosed missing supplementary raw outputs and configurations in Appendix B.2 and table captions. Five-seed and peak/off-peak remarks are labeled as record-only observations. The canonical-bank mph range has no retained target-mask convention and is not treated as a matched masked-mph comparison.
+- Qualified the normalized-metric recommendation table, looseness of the local exposure bound, and causal language; repaired cross-references and added/updated ASTGCN, DSTAGNN, and DGCRN citations.
+- Changed checklist items 4--6 to No with explanations because full supplementary reproducibility and training details cannot be claimed. This is a disclosure correction, not a new experimental result.
+
+No new training or inference was run. The original experiment results and v3
+delivery are preserved. The v4 PDF has 29 pages, with the main text on pages 1--9.
+
+# Earlier camera-ready changes, 2026-11-03
 
 - Light language edit: replaced abstract labels and conversational metaphors with direct descriptions, and shortened repeated summaries. Numbers, equations, citations, tables, figures, and the approved contribution bullets are unchanged.
 - Follow-up style revision: simplified the author affiliations to university, city, and email; rewrote each contribution as one sentence beginning with "We", without bold lead-ins or numerical results.

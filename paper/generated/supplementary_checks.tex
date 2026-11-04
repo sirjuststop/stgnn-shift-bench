@@ -13,13 +13,13 @@ GWNet[Best] 12-config sweep (P21)
   & $\DeltaSensor{=}+0.042$ ($2.1{\times}$ DCRNN); the gap persists after tuning
   & \ref{sec:appendix_stronger_gwnet} \\
 PEMS04 cross-city (P18)
-  & DCRNN best in both directions: $7.01$/$2.65$ mph vs next-best $11.03$/$4.58$ mph
+  & DCRNN lowest in both directions: $7.01$/$2.65$ mph; STGCN is close on METR-LA ($7.18$ mph)
   & \ref{sec:appendix_pems04} \\
 Source-adj vs target-adj
   & STGCN's apparent advantage shrinks ($0.249$ src-only vs $0.202$ target-adj)
   & \ref{sec:appendix_source_adj} \\
 Hub dropout
-  & GWNet $+45\%$ ($+0.127$ vs. matched $+0.088$); DCRNN $-62\%$ ($+0.008$)
+  & GWNet $+44\%$ ($+0.127$ vs. matched $+0.088$); DCRNN $-60\%$ ($+0.008$ vs. $+0.020$)
   & \ref{sec:appendix_structured_dropout} \\
 Per-horizon city MAE (P19)
   & GWNet: $+4\%$ h1$\to$h12 growth vs DCRNN $+46\%$

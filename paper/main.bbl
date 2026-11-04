@@ -1,4 +1,4 @@
-\begin{thebibliography}{21}
+\begin{thebibliography}{22}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -75,12 +75,24 @@ Z.~Jing, Y.~Long, and G.~Feng.
 \newblock arXiv preprint arXiv:2602.04153, 2026.
 \newblock URL \url{https://arxiv.org/abs/2602.04153}.
 
-\bibitem[Li et~al.(2021)Li, Feng, Yan, Jin, Jin, and Li]{li2021dgcrn}
-F.~Li, J.~Feng, H.~Yan, G.~Jin, D.~Jin, and Y.~Li.
+\bibitem[Lan et~al.(2022)Lan, Ma, Huang, Wang, Yang, and Li]{lan2022dstagnn}
+S.~Lan, Y.~Ma, W.~Huang, W.~Wang, H.~Yang, and P.~Li.
+\newblock {DSTAGNN}: Dynamic spatial-temporal aware graph neural network for
+  traffic flow forecasting.
+\newblock In \emph{Proceedings of the 39th International Conference on Machine
+  Learning}, volume 162 of \emph{Proceedings of Machine Learning Research},
+  pages 11906--11917. PMLR, 2022.
+\newblock URL \url{https://proceedings.mlr.press/v162/lan22a.html}.
+
+\bibitem[Li et~al.(2023)Li, Feng, Yan, Jin, Yang, Sun, Jin, and
+  Li]{li2023dgcrn}
+F.~Li, J.~Feng, H.~Yan, G.~Jin, F.~Yang, F.~Sun, D.~Jin, and Y.~Li.
 \newblock Dynamic graph convolutional recurrent network for traffic prediction:
   Benchmark and solution.
-\newblock \emph{arXiv preprint arXiv:2104.14917}, 2021.
-\newblock URL \url{https://arxiv.org/abs/2104.14917}.
+\newblock \emph{ACM Transactions on Knowledge Discovery from Data}, 17\penalty0
+  (1):\penalty0 9:1--9:21, 2023.
+\newblock \doi{10.1145/3532611}.
+\newblock URL \url{https://doi.org/10.1145/3532611}.
 
 \bibitem[Li et~al.(2018)Li, Yu, Shahabi, and Liu]{li2018dcrnn}
 Y.~Li, R.~Yu, C.~Shahabi, and Y.~Liu.
@@ -135,8 +147,8 @@ Z.~Wu, S.~Pan, G.~Long, J.~Jiang, X.~Chang, and C.~Zhang.
   Mining}, 2020.
 \newblock URL \url{https://dl.acm.org/doi/10.1145/3394486.3403118}.
 
-\bibitem[Yi et~al.(2021)Yi, Yang, Li, peng Tan, and Kot]{yi2021benchmarking}
-C.~Yi, S.~Yang, H.~Li, Y.~peng Tan, and A.~Kot.
+\bibitem[Yi et~al.(2021)Yi, Yang, Li, Tan, and Kot]{yi2021benchmarking}
+C.~Yi, S.~Yang, H.~Li, Y.-P. Tan, and A.~Kot.
 \newblock Benchmarking the robustness of spatial-temporal models against
   corruptions.
 \newblock In \emph{NeurIPS Datasets and Benchmarks Track}, 2021.

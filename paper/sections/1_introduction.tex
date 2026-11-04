@@ -29,10 +29,10 @@ adaptive-graph (MTGNNLight, GWNet) models, plus three modern adaptive-relation
 models (AGCRN, MegaCRN, STAEformer). Each frozen checkpoint is evaluated under
 three shifts: \textbf{sensor dropout} (10--50\% zeroed at inference, 5 random
 masks), \textbf{cross-city transfer} (zero-shot METR-LA $\to$ PEMS-BAY under
-matched structural access), and \textbf{temporal shift} (weekend vs.\ weekday
-windows within the METR-LA test set). The sensor experiment diagnoses silent
-zero-masking: reliable last-observed-value carry-forward (LOCF) largely removes
-the gap in the imputation comparison. We report temporal subgroup differences
+matched structural access), and \textbf{temporal subgroup} (weekend vs.\ weekday
+windows within the METR-LA test set). The sensor experiment targets silent
+zero-filling; when failed sensors are known, carrying forward the last observed
+value (LOCF) removes most of the gap (Appendix~\ref{sec:appendix_imputation}). We report temporal subgroup differences
 in both normalized and physical units, since the two conventions can reverse
 the apparent direction of a model's gap.
 
@@ -42,8 +42,9 @@ Our main contributions are as follows:
         under sensor, city, and temporal shifts, with matched structural access
         for cross-city comparison.
 
-  \item We identify routing concentration as a diagnostic of sensor-dropout
-        sensitivity and examine its role through inference-time interventions.
+  \item We show that routing concentration tracks sensor-dropout sensitivity
+        across adaptive backbones and test this link on Graph WaveNet with
+        inference-time interventions.
 
   \item We provide a shift-specific robustness taxonomy and a recommendation
         artifact to support model selection across deployment conditions and

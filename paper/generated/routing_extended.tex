@@ -1,14 +1,14 @@
 \begin{table}[h]
 \centering\small
-\caption{Six-architecture native-source routing-concentration summaries, adding GTS and DGCRN to the original four graph-based adaptive models. Values are the reported aggregate correlations and p-values; the METR-LA test is an exact permutation test.}
+\caption{Six-architecture native-source recorded correlations. Approximate two-sided Pearson $t$ tests ($p_t$, 4 degrees of freedom) use rounded correlations, not reconstructed permutations. Test details and missing raw outputs: Appendices~\ref{sec:appendix_routing_extended} and \ref{sec:appendix_reproducibility}.}
 \label{tab:routing_extended}
 \begin{tabular}{lcccc}
 \toprule
-\textbf{Source dataset} & \textbf{Quantity} & \textbf{$n$} & \textbf{Pearson} & \textbf{$p$} \\
+\textbf{Source dataset} & \textbf{Quantity} & \textbf{$n$} & \textbf{Pearson} & \textbf{Approx. $p_t$} \\
 \midrule
-METR-LA & Speed & 6 & $+0.974$ & $0.003$ \\
-PEMS-BAY & Speed & 6 & $+0.750$ & $0.014$ \\
-PEMS04 & Flow & 6 & $+0.630$ & $0.060$ \\
+METR-LA & Speed & 6 & $+0.974$ & $0.001$ \\
+PEMS-BAY & Speed & 6 & $+0.750$ & $0.086$ \\
+PEMS04 & Flow & 6 & $+0.630$ & $0.180$ \\
 \bottomrule
 \end{tabular}
 \end{table}

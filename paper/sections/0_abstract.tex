@@ -1,19 +1,16 @@
-Traffic forecasting benchmarks measure accuracy within a single city and test
-distribution, leaving open how architectures behave when sensors fail, when a
-model is transferred to another city, or when weekday and weekend traffic differ.
-We evaluate eight STGNN architectures under these three shifts using frozen
-checkpoints; for transfer across cities, target graph information is withheld so
-that fixed and adaptive graph models have the same structural access. We find
-that fragility under sensor dropout follows routing concentration rather than
-the use of adaptive adjacency itself. Across six adaptive backbones, mean row
-maximum routing mass correlates with dropout degradation at Pearson
-$\rho{=}{+}0.974$, with positive associations on three source datasets.
-Graph WaveNet exhibits concentrated routing and dropout sensitivity, while AGCRN and
-STAEformer stay close to DCRNN when sensors are zeroed. Rankings differ under
-the other shifts: MegaCRN leads source-normalized cross-city
-transfer, while weekday/weekend rankings depend on the reporting convention.
-MegaCRN and STAEformer have large normalized gaps but lower weekend error
-in masked mph, so the sign of the temporal gap depends on the metric.
-In this backbone bank, strong performance under one shift does not imply
-robustness under another. We release a frozen-checkpoint registry,
-evaluation code, and a decision table summarizing model failure modes.
+Traffic forecasting benchmarks leave open how architectures behave when
+sensors fail, models move between cities, or weekday and weekend traffic differ.
+We evaluate eight STGNN architectures under these three conditions using frozen
+checkpoints and matched access to source-city topology. Sensitivity to silent
+zero-filling is associated with learned routing concentration. Across six
+adaptive backbones trained on METR-LA, including GTS and DGCRN added for this
+analysis, the recorded aggregate correlation between mean row-maximum routing
+mass and dropout degradation is Pearson $\rho{=}{+}0.974$; it is positive but
+weaker on PEMS-BAY and PEMS04. Graph WaveNet degrades sharply, while AGCRN and
+STAEformer stay close to DCRNN. When failed sensors are known, carrying forward
+the last observed value (LOCF) removes most of the gap. Rankings differ under
+the other conditions: MegaCRN leads source-normalized cross-city transfer,
+while MegaCRN and STAEformer have positive normalized weekday/weekend gaps
+but lower weekend error in masked mph. We release a frozen-checkpoint registry,
+evaluation code, and a decision table; supplementary results retained only as
+aggregates are identified separately.
