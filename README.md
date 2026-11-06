@@ -1,3 +1,5 @@
+> **Status.** Result files for Tables 10, 11, 21 and 31 of the camera-ready paper are being regenerated and will be added by 2026-11-07.
+
 # Traffic STGNNs across Sensor, City, and Time Shifts
 
 ## Routing Concentration Tracks Sensitivity to Sensor Dropout
