@@ -1,0 +1,161 @@
+{
+  "implementation": "supplementary-reconstruction-2026-11-07",
+  "protocol": {
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "mask_seeds": [
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "batch_size": 64,
+    "evaluation_seed": 1729,
+    "corruption": {
+      "fill_space": "normalized",
+      "noise_std": 0.1,
+      "bias_offset": 1.0,
+      "intermittent_probability": 0.5
+    }
+  },
+  "table10": {
+    "datasets": [
+      "metr-la"
+    ],
+    "models": [
+      "dcrnn",
+      "mtgnn",
+      "gwnet",
+      "gts",
+      "dgcrn"
+    ],
+    "ratios": [
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5
+    ],
+    "corruptions": [
+      "zero"
+    ]
+  },
+  "table11": {
+    "datasets": [
+      "metr-la"
+    ],
+    "models": [
+      "dcrnn",
+      "gru",
+      "stgcn",
+      "mtgnn",
+      "gwnet",
+      "gwnet_strong"
+    ],
+    "ratios": [
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5
+    ],
+    "corruptions": [
+      "zero",
+      "stale",
+      "noise",
+      "bias",
+      "intermittent"
+    ]
+  },
+  "table21": {
+    "source": "metr-la",
+    "target": "pems-bay",
+    "models": [
+      "dcrnn",
+      "mtgnn",
+      "gwnet",
+      "gru"
+    ],
+    "budgets": [
+      0,
+      50,
+      200,
+      800
+    ],
+    "steps": 30,
+    "subset_seed": 42,
+    "window_seed": 42,
+    "adaptation_seed": 42,
+    "adjacency": "target",
+    "learning_rate": 0.001
+  },
+  "table31": {
+    "datasets": [
+      "metr-la",
+      "pems-bay",
+      "pems04"
+    ],
+    "models": [
+      "agcrn",
+      "megacrn",
+      "mtgnn",
+      "gwnet",
+      "gts",
+      "dgcrn"
+    ],
+    "ratios": [
+      0.3
+    ],
+    "corruptions": [
+      "zero"
+    ]
+  },
+  "training": {
+    "epochs": 100,
+    "patience": 15,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "grad_clip": 5.0,
+    "gts_feature_steps": 2016,
+    "gts_knn": 10,
+    "gts_graph_loss_weight": 0.1
+  },
+  "checkpoints": {
+    "metr-la": {
+      "dcrnn": "baselines/stgnn/dcrnn__metr-la__seed{seed}.pt",
+      "gru": "baselines/stgnn/gru__metr-la__seed{seed}.pt",
+      "stgcn": "baselines/stgnn/stgcn__metr-la__seed{seed}.pt",
+      "mtgnn": "baselines/stgnn/mtgnn__metr-la__seed{seed}.pt",
+      "gwnet": "baselines/stgnn/gwnet__metr-la__seed{seed}.pt",
+      "gwnet_strong": "baselines/stgnn/gwnet_strong__metr-la__seed{seed}.pt",
+      "agcrn": "baselines/stgnn/agcrn__metr-la__seed{seed}.pt",
+      "megacrn": "baselines/stgnn_official_fix/megacrn__metr-la__seed{seed}.pt",
+      "gts": "baselines/supplementary/gts__metr-la__seed{seed}.pt",
+      "dgcrn": "baselines/supplementary/dgcrn__metr-la__seed{seed}.pt"
+    },
+    "pems-bay": {
+      "mtgnn": "baselines/supplementary/mtgnn__pems-bay__seed{seed}.pt",
+      "gwnet": "baselines/supplementary/gwnet__pems-bay__seed{seed}.pt",
+      "agcrn": "baselines/stgnn/agcrn__pems-bay__seed{seed}.pt",
+      "megacrn": "baselines/stgnn/megacrn__pems-bay__seed{seed}.pt",
+      "gts": "baselines/supplementary/gts__pems-bay__seed{seed}.pt",
+      "dgcrn": "baselines/supplementary/dgcrn__pems-bay__seed{seed}.pt"
+    },
+    "pems04": {
+      "dcrnn": "baselines/stgnn/dcrnn__pems04__seed{seed}.pt",
+      "gru": "baselines/stgnn/gru__pems04__seed{seed}.pt",
+      "stgcn": "baselines/stgnn_pems04_extra/stgcn__pems04__seed{seed}.pt",
+      "mtgnn": "baselines/stgnn_pems04_extra/mtgnn__pems04__seed{seed}.pt",
+      "gwnet": "baselines/stgnn/gwnet__pems04__seed{seed}.pt",
+      "gwnet_strong": "baselines/stgnn/gwnet_strong__pems04__seed{seed}.pt",
+      "agcrn": "baselines/stgnn/agcrn__pems04__seed{seed}.pt",
+      "megacrn": "baselines/stgnn/megacrn__pems04__seed{seed}.pt",
+      "gts": "baselines/supplementary/gts__pems04__seed{seed}.pt",
+      "dgcrn": "baselines/supplementary/dgcrn__pems04__seed{seed}.pt"
+    }
+  }
+}

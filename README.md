@@ -9,6 +9,29 @@ South China University of Technology
 
 NeurIPS 2026 Evaluations & Datasets camera-ready paper and code.
 
+## Supplementary experiment code
+
+Executable code for Tables 10, 11, 21 and 31 is provided with a
+[configuration](configs/supplementary_experiments.json),
+[run instructions](experiments/supplementary/README.md), and
+[protocol tests](tests/test_supplementary.py).
+These are reconstructed implementations; the run instructions identify the
+regeneration settings and distinguish implementation tests from paper results.
+
+| Table | Experiment entry point |
+|---|---|
+| 10: zero-fill severity | [`table10_severity.py`](experiments/table10_severity.py) |
+| 11: additional corruptions | [`table11_corruptions.py`](experiments/table11_corruptions.py) |
+| 21: limited target-data adaptation | [`table21_fewshot.py`](experiments/table21_fewshot.py) |
+| 31: six-model native-source routing | [`table31_routing.py`](experiments/table31_routing.py) |
+
+GTS and DGCRN implementations, native-source training, and checkpoint loading are
+included. Run `python -m experiments.supplementary check` to check local data and
+weights, then follow the run instructions. Model weights produced by the new
+training commands are written separately from the existing frozen bank.
+
+## Paper
+
 Revision v6 (2026-11-04) rewrites the introduction and discussion and revises wording throughout the methods, results, and appendix.
 
 [Paper PDF](paper/main.pdf) | [Paper source and build instructions](paper/README.md) | [Revision notes](paper/REVISION_NOTES.md)

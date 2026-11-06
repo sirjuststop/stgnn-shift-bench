@@ -1,0 +1,3 @@
+-r requirements.txt
+# pandas.read_hdf for the original METR-LA / PEMS-BAY distribution.
+tables>=3.8
