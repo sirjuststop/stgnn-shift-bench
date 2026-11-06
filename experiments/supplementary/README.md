@@ -22,8 +22,8 @@ Obtain the original datasets from [DCRNN](https://github.com/liyaguang/DCRNN)
 
 | Dataset | Traffic matrix | Adjacency |
 |---|---|---|
-| METR-LA | `data/metr-la/METR-LA.csv` or `metr_la.h5` | `data/metr-la/adj_mx.pkl` |
-| PEMS-BAY | `data/pems-bay/PEMS-BAY.csv` or `pems_bay.h5` | `data/pems-bay/adj_mx_bay.pkl` or `adj_mx.pkl` |
+| METR-LA | `data/metr-la/METR-LA.csv` or `metr-la.h5` | `data/metr-la/adj_mx.pkl` |
+| PEMS-BAY | `data/pems-bay/PEMS-BAY.csv` or `pems-bay.h5` | `data/pems-bay/adj_mx_bay.pkl` or `adj_mx.pkl` |
 | PEMS04 | `data/pems04/pems04.npz`, `data` array, channel 0 (flow) | `data/pems04/adj_mx.pkl` |
 
 CSV files have a timestamp index followed by sensor columns. Adjacencies must use

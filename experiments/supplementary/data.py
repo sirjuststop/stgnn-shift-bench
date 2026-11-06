@@ -42,7 +42,8 @@ def read_data(root, name):
     folder = Path(root) / name
     stem = {"metr-la": "METR-LA", "pems-bay": "PEMS-BAY", "pems04": "pems04"}[name]
     candidates = [folder / (stem + ".csv"), folder / (stem + ".npz"),
-                  folder / (name.replace("-", "_") + ".h5"), folder / (stem + ".h5")]
+                  folder / (name + ".h5"), folder / (name.replace("-", "_") + ".h5"),
+                  folder / (stem + ".h5")]
     path = next((p for p in candidates if p.is_file()), None)
     if path is None:
         raise FileNotFoundError(f"No traffic data: expected one of {candidates}")

@@ -1,6 +1,7 @@
 """Numerical/protocol tests; synthetic inputs here are NOT paper results."""
 import copy
 import json
+import importlib.util
 import subprocess
 import sys
 import tempfile
@@ -21,6 +22,19 @@ torch.set_num_threads(1)
 
 
 class ProtocolTests(unittest.TestCase):
+    @unittest.skipUnless(importlib.util.find_spec("tables"), "PyTables optional for CSV/NPZ users")
+    def test_original_hdf_filenames(self):
+        from experiments.supplementary.data import read_data
+        with tempfile.TemporaryDirectory(prefix="stgnn-hdf-test-") as td:
+            folder = Path(td) / "metr-la"
+            folder.mkdir()
+            frame = pd.DataFrame(np.ones((30, 12), dtype=np.float32),
+                                 index=pd.date_range("2020-01-01", periods=30, freq="5min"))
+            frame.to_hdf(folder / "metr-la.h5", key="df")
+            values, time, metadata = read_data(td, "metr-la")
+            self.assertEqual(values.shape, (30, 12))
+            self.assertAlmostEqual(float(time[1]), 5 / (24 * 60))
+
     def test_failure_assignment_and_covariates(self):
         x = torch.arange(2 * 3 * 10 * 2).reshape(2, 3, 10, 2).float()
         failed = failure_mask(10, .3, 42)
